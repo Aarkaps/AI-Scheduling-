@@ -78,8 +78,7 @@ input,select{font:inherit;color:var(--text)}
 .pillbtn{height:46px;min-width:66px;padding:0 20px;border-radius:24px;background:var(--pill);display:inline-flex;align-items:center;justify-content:center;gap:8px;font-weight:700;font-size:14.5px}
 .pillbtn:hover{background:var(--pill-h)}
 .pillbtn .ic{width:21px;height:21px;stroke-width:2.2}
-.pillbtn.ai{background:var(--accent-2);color:var(--on-accent);box-shadow:inset 0 0 0 1px rgba(255,255,255,.12)}
-.pillbtn.ai:hover,.pillbtn.ai[aria-expanded="true"]{background:var(--accent)}
+.pillbtn:active,.pillbtn[aria-expanded="true"]{background:#3d4862}
 .pillbtn .cnt{background:var(--accent);color:#fff;border-radius:10px;font-size:11px;padding:1px 6px}
 .iconbtn{width:40px;height:46px;display:grid;place-items:center;border-radius:6px}
 .iconbtn:hover{background:var(--panel)}
@@ -100,8 +99,9 @@ input,select{font:inherit;color:var(--text)}
 /* ---------- buttons ---------- */
 .btn{height:40px;padding:0 18px;border-radius:5px;display:inline-flex;align-items:center;justify-content:center;gap:8px;font-weight:500;white-space:nowrap}
 .btn .ic{width:18px;height:18px}
-.btn.primary{background:var(--accent-2);color:var(--on-accent)}
-.btn.primary:hover{background:var(--accent)}
+.btn.primary{background:#e6e9f0;color:#141c2c;font-weight:700}
+.btn.primary:hover{background:#fff}
+.btn.primary:active{background:#cfd4de}
 .btn.primary:disabled{background:var(--pill);color:var(--dim);cursor:not-allowed}
 .btn.ghost{background:var(--pill)}
 .btn.ghost:hover{background:var(--pill-h)}
@@ -190,7 +190,7 @@ table.grid tr.selected td{background:var(--accent-soft)}
 .bbar .acts{display:flex;align-items:center;gap:22px;flex-wrap:wrap}
 .bbar .acts .link{font-size:16px;font-weight:400}
 .bbar .right{margin-left:auto;display:flex;gap:10px;align-items:center;flex-wrap:wrap}
-.bbar.ai{border-color:rgba(111,120,255,.6)}
+.bbar.ai{border-color:var(--line-2)}
 .bbar .aihint{display:flex;align-items:center;gap:8px;color:#b6bbff;font-size:13px}
 .bbar .aihint .ic{width:18px;height:18px}
 
@@ -926,6 +926,138 @@ table.hist td{padding:8px 6px;border-bottom:1px solid var(--line);vertical-align
 .qv-opt .qv-on em{flex:none}
 .qv,.qv *{box-sizing:border-box}
 
+/* ---- whole-schedule AI: explanations & validation ---- */
+.analysed{display:flex;align-items:center;gap:6px;margin-top:8px;font-size:12px;color:var(--muted)}
+.analysed .ic{width:14px;height:14px}
+.link.demo{font-size:12.5px;margin-left:4px}
+.callout.bad{background:var(--bad-soft);border-color:rgba(242,103,122,.45);margin-bottom:14px}
+.callout.bad .ic{color:var(--bad)}
+.callout.warn{margin-bottom:14px}
+.callout .link{display:inline;font-size:inherit}
+.optlist{margin:6px 0 0;padding-left:18px;display:flex;flex-direction:column;gap:4px;font-size:12.5px;color:var(--text)}
+.optlist li.bad{color:#f8a3ae}
+.gcell.bad{display:flex;align-items:center;gap:6px;color:var(--bad);font-size:12px;margin-top:4px}
+.gcell.bad .ic{width:14px;height:14px}
+.fillbox{margin:14px 18px 0;border:1px solid var(--line-2);border-radius:8px;background:var(--panel-2);padding:10px 14px}
+.fb-h{display:flex;align-items:center;gap:8px;flex-wrap:wrap;font-size:13px}
+.fb-h .ic{width:16px;height:16px;color:#b6bbff}
+.fb-h span{color:var(--muted)}
+.fb-reqs{display:flex;flex-wrap:wrap;gap:6px 18px;margin-top:8px}
+.rq{display:flex;align-items:center;gap:5px;flex-wrap:wrap;font-size:12px}
+.rq i{font-style:normal;color:var(--muted);margin-right:2px}
+.rq b{font-weight:500;font-size:11.5px;padding:2px 7px;border-radius:4px}
+.rq b.req{background:rgba(242,103,122,.14);color:#f8a3ae;box-shadow:inset 0 0 0 1px rgba(242,103,122,.35)}
+.rq b.pref{background:transparent;color:var(--muted);box-shadow:inset 0 0 0 1px var(--line-2);border-style:dashed}
+.rq b.none{color:var(--dim);background:var(--pill)}
+.rq.legend{margin-left:auto}
+.rq.legend b{font-size:10px}
+.opt .rk{width:18px;text-align:center;font-size:11.5px;font-weight:700;color:var(--muted);flex:none}
+.opt.ne{opacity:.75}
+.opt.ne .radio{border-style:dashed;opacity:.5}
+.opt.ne.focus{opacity:1;border-color:var(--bad);box-shadow:0 0 0 1px var(--bad);background:rgba(242,103,122,.08)}
+.subhead.ne-h{margin-top:18px;color:#f8a3ae}
+.mini-help{margin:-4px 0 8px;font-size:12px;color:var(--muted)}
+.note.bad-note{color:var(--warn);margin:0 0 8px}
+.sec-h{margin:16px 0 8px!important}
+.hrlist{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:1fr 1fr;gap:4px 14px}
+.hrlist li{display:flex;gap:8px;align-items:flex-start;font-size:12.5px;padding:5px 6px;border-radius:5px}
+.hrlist li .ic{width:15px;height:15px;margin-top:1px;flex:none;stroke-width:2.4}
+.hrlist li b{font-weight:500;display:block}
+.hrlist li small{display:block;color:var(--muted);font-size:11.5px;line-height:1.35}
+.hrlist li.fail{background:var(--bad-soft)}
+.hrlist li.fail small{color:#f8a3ae}
+.hrlist li.off{opacity:.55}
+.hrlist li em{font-style:normal;color:var(--dim);font-size:11px}
+.cxbox{border:1px solid var(--line);border-radius:7px;overflow:hidden}
+.cx-row{display:grid;grid-template-columns:110px minmax(0,1fr);gap:10px;padding:7px 12px;border-bottom:1px solid var(--line);font-size:12.5px}
+.cx-row .cx-k{color:var(--muted)}
+.cx-row b{font-weight:500}
+.cx-row small{display:block;color:var(--muted);font-size:11.5px}
+.cx-row.this{background:var(--accent-soft)}
+.cx-row.bad{background:var(--bad-soft)}
+.cx-row.bad small{color:#f8a3ae}
+.cx-row.none span:last-child{color:var(--dim)}
+.cx-row em{font-style:normal;color:#b6bbff;font-size:11px}
+.cx-hours{display:flex;flex-wrap:wrap;gap:4px 16px;padding:8px 12px;font-size:12px;color:var(--muted);background:var(--panel-2)}
+.cx-hours b{color:var(--text);font-weight:500}
+.selstate{flex-wrap:wrap}
+.selstate span{flex:1;min-width:200px}
+.selstate .btn{margin-left:auto}
+.lists li.minor{color:var(--muted)}
+.lists li.minor .ic{color:var(--dim)}
+.issues{display:flex;flex-direction:column;gap:8px;margin-bottom:12px}
+.iss{display:flex;gap:10px;align-items:flex-start;padding:10px 12px;border-radius:7px;background:var(--bad-soft);border:1px solid rgba(242,103,122,.35)}
+.iss .ic{width:18px;height:18px;margin-top:1px;flex:none}
+.iss b{display:block;font-size:13px;font-weight:500}
+.iss small{display:block;font-size:12px;color:#f8a3ae;margin-top:2px}
+.sideh{margin:0 0 10px;font-size:11.5px;letter-spacing:.9px;text-transform:uppercase;color:var(--muted)}
+.near{display:flex;gap:10px;align-items:flex-start;padding:8px 10px;border:1px dashed rgba(242,103,122,.45);border-radius:6px;margin-bottom:6px;background:rgba(242,103,122,.05)}
+.near b{font-weight:500;font-size:13px;display:block}
+.near small{display:block;font-size:11.5px;color:var(--muted)}
+.near small.bc{color:var(--bad)}
+.elig.blocked{border-color:rgba(242,103,122,.5);background:var(--bad-soft)}
+.btn:disabled{opacity:.5;cursor:not-allowed}
+@media (max-width:900px){.hrlist{grid-template-columns:1fr}.fillbox{margin:12px 12px 0}}
+
+/* ---------- Native GuardsPro action buttons (no AI colour scheme) ---------- */
+.nbtn{height:40px;padding:0 20px;border-radius:24px;background:var(--pill);color:var(--text);display:inline-flex;align-items:center;justify-content:center;gap:8px;font-weight:700;font-size:14px;white-space:nowrap;transition:background-color .12s}
+.nbtn .ic{width:18px;height:18px;stroke-width:2.1}
+.nbtn:hover{background:var(--pill-h)}
+.nbtn:active{background:#3d4862}
+.nbtn:disabled{opacity:.45;cursor:not-allowed;background:var(--pill)}
+.nbtn.loading{opacity:1;cursor:progress;color:var(--muted)}
+.nbtn.strong{background:#e6e9f0;color:#141c2c}
+.nbtn.strong:hover{background:#fff}
+.nbtn.strong:active{background:#cfd4de}
+.nspin{width:15px;height:15px;border-radius:50%;border:2px solid currentColor;border-right-color:transparent;animation:spin .8s linear infinite;flex:none;opacity:.8}
+.btn.primary.loading{opacity:1;cursor:progress;background:#cfd4de;color:#3a4357}
+.btn.primary.is-ok{opacity:1;background:var(--ok);color:#0d2a1d}
+.btn.primary.is-err{opacity:1;background:var(--bad);color:#2b0c12}
+.btn.primary:disabled:not(.loading):not(.is-ok):not(.is-err){background:var(--pill);color:var(--dim)}
+.eyebrow{color:var(--muted)}
+
+/* ---------- Shift priority ---------- */
+.pchip{display:inline-flex;align-items:center;height:20px;padding:0 7px;border-radius:4px;font-size:10.5px;font-weight:700;letter-spacing:.4px;white-space:nowrap;border:1px solid var(--line-2);color:var(--muted);background:transparent;vertical-align:middle}
+.pchip.p-critical{color:var(--bad);border-color:rgba(242,103,122,.55)}
+.pchip.p-high{color:var(--warn);border-color:rgba(246,185,75,.5)}
+.pchip.p-normal{color:var(--muted)}
+.pchip.p-low{color:var(--dim);border-style:dashed}
+.tag.prio{background:rgba(24,32,46,.1);color:var(--card-sub);font-weight:700}
+.tag.prio.p-high,.tag.prio.p-critical{background:#18202e;color:#ffd38a}
+.st + .pchip{margin-left:6px}
+.res .ordh{width:34px;text-align:center}
+.res td.ord{text-align:center;vertical-align:middle}
+.res td.ord span{display:inline-flex;width:24px;height:24px;border-radius:50%;align-items:center;justify-content:center;background:var(--pill);font-weight:700;font-size:12px;font-variant-numeric:tabular-nums}
+.res .cell-shift .pchip{margin:3px 0 2px}
+.rowwhy{display:block;font-size:11.5px;color:var(--muted);margin-top:3px}
+.callout.prio{border-color:var(--line-2)}
+.prio-why{display:flex;gap:10px;align-items:flex-start;border:1px solid var(--line);background:var(--panel-2);border-radius:6px;padding:10px 12px;margin:10px 0 12px}
+.prio-why>.ic{width:18px;height:18px;color:var(--muted);margin-top:2px}
+.prio-why .pw-h{display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+.prio-why .pw-n{display:inline-flex;width:22px;height:22px;border-radius:50%;align-items:center;justify-content:center;background:var(--pill);font-weight:700;font-size:12px}
+.prio-why p{margin:6px 0 0;color:var(--muted);font-size:13px;line-height:1.5}
+.prio-why p b{color:var(--text);font-weight:500}
+.fillbox .fb-h .pchip{margin-left:8px}
+.menu.selorder{width:420px;max-width:calc(100vw - 16px);padding-bottom:6px;max-height:360px;overflow-y:auto}
+.so-r{display:flex;align-items:center;gap:10px;padding:8px 14px;border-top:1px solid var(--line)}
+.so-n{width:20px;text-align:right;color:var(--dim);font-variant-numeric:tabular-nums;font-size:12px}
+.so-r .ic{width:16px;height:16px}
+.so-t{flex:1;min-width:0}
+.so-t b{display:block;font-weight:500;font-size:13px}
+.so-t small{display:block;color:var(--muted);font-size:12px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.so-f{display:flex;gap:8px;align-items:flex-start;padding:10px 14px 6px;color:var(--muted);font-size:12px;border-top:1px solid var(--line)}
+.so-f .ic{width:15px;height:15px;margin-top:1px}
+.ro-sub{display:block;color:var(--muted);font-size:11.5px;margin-top:4px;font-weight:400}
+.qv-prio{display:inline-flex;align-items:center;height:20px;padding:0 7px;border-radius:4px;font-size:11px;font-weight:700;border:1px solid #c9ced8;color:#4a5263;margin-left:6px}
+.qv-prio.p-high,.qv-prio.p-critical{border-color:#e7b25a;color:#8a5a06;background:#fff7e8}
+.minilist .r .m .pchip{margin-right:4px;height:18px;font-size:10px}
+.banner.unpub{background:var(--panel-2);border-color:var(--line-2)}
+.principle{background:var(--pill);color:var(--muted)}
+.res .cell-shift>span{display:block}
+.res .cell-shift .pchip{display:inline-flex}
+.form label .ro:has(.ro-sub){flex-wrap:wrap;gap:4px}
+.form .ro .ro-sub{flex-basis:100%;margin-top:2px}
+
 </style>
 <div class="app" id="app">
   <aside class="sidebar" id="sidebar" aria-label="Main navigation"></aside>
@@ -954,16 +1086,16 @@ const GUARDS = [
   { id:'G-101', name:'John Smith', status:'Active', dept:'Retail Security', cross:['Corporate Security'], quals:['Armed Guard','CPR/First Aid'], rate:24, extraHours:12, otAt:40, avail:'AAACAAA', shiftTypes:['Evening','Overnight'], prefShifts:['Overnight'], prefSites:['ABC'], avoidSites:[], home:'Eastgate', hx:2, hy:3.5, cleared:['ABC','XYZ','MCT'], siteHist:{ABC:14, XYZ:3}, postHist:['ABC|Main Entrance','ABC|Parking Garage'], att:98, onTime:96, timeOff:[], rating:4.8 },
   { id:'G-102', name:'Sarah Johnson', status:'Active', dept:'Retail Security', cross:['Corporate Security'], quals:['Armed Guard','CPR/First Aid'], rate:23, extraHours:8, otAt:40, avail:'AAAAAAA', shiftTypes:['Day','Evening','Overnight'], prefShifts:['Evening','Day'], prefSites:['XYZ','ABC'], avoidSites:[], home:'Lakeview', hx:6, hy:3, cleared:['ABC','XYZ','MCT'], siteHist:{XYZ:11, ABC:6}, postHist:['XYZ|Food Court','XYZ|North Gate'], att:97, onTime:94, timeOff:[], rating:4.7 },
   { id:'G-103', name:'David Brown', status:'Active', dept:'Retail Security', cross:[], quals:['Unarmed Guard','Fire Watch'], rate:19, extraHours:0, otAt:40, avail:'-AAAAAC', shiftTypes:['Day','Evening'], prefShifts:['Day'], prefSites:['XYZ'], avoidSites:[], home:'North Hills', hx:11, hy:6, cleared:['ABC','XYZ'], siteHist:{XYZ:18}, postHist:['XYZ|Food Court'], att:95, onTime:90, timeOff:['2026-10-14'], rating:4.4 },
-  { id:'G-104', name:'Michael Wilson', status:'Active', dept:'Retail Security', cross:['Industrial Security'], quals:['Armed Guard'], rate:22, extraHours:22, otAt:40, avail:'AAAAAAA', shiftTypes:['Day','Evening','Overnight'], prefShifts:['Overnight'], prefSites:['HLW'], avoidSites:[], home:'Southport', hx:8, hy:-3, cleared:['ABC','XYZ','HLW'], siteHist:{HLW:9, ABC:4}, postHist:['HLW|Gatehouse','ABC|Main Entrance'], att:92, onTime:88, timeOff:[], rating:4.2 },
+  { id:'G-104', name:'Michael Wilson', status:'Active', dept:'Retail Security', cross:['Industrial Security'], quals:['Armed Guard'], rate:22, extraHours:14, otAt:40, avail:'AAAAAAA', shiftTypes:['Day','Evening','Overnight'], prefShifts:['Overnight'], prefSites:['HLW'], avoidSites:[], home:'Southport', hx:8, hy:-3, cleared:['ABC','XYZ','HLW'], siteHist:{HLW:9, ABC:4}, postHist:['HLW|Gatehouse','ABC|Main Entrance'], att:92, onTime:88, timeOff:[], rating:4.2 },
   { id:'G-105', name:'Mckell Berry', status:'Active', dept:'Healthcare Security', cross:[], quals:['Unarmed Guard','CPR/First Aid','Healthcare Security'], rate:25, extraHours:0, otAt:40, avail:'-AAAAA-', shiftTypes:['Day','Evening'], prefShifts:['Day'], prefSites:['RMP'], avoidSites:[], home:'Riverside', hx:-4, hy:5, cleared:['RMP','MCT'], siteHist:{RMP:22}, postHist:['RMP|ER Entrance','RMP|Main Lobby'], att:99, onTime:98, timeOff:[], rating:4.9 },
-  { id:'G-106', name:'Marcus Lee', status:'Active', dept:'Healthcare Security', cross:['Corporate Security'], quals:['Armed Guard','CPR/First Aid','Healthcare Security'], rate:27, extraHours:30, otAt:40, avail:'AAAAAAA', shiftTypes:['Day','Evening','Overnight'], prefShifts:['Overnight','Evening'], prefSites:['RMP'], avoidSites:[], home:'West Bend', hx:-9, hy:9, cleared:['RMP','MCT'], siteHist:{RMP:15, MCT:2}, postHist:['RMP|ER Entrance'], att:96, onTime:93, timeOff:[], rating:4.6 },
-  { id:'G-107', name:'Emily Davis', status:'Active', dept:'Corporate Security', cross:[], quals:['Unarmed Guard','CPR/First Aid'], rate:21, extraHours:24, otAt:32, avail:'-AAAAAC', shiftTypes:['Day'], prefShifts:['Day'], prefSites:['MCT'], avoidSites:[], home:'Midtown', hx:4, hy:12, cleared:['MCT','ABC'], siteHist:{MCT:20}, postHist:['MCT|Lobby Desk'], att:97, onTime:97, timeOff:[], rating:4.7 },
+  { id:'G-106', name:'Marcus Lee', status:'Active', dept:'Healthcare Security', cross:['Corporate Security'], quals:['Armed Guard','CPR/First Aid','Healthcare Security'], rate:27, extraHours:18, otAt:40, avail:'AAAAAAA', shiftTypes:['Day','Evening','Overnight'], prefShifts:['Overnight','Evening'], prefSites:['RMP'], avoidSites:[], home:'West Bend', hx:-9, hy:9, cleared:['RMP','MCT'], siteHist:{RMP:15, MCT:2}, postHist:['RMP|ER Entrance'], att:96, onTime:93, timeOff:[], rating:4.6 },
+  { id:'G-107', name:'Emily Davis', status:'Active', dept:'Corporate Security', cross:[], quals:['Unarmed Guard','CPR/First Aid'], rate:21, extraHours:12, otAt:32, avail:'-AAAAAC', shiftTypes:['Day'], prefShifts:['Day'], prefSites:['MCT'], avoidSites:[], home:'Midtown', hx:4, hy:12, cleared:['MCT','ABC'], siteHist:{MCT:20}, postHist:['MCT|Lobby Desk'], att:97, onTime:97, timeOff:[], rating:4.7 },
   { id:'G-108', name:'Carlos Rivera', status:'Active', dept:'Industrial Security', cross:[], quals:['Armed Guard','Fire Watch','TWIC Card'], rate:23, extraHours:0, otAt:40, avail:'A-AAAAA', shiftTypes:['Evening','Overnight'], prefShifts:['Overnight'], prefSites:['HLW'], avoidSites:[], home:'Portside', hx:16, hy:-10, cleared:['HLW'], siteHist:{HLW:25}, postHist:['HLW|Gatehouse','HLW|Yard Patrol'], att:94, onTime:91, timeOff:[], rating:4.5 },
   { id:'G-109', name:'Aisha Khan', status:'Active', dept:'Retail Security', cross:['Healthcare Security'], quals:['Unarmed Guard','CPR/First Aid'], rate:20, extraHours:12, otAt:40, avail:'AAAAAAA', shiftTypes:['Day','Evening','Overnight'], prefShifts:['Evening'], prefSites:['ABC','XYZ'], avoidSites:[], home:'Central', hx:1, hy:-2, cleared:['ABC','XYZ','RMP'], siteHist:{ABC:5, RMP:2}, postHist:['ABC|Loading Dock'], att:93, onTime:89, timeOff:[], rating:4.3 },
   { id:'G-110', name:"Kevin O'Brien", status:'Active', dept:'Retail Security', cross:[], quals:['Armed Guard'], rate:22, extraHours:16, otAt:40, avail:'AAAAAAA', shiftTypes:['Day','Evening','Overnight'], prefShifts:['Overnight'], prefSites:['ABC'], avoidSites:['XYZ'], home:'Old Town', hx:-1, hy:1, cleared:['ABC','XYZ'], siteHist:{ABC:8}, postHist:['ABC|Main Entrance'], att:85, onTime:80, timeOff:[], rating:3.9 },
-  { id:'G-111', name:'Mike Turner', status:'Active', dept:'Retail Security', cross:[], quals:['Unarmed Guard'], rate:18, extraHours:22, otAt:40, avail:'AAAAAAA', shiftTypes:['Day','Evening','Overnight'], prefShifts:['Day'], prefSites:[], avoidSites:[], home:'Southside', hx:5, hy:0, cleared:['ABC','XYZ'], siteHist:{ABC:3, XYZ:2}, postHist:['ABC|Loading Dock'], att:90, onTime:87, timeOff:[], rating:4.0 },
+  { id:'G-111', name:'Mike Turner', status:'Active', dept:'Retail Security', cross:[], quals:['Unarmed Guard'], rate:18, extraHours:14, otAt:40, avail:'AAAAAAA', shiftTypes:['Day','Evening','Overnight'], prefShifts:['Day'], prefSites:[], avoidSites:[], home:'Southside', hx:5, hy:0, cleared:['ABC','XYZ'], siteHist:{ABC:3, XYZ:2}, postHist:['ABC|Loading Dock'], att:90, onTime:87, timeOff:[], rating:4.0 },
   { id:'G-112', name:'Rachel Green', status:'Inactive', statusNote:'On leave until Nov 2', dept:'Corporate Security', cross:[], quals:['Unarmed Guard','CPR/First Aid'], rate:21, extraHours:0, otAt:40, avail:'-AAAAA-', shiftTypes:['Day'], prefShifts:['Day'], prefSites:['MCT'], avoidSites:[], home:'Midtown', hx:2, hy:11, cleared:['MCT'], siteHist:{MCT:12}, postHist:['MCT|Lobby Desk'], att:96, onTime:95, timeOff:[], rating:4.6 },
-  { id:'G-113', name:'Tom Becker', status:'Active', dept:'Industrial Security', cross:['Retail Security'], quals:['Armed Guard','TWIC Card'], rate:22, extraHours:30, otAt:40, avail:'AAAAAAA', shiftTypes:['Day','Evening'], prefShifts:['Day'], prefSites:['HLW'], avoidSites:[], home:'Bayview', hx:20, hy:-4, cleared:['HLW','ABC'], siteHist:{HLW:10, ABC:1}, postHist:['HLW|Yard Patrol'], att:91, onTime:92, timeOff:['2026-10-08','2026-10-09','2026-10-10','2026-10-13'], rating:4.3 },
+  { id:'G-113', name:'Tom Becker', status:'Active', dept:'Industrial Security', cross:['Retail Security'], quals:['Armed Guard','TWIC Card'], rate:22, extraHours:20, otAt:40, avail:'AAAAAAA', shiftTypes:['Day','Evening'], prefShifts:['Day'], prefSites:['HLW'], avoidSites:[], home:'Bayview', hx:20, hy:-4, cleared:['HLW','ABC'], siteHist:{HLW:10, ABC:1}, postHist:['HLW|Yard Patrol'], att:91, onTime:92, timeOff:['2026-10-08','2026-10-09','2026-10-10','2026-10-13'], rating:4.3 },
   { id:'G-114', name:'Linda Okafor', status:'Active', dept:'Healthcare Security', cross:[], quals:['Unarmed Guard','CPR/First Aid','Healthcare Security'], rate:24, extraHours:8, otAt:40, avail:'A-----A', shiftTypes:['Day','Evening'], prefShifts:['Day'], prefSites:['RMP'], avoidSites:[], home:'Riverside', hx:-5, hy:4, cleared:['RMP'], siteHist:{RMP:9}, postHist:['RMP|ER Entrance'], att:98, onTime:97, timeOff:[], rating:4.8 },
 ];
 
@@ -1049,6 +1181,31 @@ const GUARD_SKILLS = {
 GUARDS.forEach(g=>{ const x=GUARD_SKILLS[g.id]||[[],1]; g.skills=x[0]; g.years=x[1]; });
 function shiftSkills(sh){ return sh.skills || POST_SKILLS[sh.site+'|'+sh.post] || []; }
 
+/* Skills a post REQUIRES (hard rule). POST_SKILLS above are PREFERRED skills (scored). */
+const POST_REQ_SKILLS = { 'HLW|Gatehouse':['Vehicle Inspection'], 'HLW|Yard Patrol':['Vehicle Inspection'], 'MCT|Executive Floor':['Executive Protection'], 'RMP|ER Entrance':['Emergency Response'] };
+function reqSkills(sh){ return sh.reqSkills || POST_REQ_SKILLS[sh.site+'|'+sh.post] || []; }
+
+/* Department requirement per site: 'required' = hard rule, 'preferred' = ranking only */
+const SITE_DEPT_MODE = { ABC:'preferred', XYZ:'preferred', MCT:'preferred', RMP:'required', HLW:'required' };
+function deptMode(sh){ return sh.deptMode || SITE_DEPT_MODE[sh.site] || 'required'; }
+
+/* Daily availability window (24h clock; window may cross midnight) */
+GUARDS.forEach(g=>{
+  const has=x=>g.shiftTypes.includes(x);
+  if(has('Day')&&has('Evening')&&has('Overnight')){ g.availFrom='00:00'; g.availTo='24:00'; }
+  else if(has('Day')&&has('Evening')){ g.availFrom='06:00'; g.availTo='24:00'; }
+  else if(has('Evening')&&has('Overnight')){ g.availFrom='14:00'; g.availTo='10:00'; }
+  else if(has('Day')){ g.availFrom='06:00'; g.availTo='18:00'; }
+  else { g.availFrom='00:00'; g.availTo='24:00'; }
+});
+
+/* Certification expiry dates (others are valid beyond the planning horizon) */
+const CERT_EXPIRY = { 'G-110':{'Armed Guard':'2026-10-15'}, 'G-109':{'CPR/First Aid':'2026-09-30'}, 'G-101':{'CPR/First Aid':'2026-11-20'} };
+GUARDS.forEach(g=>{ g.certExp = CERT_EXPIRY[g.id] || {}; });
+function certKey(g,q){ return g.quals.includes(q) ? q : (q==='Unarmed Guard' && g.quals.includes('Armed Guard')) ? 'Armed Guard' : null; }
+function certValidOn(g,q,date){ const k=certKey(g,q); if(!k) return false; const x=g.certExp[k]; return !x || x>=date; }
+function fmtLongDate(ds){ const d=new Date(parseDate(ds)); return MON[d.getUTCMonth()]+' '+d.getUTCDate()+', '+d.getUTCFullYear(); }
+
 /* Data sources an admin can score a custom factor from */
 const CUSTOM_SOURCES = {
   rating:     { label:'Guard rating (1–5)', fn:g=>Math.round(g.rating/5*100), det:g=>g.rating+' / 5 supervisor rating' },
@@ -1072,13 +1229,15 @@ const HARD_TEMPLATES = {
 
 function defaultRules(){
   return {
-    hard: { active:true, available:true, qualification:true, department:true, conflict:true, site:true, maxHours:true },
-    maxHoursCap: 48,
-    conflictBuffer: 'travel', // 'none' | 'travel'
+    hard: { active:true, available:true, qualification:true, skills:true, department:true, conflict:true, travel:true, rest:true, site:true, maxHours:true, overtime:true },
+    maxHoursCap: 48,       // hard cap per guard per week
+    restHours: 8,          // minimum rest between shifts (after travel)
+    travelBuffer: 15,      // minutes required on site before shift start
+    overtimePolicy: 'allowed', // 'allowed' (ranked lower + warning) | 'notallowed' (hard fail)
     factors: FACTORS.map(f=>({...f, on:true, weight:10})),
     customHard: [],
     travelWarn: 12,
-    restWarn: 8,
+    restWarn: 10,          // warn when rest is below this many hours (but above the minimum)
   };
 }
 function activeFactors(rules){ return rules.factors.filter(f=>f.on && f.weight>0); }
@@ -1113,7 +1272,16 @@ function weekHours(g, wk, list, excludeId){
   return h;
 }
 
-function hm(min){ const h=Math.floor(min/60), m=Math.round(min%60); return h? (h+'h'+(m? ' '+m+'m':'')) : m+'m'; }
+function hm(min){ min=Math.max(0,Math.round(min)); const h=Math.floor(min/60), m=min%60; return h? (h+'h'+(m? ' '+m+'m':'')) : m+'m'; }
+function fmtT(ms){ const d=new Date(ms); return String(d.getUTCHours()).padStart(2,'0')+':'+String(d.getUTCMinutes()).padStart(2,'0'); }
+function shLabel(o){ return fmtShort(o.date)+' '+o.start+'–'+o.end+' at '+SITES[o.site].name; }
+function travelMin(a,b){ return a===b ? 0 : Math.round(siteDist(a,b)/30*60); }   // 30 mph average urban speed
+function availCovers(g, sh){
+  if(g.availFrom==='00:00' && g.availTo==='24:00') return true;
+  const [s,e]=range(sh), f=toMin(g.availFrom), t=toMin(g.availTo);
+  for(const off of [-1,0]){ const b=parseDate(sh.date)+off*DAY; const ws=b+f*60000; let we=b+t*60000; if(we<=ws) we+=DAY; if(ws<=s && e<=we) return true; }
+  return false;
+}
 
 function evaluate(g, sh, list, rules){
   const H = rules.hard;
@@ -1122,55 +1290,87 @@ function evaluate(g, sh, list, rules){
   const [s,e] = range(sh);
   const w = dow(sh.date);
   const checks = [];
-  const add = (key,label,pass,detail,blockLabel)=>checks.push({key,label,pass,detail,on:!!H[key],blockLabel});
+  const add = (key,label,pass,detail,blockLabel,extra)=>checks.push(Object.assign({key,label,pass,detail,on:!!H[key],blockLabel},extra||{}));
 
+  // 1. Active
   add('active','Guard must be Active', g.status==='Active', g.status==='Active'?'Active':'Inactive — '+(g.statusNote||'not active'), 'Guard inactive');
 
+  // 2. Availability for the COMPLETE shift
   const code = g.avail[w];
   let avPass=true, avDetail;
   if(g.timeOff.includes(sh.date)){ avPass=false; avDetail='Approved time off on '+fmtShort(sh.date); }
   else if(code==='-'){ avPass=false; avDetail='Not available on '+DOWN[w]+'s'; }
-  else if(!g.shiftTypes.includes(st)){ avPass=false; avDetail='Does not work '+st+' shifts'; }
-  else avDetail = code==='C' ? 'On-call only on '+DOWN[w]+'s' : 'Available '+DOWN[w]+' '+st;
-  add('available','Guard must be Available', avPass, avDetail, 'Guard unavailable');
+  else if(!availCovers(g, sh)){ avPass=false; avDetail='Available '+g.availFrom+'–'+g.availTo+' only; cannot cover the full shift '+sh.start+'–'+sh.end; }
+  else avDetail = (code==='C' ? 'On-call ' : 'Available ')+(g.availFrom==='00:00'&&g.availTo==='24:00'?'all day':g.availFrom+'–'+g.availTo)+' on '+DOWN[w]+'s; covers '+sh.start+'–'+sh.end;
+  add('available','Available for Full Shift', avPass, avDetail, 'Unavailable for full shift');
 
-  const missing = sh.req.filter(q=>!hasQual(g,q));
-  add('qualification','Required Qualification', missing.length===0, missing.length? 'Missing '+missing.join(', ') : 'Holds '+sh.req.join(', '), 'Qualification mismatch');
+  // 3. Qualifications / certifications (held AND valid on the shift date)
+  const missing = sh.req.filter(q=>!certKey(g,q));
+  const expired = sh.req.filter(q=>certKey(g,q) && !certValidOn(g,q,sh.date));
+  let qDetail;
+  if(missing.length) qDetail='Missing '+missing.join(', ');
+  else if(expired.length) qDetail=expired.map(q=>certKey(g,q)+' certification expired '+fmtLongDate(g.certExp[certKey(g,q)])).join('; ');
+  else qDetail='Holds valid '+sh.req.join(', ');
+  add('qualification','Required Qualification / Certification', !missing.length && !expired.length, qDetail, expired.length&&!missing.length?'Certification expired':'Qualification mismatch');
 
-  const deptHome = g.dept===sh.dept, deptCross = g.cross.includes(sh.dept);
-  add('department','Required Department', deptHome||deptCross, deptHome? sh.dept : deptCross? 'Cross-trained for '+sh.dept : g.dept+' (needs '+sh.dept+')', 'Department mismatch');
+  // 4. Required skills
+  const rSk = reqSkills(sh), missR = rSk.filter(k=>!g.skills.includes(k));
+  add('skills','Required Skills / Training', !missR.length, !rSk.length?'No mandatory skills for this post':missR.length?'Missing required skill: '+missR.join(', '):'Has '+rSk.join(', '), 'Missing required skill');
 
-  // conflicts
-  const mine = list.filter(a=>a.guardId===g.id && a.shift.id!==sh.id);
-  let conflict=null, minRest=Infinity, restWith=null;
-  for(const a of mine){
-    const [as,ae] = range(a.shift);
-    if(as<e && ae>s){ conflict = {type:'overlap', with:a}; break; }
-    let gap, from, to;
-    if(ae<=s){ gap=(s-ae)/60000; from=a.shift.site; to=sh.site; } else { gap=(as-e)/60000; from=sh.site; to=a.shift.site; }
-    if(rules.conflictBuffer==='travel' && from!==to){
-      const need = siteDist(from,to)/30*60 + 15;
-      if(gap < need){ conflict={type:'travel', with:a, gap, need}; break; }
-    }
-    if(gap<minRest){ minRest=gap; restWith=a; }
+  // 5. Department (required vs preferred)
+  const mode = deptMode(sh), deptHome = g.dept===sh.dept, deptCross = g.cross.includes(sh.dept);
+  const deptOk = mode==='preferred' || deptHome || deptCross;
+  add('department','Required Department', deptOk,
+    deptHome ? sh.dept+' ('+mode+')' : deptCross ? 'Cross-trained for '+sh.dept+' ('+mode+')' : mode==='preferred' ? g.dept+'; '+sh.dept+' is preferred, not required' : g.dept+' — post requires '+sh.dept, 'Department mismatch');
+
+  // 6-8. Whole-schedule checks: overlap, travel feasibility, rest
+  const mine = list.filter(a=>a.guardId===g.id && a.shift.id!==sh.id).map(a=>({a, r:range(a.shift)}));
+  const overlap = mine.find(x=>x.r[0]<e && x.r[1]>s);
+  let prev=null, next=null;
+  mine.forEach(x=>{ if(x.r[1]<=s && (!prev || x.r[1]>prev.r[1])) prev=x; if(x.r[0]>=e && (!next || x.r[0]<next.r[0])) next=x; });
+  const tag = x => x.a.source==='batch' ? ' (recommended in this run)' : '';
+  add('conflict','No Overlapping Shift', !overlap, overlap ? 'Already working '+shLabel(overlap.a.shift)+tag(overlap) : 'No overlapping shift', 'Overlapping shift', overlap?{withId:overlap.a.shift.id}:{});
+
+  const buf = rules.travelBuffer||0, near = 24*60;
+  const leg = (x, dir) => { if(!x) return null; const gap = dir<0 ? (s-x.r[1])/60000 : (x.r[0]-e)/60000;
+    const from = dir<0 ? x.a.shift.site : sh.site, to = dir<0 ? sh.site : x.a.shift.site;
+    const tm = travelMin(from,to), need = tm + (from!==to?buf:0); return {x, dir, gap, tm, need, rest: gap - tm, from, to}; };
+  const P = leg(prev,-1), N = leg(next,1);
+  const badT = [P,N].find(L=>L && L.gap < L.need);
+  let tDetail;
+  if(badT){
+    tDetail = badT.dir<0 ? 'Previous shift at '+SITES[badT.from].name+' ends '+fmtT(badT.x.r[1])+'; '+badT.tm+' min travel + '+buf+' min buffer needed, but this shift starts '+sh.start+' at '+site.name+tag(badT.x)
+                         : 'Next shift at '+SITES[badT.to].name+' starts '+badT.x.a.shift.start+'; '+badT.tm+' min travel + '+buf+' min buffer needed after this shift ends '+sh.end+tag(badT.x);
+  } else {
+    const legs=[P,N].filter(L=>L && L.gap<near && L.from!==L.to);
+    tDetail = legs.length ? legs.map(L=>L.dir<0 ? 'From '+SITES[L.from].name+' (ends '+fmtT(L.x.r[1])+'): '+L.tm+' min travel, arrives with '+hm(L.gap-L.tm)+' to spare' : 'To '+SITES[L.to].name+' next ('+L.x.a.shift.start+'): '+L.tm+' min travel fits').join('; ')
+      : ([P,N].some(L=>L && L.gap<near) ? 'Adjacent shift is at the same site' : 'No adjacent shift within 24h');
   }
-  let cDetail = 'No overlapping shifts';
-  if(conflict){
-    const o=conflict.with.shift, tag = conflict.with.source==='batch' ? ' (recommended in this run)' : '';
-    cDetail = conflict.type==='overlap'
-      ? 'Booked '+fmtShort(o.date)+' '+o.start+'–'+o.end+' at '+SITES[o.site].name+tag
-      : 'Only '+hm(conflict.gap)+' to travel from '+SITES[conflict.with.shift.site===sh.site?sh.site:conflict.with.shift.site].name+' ('+siteDist(o.site,sh.site)+' mi)'+tag;
-  }
-  add('conflict','No Schedule Conflict', !conflict, cDetail, conflict&&conflict.type==='travel'?'Impossible travel':'Schedule conflict');
-  if(conflict) checks[checks.length-1].withId = conflict.with.shift.id;
+  add('travel','Travel Feasibility', !badT, tDetail, 'Cannot reach site in time', badT?{withId:badT.x.a.shift.id}:{});
 
+  const restMinReq = (rules.restHours||0)*60;
+  const legsR = [P,N].filter(L=>L && L.gap>=L.need);
+  const badR = legsR.find(L=>L.rest < restMinReq);
+  const minRestLeg = legsR.filter(L=>L.gap<near*2).sort((a,b)=>a.rest-b.rest)[0];
+  let rDetail;
+  if(badR) rDetail = 'Only '+hm(badR.rest)+' rest'+(badR.dir<0?' after ':' before ')+shLabel(badR.x.a.shift)+(badR.tm?' (after '+badR.tm+' min travel)':'')+'; minimum is '+rules.restHours+'h'+tag(badR.x);
+  else rDetail = minRestLeg ? hm(minRestLeg.rest)+' rest '+(minRestLeg.dir<0?'after previous':'before next')+' shift (minimum '+rules.restHours+'h)' : 'No adjacent shift within 48h';
+  add('rest','Minimum Rest Between Shifts', !badR, rDetail, 'Insufficient rest', badR?{withId:badR.x.a.shift.id}:{});
+
+  // 9. Site / post clearance
   const siteOk = !site.restricted || g.cleared.includes(sh.site);
   add('site','Site/Post Eligibility', siteOk, siteOk ? (site.restricted?'Cleared for '+site.name:'No site clearance needed') : 'Not cleared for '+site.name, 'Not cleared for site');
 
+  // 10-11. Hours and overtime (whole week: worked + already scheduled + this shift)
   const wk = weekOf(s);
   const before = weekHours(g, wk, list, sh.id);
-  const projected = before + shHours(sh);
-  add('maxHours','Maximum Weekly Hours', projected<=rules.maxHoursCap, projected+'h projected (limit '+rules.maxHoursCap+'h)', 'Weekly hour limit exceeded');
+  const shiftH = shHours(sh);
+  const projected = before + shiftH;
+  const ot = g.otAt, otH = Math.max(0, projected - Math.max(ot, before)), otTotal = Math.max(0, projected-ot);
+  add('maxHours','Maximum Weekly Hours', projected<=rules.maxHoursCap, before+'h this week + '+shiftH+'h = '+projected+'h (limit '+rules.maxHoursCap+'h)', 'Weekly hour limit exceeded');
+  const otAllowed = rules.overtimePolicy!=='notallowed';
+  add('overtime','Overtime Policy', otAllowed || otTotal===0,
+    otTotal ? otTotal+'h overtime ('+projected+'h vs '+ot+'h threshold) — '+(otAllowed?'allowed, ranked lower':'overtime is not allowed') : 'No overtime ('+projected+'h of '+ot+'h)', 'Overtime not allowed');
 
   (rules.customHard||[]).forEach(c=>{
     if(c.site!=='all' && c.site!==sh.site) return;
@@ -1180,20 +1380,19 @@ function evaluate(g, sh, list, rules){
   const eligible = checks.every(c=>!c.on || c.pass);
   const blocking = checks.filter(c=>c.on && !c.pass);
 
-  // ---- factor scores ----
+  // ---- factor scores (ranking only; never override a hard rule) ----
   const d = distTo(g, sh.site);
-  const f = {};
-  const det = {};
+  const f = {}, det = {};
   f.availability = !avPass ? 0 : code==='C' ? 70 : 100;
   det.availability = avDetail;
-  const reqMet = sh.req.length - missing.length;
-  const prefMet = sh.pref.filter(q=>hasQual(g,q)).length;
-  if(missing.length) f.qualification = Math.round(70*reqMet/sh.req.length);
+  const okReq = sh.req.filter(q=>certValidOn(g,q,sh.date)).length;
+  const prefMet = sh.pref.filter(q=>certValidOn(g,q,sh.date)).length;
+  if(okReq<sh.req.length) f.qualification = Math.round(70*okReq/sh.req.length);
   else if(sh.pref.length) f.qualification = 70 + Math.round(30*prefMet/sh.pref.length);
   else f.qualification = 100;
-  det.qualification = missing.length ? 'Missing '+missing.join(', ') : (sh.pref.length ? (prefMet? 'Required + preferred ('+sh.pref.join(', ')+')' : 'Required only; lacks preferred '+sh.pref.join(', ')) : 'All required certifications');
-  f.department = deptHome?100 : deptCross?75 : 0;
-  det.department = deptHome?'Home department' : deptCross?'Cross-trained':'Other department';
+  det.qualification = okReq<sh.req.length ? qDetail : (sh.pref.length ? (prefMet? 'Required + preferred ('+sh.pref.join(', ')+')' : 'Required only; lacks preferred '+sh.pref.join(', ')) : 'All required certifications valid');
+  f.department = deptHome?100 : deptCross?75 : mode==='preferred'?40 : 0;
+  det.department = deptHome?'Home department' : deptCross?'Cross-trained' : 'Other department ('+g.dept+')';
   f.travel = Math.max(0, Math.min(100, Math.round(100 - Math.max(0,d-2)*4)));
   det.travel = d+' mi from '+g.home;
   const n = g.siteHist[sh.site]||0, postW = g.postHist.includes(sh.site+'|'+sh.post);
@@ -1202,49 +1401,54 @@ function evaluate(g, sh, list, rules){
   const avoid = g.avoidSites.includes(sh.site), prefSite = g.prefSites.includes(sh.site);
   f.guardPref = prefSite?100 : avoid?20 : 60;
   det.guardPref = prefSite?'Preferred site' : avoid?'Asked not to work here':'No stated preference';
-  const ot = g.otAt;
-  f.overtime = projected <= ot-8 ? 100 : projected <= ot ? Math.round(100 - (projected-(ot-8))*2.5) : Math.max(0, Math.round(80 - (projected-ot)*8));
-  det.overtime = projected+'h of '+ot+'h before overtime';
+  f.overtime = projected <= ot-8 ? 100 : projected <= ot ? Math.round(100 - (projected-(ot-8))*2.5) : Math.max(0, Math.round(80 - otTotal*8));
+  det.overtime = otTotal ? otTotal+'h overtime ('+projected+'h vs '+ot+'h)' : projected+'h of '+ot+'h before overtime';
   f.shiftPref = g.prefShifts[0]===st ? 100 : g.prefShifts.includes(st) ? 80 : 45;
   det.shiftPref = g.prefShifts.includes(st) ? 'Prefers '+g.prefShifts.join(' / ') : 'Prefers '+g.prefShifts.join(' / ')+', not '+st;
   f.history = Math.round((g.att+g.onTime)/2);
   det.history = g.att+'% attendance, '+g.onTime+'% on time';
   const needSk = shiftSkills(sh), missSk = needSk.filter(k=>!g.skills.includes(k));
   f.skills = needSk.length ? Math.round(100*(needSk.length-missSk.length)/needSk.length) : 100;
-  det.skills = !needSk.length ? 'No skills required' : missSk.length ? 'Missing '+missSk.join(', ') : 'Holds '+needSk.join(', ');
+  det.skills = !needSk.length ? 'No preferred skills listed' : missSk.length ? 'Missing preferred '+missSk.join(', ') : 'Holds '+needSk.join(', ');
   rules.factors.filter(x=>x.custom).forEach(x=>{ const src=CUSTOM_SOURCES[x.source]; f[x.key]=src?src.fn(g):0; det[x.key]=src?src.det(g):'No data source'; });
 
   const active = activeFactors(rules);
   const wsum = active.reduce((t,x)=>t+x.weight,0);
-  const sum = active.reduce((t,x)=>t+f[x.key]*x.weight,0);
+  const sum = active.reduce((t,x)=>t+(f[x.key]||0)*x.weight,0);
   const raw = wsum ? sum/wsum : 0;
   const score = Math.round(raw);
 
-  // ---- warnings ----
+  // ---- warnings (eligible but needs attention; never blocking) ----
   const warnings = [];
-  if(projected > ot) warnings.push({type:'Overtime risk', text:'Overtime risk: '+projected+'h projected this week (overtime after '+ot+'h)'});
-  else if(projected >= ot-4) warnings.push({type:'High weekly hours', text:'High weekly hours: '+projected+'h projected'});
-  if(d > rules.travelWarn) warnings.push({type:'Long travel distance', text:'Long travel distance: '+d+' mi from home'});
+  if(otTotal>0 && otAllowed) warnings.push({type:'Overtime', text:'Overtime: '+otTotal+'h over the '+ot+'h threshold ('+projected+'h projected) · est. $'+Math.round(otTotal*g.rate*1.5)+' at 1.5×'});
+  else if(projected >= ot-4) warnings.push({type:'High weekly hours', text:'High weekly hours: '+projected+'h projected (overtime after '+ot+'h)'});
+  if(minRestLeg && !badR && minRestLeg.rest < (rules.restWarn||0)*60) warnings.push({type:'Short rest', text:'Short rest: '+hm(minRestLeg.rest)+(minRestLeg.dir<0?' after ':' before ')+shLabel(minRestLeg.x.a.shift)});
+  if(d > rules.travelWarn) warnings.push({type:'Long commute', text:'Long commute: '+d+' mi from home'});
   if(!g.prefShifts.includes(st)) warnings.push({type:'Preference mismatch', text:'Preference mismatch: prefers '+g.prefShifts.join(' / ')+' shifts'});
   if(avoid) warnings.push({type:'Preference mismatch', text:'Preference mismatch: asked not to work at '+site.name});
-  if(minRest < rules.restWarn*60) warnings.push({type:'Short rest', text:'Short rest: '+hm(minRest)+' between this and the '+fmtShort(restWith.shift.date)+' '+restWith.shift.start+' shift'});
-  if(missSk.length) warnings.push({type:'Skills gap', text:'Skills gap: missing '+missSk.join(', ')});
+  if(missSk.length) warnings.push({type:'Skills gap', text:'Preferred skills missing: '+missSk.join(', ')});
+  if(mode==='preferred' && !deptHome && !deptCross) warnings.push({type:'Department', text:'Outside preferred department ('+g.dept+')'});
+  sh.req.forEach(q=>{ const k=certKey(g,q); const x=k&&g.certExp[k]; if(x && x>=sh.date && (parseDate(x)-parseDate(sh.date))/DAY<=30) warnings.push({type:'Certification', text:k+' certification expires '+fmtLongDate(x)}); });
   if(code==='C' && avPass) warnings.push({type:'On-call', text:'On-call only on '+DOWN[w]+'s — confirm with guard'});
 
+  const MAJOR = ['Overtime','High weekly hours','Short rest','Certification','On-call'];
+  warnings.forEach(x=>{ x.major = MAJOR.includes(x.type); });
   // ---- reasons ----
   const reasons = [];
-  if(avPass) reasons.push(code==='C'?'Available (on-call)':'Available');
-  if(!missing.length) reasons.push('Qualification matched'+(prefMet?' + preferred cert':''));
-  if(needSk.length && !missSk.length) reasons.push('All required skills ('+needSk.join(', ')+')');
-  if(deptHome) reasons.push('Department matched'); else if(deptCross) reasons.push('Cross-trained for department');
-  if(!conflict) reasons.push('No schedule conflict');
+  if(avPass) reasons.push(code==='C'?'Available (on-call) for the full shift':'Available for the full shift');
+  if(okReq===sh.req.length) reasons.push('Valid '+sh.req.join(' + ')+(prefMet?' + preferred cert':''));
+  if(rSk.length && !missR.length) reasons.push('Has required skill'+(rSk.length>1?'s':'')+' ('+rSk.join(', ')+')');
+  if(deptHome) reasons.push('Home department'); else if(deptCross) reasons.push('Cross-trained for department');
+  if(!overlap && !badT && !badR) reasons.push(minRestLeg ? 'Enough rest ('+hm(minRestLeg.rest)+') and travel is feasible' : 'No other shift within 48h');
   if(d<=6) reasons.push('Close to site ('+d+' mi)');
   if(n) reasons.push('Worked at this site before ('+n+' shifts)');
   if(g.prefShifts.includes(st)) reasons.push('Preferred shift ('+st+')');
   if(prefSite) reasons.push('Preferred site');
-  if(projected<=ot) reasons.push('Stays within '+ot+'h (no overtime)');
+  if(otTotal===0) reasons.push('No overtime ('+projected+'h of '+ot+'h)');
 
-  return { guard:g, shift:sh, eligible, checks, blocking, factors:f, details:det, activeFactors:active.map(x=>({key:x.key,label:x.label,weight:x.weight,value:f[x.key]})), wsum, sum, raw, score, warnings, reasons, projected, distance:d, shiftType:st };
+  const ctx = { prev:P, next:N, weekShifts: mine.filter(x=>weekOf(x.r[0])===wk).map(x=>x.a) };
+  return { guard:g, shift:sh, eligible, checks, blocking, factors:f, details:det, activeFactors:active.map(x=>({key:x.key,label:x.label,weight:x.weight,value:f[x.key]||0})), wsum, sum, raw, score, warnings, reasons,
+    projected, before, shiftH, otAt:ot, otH:otTotal, distance:d, shiftType:st, ctx };
 }
 
 function rank(evals){ return evals.slice().sort((a,b)=> b.score-a.score || b.guard.rating-a.guard.rating || a.distance-b.distance); }
@@ -1266,44 +1470,140 @@ function explain(ev, lead){
   return s;
 }
 
-/* Stage 1 + 2 for a batch, with joint optimization */
-function runBatch(shiftIds, rules){
-  const shifts = shiftIds.map(shiftById);
-  const base = baseAssignments(shiftIds);
-  const active = GUARDS;
+/* Whole-schedule optimisation for a batch of open/vacant shifts.
+   Objective: (1) fill as many shifts as possible with valid assignments, (2) maximise total score.
+   Every candidate is evaluated against the full schedule PLUS the other recommendations in the run,
+   so the same guard is never recommended for two shifts they cannot both work. */
+/* ---------- Shift priority ----------
+   Priority decides WHICH SHIFT gets optimization attention first.
+   It is never a scoring factor and never relaxes a hard rule. */
+const PRIORITY = {
+  critical:{rank:0, label:'Critical'},
+  high:    {rank:1, label:'High'},
+  normal:  {rank:2, label:'Normal'},
+  low:     {rank:3, label:'Low'},
+};
+const PRIORITY_KEYS = Object.keys(PRIORITY).sort((a,b)=>PRIORITY[a].rank-PRIORITY[b].rank);
+function derivedPriority(sh){ return (sh.origStatus||sh.status)==='vacant' ? 'high' : 'normal'; }
+function shiftPriority(sh){ return (sh && sh.priority && PRIORITY[sh.priority]) ? sh.priority : derivedPriority(sh||{}); }
+function prioRank(sh){ return PRIORITY[shiftPriority(sh)].rank; }
+function prioLabel(sh){ return PRIORITY[shiftPriority(sh)].label; }
+
+function runBatch(shiftIds, rules, locks){
+  locks = locks || {};
+  const shifts = shiftIds.map(shiftById).filter(Boolean);
+  const ids0 = shifts.map(s=>s.id);
+  const prio = {}; shifts.forEach(sh=>{ prio[sh.id] = shiftPriority(sh); });
+  const pr = sid => PRIORITY[prio[sid]].rank;
+  const base = baseAssignments(ids0);
   const indep = {};
-  shifts.forEach(sh=>{ indep[sh.id] = rank(active.map(g=>evaluate(g,sh,base,rules)).filter(e=>e.eligible)); });
-  const order = shifts.slice().sort((a,b)=> indep[a.id].length-indep[b.id].length || range(a)[0]-range(b)[0]);
-  const pick = {}, notes = {};
-  const ctxWithout = sid => base.concat(Object.entries(pick).filter(([k,v])=>k!==sid && v).map(([k,v])=>({shift:shiftById(k), guardId:v, source:'batch'})));
-  // Pass 1: greedy, most-constrained shift first
-  for(const sh of order){
-    const cands = rank(active.map(g=>evaluate(g,sh,ctxWithout(sh.id),rules)).filter(e=>e.eligible));
-    pick[sh.id] = cands.length ? cands[0].guard.id : null;
-  }
-  // Pass 2+: local improvement with every other recommendation held fixed
-  for(let pass=0; pass<4; pass++){
-    let changed = false;
-    for(const sh of order){
-      const cands = rank(active.map(g=>evaluate(g,sh,ctxWithout(sh.id),rules)).filter(e=>e.eligible));
-      if(!cands.length) continue;
-      const cur = cands.find(c=>c.guard.id===pick[sh.id]);
-      if(!cur || cands[0].score > cur.score){ pick[sh.id] = cands[0].guard.id; changed = true; }
+  shifts.forEach(sh=>{ indep[sh.id] = rank(GUARDS.map(g=>evaluate(g,sh,base,rules)).filter(e=>e.eligible)); });
+  // Step 2–3: order by priority first; within a priority, hardest-to-fill first, then by start time
+  const ids = shifts.slice().sort((a,b)=> pr(a.id)-pr(b.id) || indep[a.id].length-indep[b.id].length || range(a)[0]-range(b)[0]).map(s=>s.id);
+  const ctx = (pick, sid) => base.concat(Object.entries(pick).filter(([k,v])=>k!==sid && v).map(([k,v])=>({shift:shiftById(k), guardId:v, source:'batch'})));
+  const cands = (pick, sid) => rank(GUARDS.map(g=>evaluate(g,shiftById(sid),ctx(pick,sid),rules)).filter(e=>e.eligible));
+  const valid = (pick, sid) => !pick[sid] || evaluate(guardById(pick[sid]),shiftById(sid),ctx(pick,sid),rules).eligible;
+  // Objective (lexicographic): coverage by priority tier, then match quality by priority tier.
+  // A higher-priority shift is filled, and best-matched, before any lower-priority one. Invalid = null.
+  const NT = PRIORITY_KEYS.length;
+  const objective = pick => { const v = new Array(NT*2).fill(0);
+    for(const sid of ids){ const gid=pick[sid]; if(!gid) continue; const ev=evaluate(guardById(gid),shiftById(sid),ctx(pick,sid),rules); if(!ev.eligible) return null; v[pr(sid)]++; v[NT+pr(sid)]+=ev.score; }
+    return v; };
+  const better = (a,b) => { if(!a) return false; if(!b) return true; for(let i=0;i<a.length;i++){ if(a[i]!==b[i]) return a[i]>b[i]; } return false; };
+  const totalScore = v => v ? v.slice(NT).reduce((x,y)=>x+y,0) : 0;
+  let pick = {};
+  const dropped = [];
+  Object.entries(locks).forEach(([sid,gid])=>{ if(ids.includes(sid)) pick[sid]=gid||null; });
+  Object.keys(locks).forEach(sid=>{ if(pick[sid] && !valid(pick,sid)){ dropped.push({sid, gid:pick[sid]}); delete pick[sid]; } });
+  const locked = sid => (sid in locks) && !dropped.find(d=>d.sid===sid);
+  // Steps 4–10: sequential pass in priority order. Each pick updates the temporary schedule,
+  // and eligibility for every later shift is recalculated against it.
+  const seq = {};
+  for(const sid of ids){ if(locked(sid)) continue; const c=cands(pick,sid); pick[sid]=c.length?c[0].guard.id:null;
+    seq[sid] = { removed: indep[sid].filter(e=>!c.find(x=>x.guard.id===e.guard.id)).map(e=>{ const by=Object.keys(pick).find(k=>k!==sid && pick[k]===e.guard.id); return {gid:e.guard.id, by}; }) }; }
+  // Global improvement: only accept changes that improve the priority-ordered objective
+  let best = objective(pick);
+  for(let pass=0; pass<5; pass++){
+    let improved=false;
+    for(const sid of ids){
+      if(locked(sid)) continue;
+      for(const e of indep[sid].slice(0,8)){
+        if(e.guard.id===pick[sid]) continue;
+        const trial = {...pick, [sid]:e.guard.id};
+        for(const t of ids){ if(t===sid || locked(t) || !trial[t]) continue; if(!valid(trial,t)){ const c=cands(trial,t); trial[t]=c.length?c[0].guard.id:null; } }
+        for(const t of ids){ if(t===sid || locked(t) || trial[t]) continue; const c=cands(trial,t); if(c.length) trial[t]=c[0].guard.id; }
+        const sc = objective(trial);
+        if(better(sc, best)){ best=sc; pick=trial; improved=true; }
+      }
     }
-    if(!changed) break;
+    if(!improved) break;
   }
-  // Explain where the joint result differs from the independent best
-  for(const sh of order){
-    const top = indep[sh.id][0];
-    if(!top) continue;
-    if(!pick[sh.id]){ notes[sh.id] = { kind:'starved', top: top.guard.id }; continue; }
-    if(top.guard.id === pick[sh.id]) continue;
-    const re = evaluate(top.guard, sh, ctxWithout(sh.id), rules);
+  const notes = {};
+  for(const sid of ids){
+    const top = indep[sid][0]; if(!top) continue;
+    const sh = shiftById(sid);
+    if(!pick[sid]){
+      const users = indep[sid].map(e=>Object.keys(pick).find(k=>pick[k]===e.guard.id)).filter(Boolean);
+      const uu=[...new Set(users)];
+      notes[sid] = { kind:'starved', top: top.guard.id, users:uu, byHigher: uu.some(u=>pr(u)<pr(sid)) }; continue;
+    }
+    if(top.guard.id === pick[sid]) continue;
+    const re = evaluate(top.guard, sh, ctx(pick,sid), rules);
     const why = re.blocking[0];
-    notes[sh.id] = { top: top.guard.id, topScore: top.score, chosen: pick[sh.id], other: why && why.withId,
-      reason: why ? why.blockLabel+': '+why.detail : 'score drops from '+top.score+'% to '+re.score+'% once hours from other recommendations in this run are counted' };
+    // Which higher-priority shifts already hold this guard, and would they be hurt by moving the guard here too?
+    const tTrial = {...pick, [sid]:top.guard.id};
+    const hp = Object.keys(pick).filter(k=>k!==sid && pick[k]===top.guard.id && pr(k)<pr(sid)).map(k=>{
+      const before = evaluate(top.guard, shiftById(k), ctx(pick,k), rules), after = evaluate(top.guard, shiftById(k), ctx(tTrial,k), rules);
+      const direct = why && why.withId===k;
+      return {k, before, after, hit: direct || !after.eligible || after.score<before.score};
+    });
+    const hit = hp.find(x=>x.hit);
+    const where = (hit&&hit.k) || (why&&why.withId&&pick[why.withId]===top.guard.id?why.withId:null) || Object.keys(pick).find(k=>pick[k]===top.guard.id && k!==sid);
+    let reason, kind='opt';
+    if(hit){
+      kind='priority';
+      const w=shiftById(hit.k), wt=((w.origStatus||w.status)==='vacant'?'vacant':'open');
+      const effect = (why && why.withId===hit.k) ? 'with that assignment in the schedule they fail “'+why.blockLabel+'” here'
+        : !hit.after.eligible ? 'taking this shift as well would make them ineligible there ('+hit.after.blocking[0].blockLabel.toLowerCase()+')'
+        : 'taking this shift as well would lower their match there from '+hit.before.score+'% to '+hit.after.score+'%'+(hit.after.otH?' ('+hit.after.otH+'h overtime)':' (weekly hours)');
+      reason = 'is recommended for the higher-priority '+wt+' shift '+shLabel(w)+' ('+PRIORITY[prio[hit.k]].label+' priority, solved first, '+hit.before.score+'% there); '+effect+'. '+((why && why.withId===hit.k) || !hit.after.eligible ? 'Priority never overrides hard rules, so the next-best eligible guard is used here' : 'Higher-priority shifts keep their best match first, so the next-best eligible guard is used here');
+    }
+    else if(why) reason = why.blockLabel.toLowerCase()+': '+why.detail;
+    else if(where){
+      const trial = {...pick, [sid]:top.guard.id, [where]:null};
+      for(const t of ids){ if(t===sid || locked(t)) continue; if(trial[t] && !valid(trial,t)){ const c=cands(trial,t); trial[t]=c.length?c[0].guard.id:null; } if(!trial[t]){ const c=cands(trial,t); if(c.length) trial[t]=c[0].guard.id; } }
+      const fill = p => ids.filter(t=>p[t]).length, tv = objective(trial);
+      const lost = fill(pick)-fill(trial), d = Math.round(totalScore(best)-totalScore(tv));
+      reason = 'is recommended for '+shLabel(shiftById(where))+' instead; '+(lost>0 ? 'moving them here would leave '+lost+' shift'+(lost>1?'s':'')+' without a valid guard' : (!tv ? 'moving them here would create a conflict elsewhere in this run' : 'moving them here lowers the combined score of this run'+(d>0?' by '+d+' point'+(d===1?'':'s'):'')+' (overtime or weaker matches elsewhere)'));
+    }
+    else reason = 'scores lower ('+re.score+'%) once hours from other recommendations in this run are counted';
+    notes[sid] = { kind, top: top.guard.id, topScore: top.score, chosen: pick[sid], other: (why&&why.withId)||where, reason };
   }
-  return { shiftIds: shiftIds.slice(), ai: pick, notes };
+  return { shiftIds: ids0.slice(), order: ids.slice(), prio, ai: pick, notes, seq, locks: {...locks}, dropped, ranAt: Date.now() };
+}
+
+/* Re-validate selections against the CURRENT schedule (used before Apply). */
+function validateSelections(shiftIds, selection, rules){
+  const base = baseAssignments(shiftIds);
+  const issues = [];
+  shiftIds.forEach(sid=>{
+    const gid = selection[sid]; if(!gid) return;
+    const sh = shiftById(sid);
+    if(!sh){ issues.push({sid, gid, label:'Shift was deleted', detail:'The shift no longer exists.'}); return; }
+    if(sh.status==='assigned' && sh.guardId){ issues.push({sid, gid, label:'Shift already filled', detail:'Now assigned to '+guardById(sh.guardId).name+'.'}); return; }
+    const others = Object.entries(selection).filter(([k,v])=>k!==sid && v).map(([k,v])=>({shift:shiftById(k), guardId:v, source:'batch'}));
+    const ev = evaluate(guardById(gid), sh, base.concat(others), rules);
+    if(!ev.eligible) issues.push({sid, gid, label:ev.blocking[0].blockLabel, detail:ev.blocking[0].detail, ev});
+  });
+  return issues;
+}
+/* Re-validate unpublished assignments before Publish. */
+function validateAssignments(ids, rules){
+  const issues=[];
+  ids.forEach(id=>{ const sh=shiftById(id); if(!sh || !sh.guardId) return;
+    const ev=evaluate(guardById(sh.guardId), sh, baseAssignments([sh.id]), rules);
+    if(!ev.eligible) issues.push({sid:id, gid:sh.guardId, label:ev.blocking[0].blockLabel, detail:ev.blocking[0].detail, ev}); });
+  return issues;
 }
 
 /* Live evaluation of one result row given other rows' current selections */
@@ -1326,7 +1626,7 @@ function noEligibleSummary(excluded){
   return Object.entries(counts).sort((a,b)=>b[1]-a[1]);
 }
 
-if(typeof module!=='undefined') module.exports = { HARD_TEMPLATES, activeFactors, CUSTOM_SOURCES, SHIFTS, GUARDS, SITES, FACTORS, defaultRules, runBatch, rowEval, evaluate, baseAssignments, shiftById, explain, noEligibleSummary };
+if(typeof module!=='undefined') module.exports = { PRIORITY, shiftPriority, derivedPriority, prioRank, validateSelections, validateAssignments, reqSkills, deptMode, HARD_TEMPLATES, activeFactors, CUSTOM_SOURCES, SHIFTS, GUARDS, SITES, FACTORS, defaultRules, runBatch, rowEval, evaluate, baseAssignments, shiftById, explain, noEligibleSummary };
 
 </script>
 <script>
@@ -1472,6 +1772,7 @@ function cardHTML(s, variant){
   const tags = [];
   if(s.status==='assigned' && !s.published) tags.push('<span class="tag unpub">Unpublished</span>');
   if(s.ai && s.status==='assigned' && !s.published) tags.push('<span class="tag ai">AI</span>');
+  if(S.mode==='ai-select' && isOpen(s)){ const p=shiftPriority(s); tags.push(`<span class="tag prio p-${p}" title="${esc(prioTip(s,p))}">${PRIORITY[p].label}</span>`); }
   const sub = variant==='wide' ? `<span class="sub">${esc(site.name)} · ${esc(s.post)}</span>` : '';
   const right = S.mode ? `<span class="pick"><i></i></span>` : `<button class="kebab" data-act="shiftmenu" data-id="${s.id}" aria-label="Shift actions">${ic('kebab','fill')}</button>`;
   const title = `${s.id} · ${site.name} · ${s.post} · ${s.status==='assigned'?(s.published?'Published':'Unpublished'):s.status==='open'?'Open':'Vacant'}`;
@@ -1491,7 +1792,7 @@ function toolbarHTML(){
     <div class="tools">
       <button class="pillbtn" data-act="cost" aria-label="Labor cost">${ic('dollar')}</button>
       <button class="pillbtn" data-act="trend" aria-label="Coverage">${ic('trend')}</button>
-      <button class="pillbtn ai" data-act="aimenu" aria-haspopup="menu" aria-expanded="${S.menu&&S.menu.type==='ai'}">${ic('spark')} AI Scheduling ${ic('chevD')}</button>
+      <button class="pillbtn" data-act="aimenu" aria-haspopup="menu" aria-expanded="${S.menu&&S.menu.type==='ai'}">${ic('spark')} AI Scheduling ${ic('chevD')}</button>
       <button class="pillbtn" data-act="filters">${ic('filter')} Filters${fc?` <span class="cnt">${fc}</span>`:''}</button>
       <button class="iconbtn" data-act="more" aria-label="More">${ic('kebab','fill')}</button>
     </div></div>`;
@@ -1527,7 +1828,7 @@ function listHTML(){
   return `<div class="tablewrap"><table class="grid"><thead><tr><th>Date</th><th>Time</th><th>Site</th><th>Post</th><th>Guard</th><th>Status</th><th>Publishing</th><th></th></tr></thead><tbody>${rows.map(s=>{
     const g = s.guardId?guardById(s.guardId):null; const site=SITES[s.site];
     let rc='click'; if(S.selected.has(s.id)) rc+=' selected'; if(S.mode==='ai-select' && !isOpen(s)) rc+=' locked';
-    const st = s.status==='assigned' ? `<span class="st ok">Assigned</span>` : s.status==='open' ? `<span class="st bad">Open</span>` : `<span class="st warn">Vacant</span>`;
+    const st = s.status==='assigned' ? `<span class="st ok">Assigned</span>` : (s.status==='open' ? `<span class="st bad">Open</span>` : `<span class="st warn">Vacant</span>`)+' '+prioChip(s,{short:true});
     const pb = s.status!=='assigned' ? '<span class="st muted">—</span>' : s.published ? `<span class="st ok">${ic('check')}Published</span>` : `<span class="st muted">Unpublished</span>`;
     const ai = s.ai && !s.published ? ` <span class="mini-tag ai">AI${s.aiScore?' '+s.aiScore+'%':''}</span>` : '';
     return `<tr class="${rc}" data-act="card" data-id="${s.id}"><td class="num">${fmtDay(s.date)}</td><td class="num">${timeRange(s)}</td><td><span class="dot" style="background:var(--c-${site.color})"></span>${esc(site.name)}</td><td>${esc(s.post)}</td><td>${g?esc(g.name):'<span style="color:var(--muted)">'+(s.status==='open'?'No Guard':'Vacant')+'</span>'}${ai}</td><td>${st}</td><td>${pb}</td><td>${S.mode?'':`<button class="iconbtn" data-act="shiftmenu" data-id="${s.id}" aria-label="Shift actions">${ic('kebab','fill')}</button>`}</td></tr>`;
@@ -1540,146 +1841,237 @@ function rowData(sid){ return rowEval(S.run, sid, S.rules, S.sel); }
 function rowStatus(sid, rd){
   const gid = selectedFor(sid);
   if(!rd.eligible.length) return {key:'none', html:`<span class="st warn">${ic('alert')}No Eligible Guard</span>`};
-  if(!gid) return S.manual[sid]==='skip' ? {key:'skip', html:`<span class="st muted">Left vacant</span>`} : {key:'unres', html:`<span class="st warn">${ic('alert')}Unresolved</span>`};
-  const ev = rd.eligible.find(x=>x.ev.guard.id===gid);
-  const w = ev ? ev.ev.warnings.length : 0;
-  return w ? {key:'warn', warn:w, html:`<span class="st warn">${ic('alert')}Ready · ${w} warning${w>1?'s':''}</span>`} : {key:'ready', html:`<span class="st ok">${ic('check')}Ready</span>`};
+  if(!gid) return S.manual[sid]==='skip' ? {key:'skip', html:`<span class="st muted">Left open</span>`} : {key:'unres', html:`<span class="st warn">${ic('alert')}Unresolved</span>`};
+  const x = rd.eligible.find(y=>y.ev.guard.id===gid);
+  if(!x || x.blockedLive) return {key:'invalid', html:`<span class="st bad">${ic('xcirc')}Needs review</span>`};
+  const m = majorWarn(x.ev).length;
+  return m ? {key:'warn', html:`<span class="st warn">${ic('alert')}Ready · ${m} warning${m>1?'s':''}</span>`} : {key:'ready', html:`<span class="st ok">${ic('check')}Ready</span>`};
 }
 function resultStats(){
-  let ready=0, unres=0, sum=0, hi=0, review=0, manual=0, cnt=0;
+  let ready=0, unres=0, sum=0, hi=0, review=0, manual=0, cnt=0, invalid=0;
   S.run.shiftIds.forEach(sid=>{
     const rd=rowData(sid), gid=selectedFor(sid);
     if(!gid){ unres++; return; }
     const found=rd.eligible.find(x=>x.ev.guard.id===gid);
-    if(!found){ unres++; return; }
+    if(!found || found.blockedLive){ invalid++; return; }
     const ev=found.ev;
     ready++; sum+=ev.score; cnt++;
-    if(ev.score>=80 && !ev.warnings.length) hi++; else review++;
+    if(majorWarn(ev).length) review++; else hi++;
     if(gid!==S.run.ai[sid]) manual++;
   });
-  return {total:S.run.shiftIds.length, ready, unres, avg: cnt?Math.round(sum/cnt):0, hi, review, manual};
+  return {total:S.run.shiftIds.length, ready, unres, invalid, avg: cnt?Math.round(sum/cnt):0, hi, review, manual};
 }
 function resultsHTML(){
   const st = resultStats();
   const notes = Object.entries(S.run.notes).filter(([k,v])=>v.top && v.chosen);
-  const sorted = S.run.shiftIds.slice().sort((a,b)=>{ const A=shiftById(a),B=shiftById(b); return range(A)[0]-range(B)[0]; });
+  const sorted = runOrder().slice();
+  const tierCount = {}; sorted.forEach(k=>{ const p=S.run.prio[k]; tierCount[p]=(tierCount[p]||0)+1; });
+  const tierTxt = PRIORITY_KEYS.filter(k=>tierCount[k]).map(k=>tierCount[k]+' '+PRIORITY[k].label).join(' → ');
   return `<div class="res-head"><div><div class="eyebrow">${ic('spark')}AI Scheduling</div><h2>AI Scheduling Results</h2>
       <p>Review each recommendation, compare alternatives and change any guard. Nothing is assigned until you apply, and nothing is published until you publish.</p>
-      <span class="principle">${ic('spark')}AI recommends. Scheduler decides.</span></div>
-      <div class="acts"><button class="btn outline" data-act="rules">${ic('sliders')} Rules</button><button class="btn outline" data-act="expand-all">${S.expanded.size===S.run.shiftIds.length?'Collapse all':'Expand all'}</button></div></div>
+      <span class="principle">${ic('spark')}AI recommends. Scheduler decides.</span>
+      <span class="analysed">${ic('clock')} Analysed ${fmtT(S.run.ranAt+5.5*3600000)} against the complete schedule: ${SHIFTS.filter(x=>x.status==='assigned').length} assigned shifts, ${GUARDS.length} guards</span></div>
+      <div class="acts"><button class="btn outline" data-act="rerun-ai" title="Re-run AI using the latest schedule. Your own selections are kept.">${ic('refresh')} Re-run AI</button><button class="btn outline" data-act="rules">${ic('sliders')} Rules</button><button class="btn outline" data-act="expand-all">${S.expanded.size===S.run.shiftIds.length?'Collapse all':'Expand all'}</button><button class="link demo" data-act="simulate-change" title="Demo only">${ic('refresh')}Simulate schedule change <span class="admin-tag">Demo</span></button></div></div>
     <div class="stats">
       <div class="t"><b>${st.total}</b><span>Shifts analyzed</span></div>
       <div class="t ok"><b>${st.ready}</b><span>Recommendations ready</span></div>
-      <div class="t ${st.unres?'warn':''}"><b>${st.unres}</b><span>Unresolved / left vacant</span></div>
+      <div class="t ${st.unres?'warn':''}"><b>${st.unres}</b><span>Unresolved / left open</span></div>
       <div class="t"><b>${st.avg}%</b><span>Average score</span></div>
-      <div class="t ok"><b>${st.hi}</b><span>High confidence</span></div>
-      <div class="t ${st.review?'warn':''}"><b>${st.review}</b><span>Needs review</span></div>
+      <div class="t ok"><b>${st.hi}</b><span>No warnings</span></div>
+      <div class="t ${st.review?'warn':''}"><b>${st.review}</b><span>With warnings</span></div>
     </div>
-    ${notes.length?`<div class="callout optnote">${ic('route')}<div><b>Optimized across all ${st.total} shifts.</b> ${notes.length} recommendation${notes.length>1?'s were':' was'} moved to the next-best guard to avoid double booking, impossible travel or extra overtime. Look for the route marker in the table.</div></div>`:''}
-    <div class="tablewrap"><table class="res"><thead><tr><th style="width:34px"></th><th>Shift</th><th>Site / Post</th><th>Requires</th><th>Recommended guard</th><th>Score</th><th>Status</th></tr></thead><tbody>
+    ${st.invalid?`<div class="callout bad">${ic('xcirc')}<div><b>Schedule changed – ${st.invalid} selection${st.invalid>1?'s':''} no longer valid.</b> The schedule changed after this analysis, so ${st.invalid>1?'these guards':'this guard'} now fail${st.invalid>1?'':'s'} a hard rule. Choose another guard or <button class="link" data-act="rerun-ai">re-run AI with the latest schedule</button>.</div></div>`:''}
+    ${S.run.dropped&&S.run.dropped.length?`<div class="callout warn">${ic('alert')}<div>${S.run.dropped.length} of your earlier selection${S.run.dropped.length>1?'s are':' is'} no longer valid against the latest schedule and ${S.run.dropped.length>1?'were':'was'} replaced by AI: ${S.run.dropped.map(d=>esc(guardById(d.gid).name)+' ('+d.sid+')').join(', ')}.</div></div>`:''}
+    ${sorted.length>1?`<div class="callout prio">${ic('route')}<div><b>Solved in priority order: ${esc(tierTxt)}.</b> Vacant shifts are High priority and Open shifts are Normal by default. AI finds the best eligible guard for the highest-priority shift first, adds it to the working schedule, then recalculates eligibility for the remaining shifts. Priority decides the order only – it never overrides a hard rule.</div></div>`:''}
+    ${(()=>{ const st2=Object.entries(S.run.notes).filter(([k,v])=>v.kind==='starved'); if(!notes.length && !st2.length) return '';
+      return `<div class="callout optnote">${ic('route')}<div><b>Optimized across all ${st.total} shifts together.</b> The same guard is never recommended for two shifts they cannot both work. Where shifts compete for a guard, the higher-priority shift keeps them.
+        <ul class="optlist">${notes.map(([k,v])=>{ const x=shiftById(k); return `<li><b>${fmtShort(x.date)} ${x.start} · ${esc(SITES[x.site].name)}</b> ${prioChip(x,{short:true})} ${esc(guardById(v.top).name)} (${v.topScore}%) ${esc(v.reason)} → ${esc(guardById(v.chosen).name)} recommended.</li>`; }).join('')}
+        ${st2.map(([k,v])=>{ const x=shiftById(k); return `<li class="bad"><b>${fmtShort(x.date)} ${x.start} · ${esc(SITES[x.site].name)}:</b> left unresolved. Its eligible guard${v.users.length>1?'s are':' is'} needed for${v.byHigher?' higher-priority':''} ${v.users.map(u=>{ const y=shiftById(u); return fmtShort(y.date)+' '+y.start+' '+SITES[y.site].name; }).join(', ')}, and one guard cannot work both${v.byHigher?'. Higher-priority shifts are solved first':''}.</li>`; }).join('')}</ul></div></div>`; })()}
+    <div class="tablewrap"><table class="res"><thead><tr><th style="width:34px"></th><th class="ordh" title="Order in which AI solved the shifts">#</th><th>Shift</th><th>Site / Post</th><th>Requires</th><th>Recommended guard</th><th>Score</th><th>Status</th></tr></thead><tbody>
     ${sorted.map(sid=>{
       const sh=shiftById(sid), rd=rowData(sid), gid=selectedFor(sid), exp=S.expanded.has(sid), stt=rowStatus(sid,rd);
-      const ev = gid ? rd.eligible.find(x=>x.ev.guard.id===gid).ev : null;
+      const fnd = gid ? rd.eligible.find(x=>x.ev.guard.id===gid) : null; const ev = fnd && !fnd.blockedLive ? fnd.ev : null;
       const aiG = S.run.ai[sid] ? guardById(S.run.ai[sid]) : null;
       let gcell = '<span style="color:var(--muted)">—</span>';
       if(ev){
         const isAI = gid===S.run.ai[sid];
-        gcell = `<div class="gcell">${avatar(ev.guard)}<div class="gt"><b>${esc(ev.guard.name)}</b><small>${tierBadge(scoreTier(ev.score))}</small>${S.run.notes[sid]&&S.run.notes[sid].top&&isAI?`<span class="rowflag">${ic('route')}Optimized</span>`:''}</div></div>`;
+        gcell = `<div class="gcell">${avatar(ev.guard)}<div class="gt"><b>${esc(ev.guard.name)}</b><small>${tierBadge(gid===S.run.ai[sid]?'rec':'elig')}${warnChip(ev)}</small>${isAI?`<span class="rowwhy">${esc(prioReason(sid,rd).short)}</span>`:`<span class="rowwhy">Selected by you</span>`}</div></div>`;
       }
       return `<tr class="row ${exp?'exp':''}" data-act="toggle-row" data-id="${sid}" tabindex="0">
         <td>${ic('chevR','caret')}</td>
-        <td class="cell-shift"><b>${fmtDay(sh.date)} · ${sh.start}–${sh.end}</b><span>${sid} · ${shiftType(sh)} · ${sh.status==='open'?'Open':'Vacant'}</span></td>
+        <td class="ord"><span>${sorted.indexOf(sid)+1}</span></td>
+        <td class="cell-shift"><b>${fmtDay(sh.date)} · ${sh.start}–${sh.end}</b><span>${prioChip(sh)}</span><span>${sid} · ${shiftType(sh)}</span></td>
         <td class="cell-site"><b>${esc(SITES[sh.site].name)}</b><span>${esc(sh.post)} · ${esc(sh.dept)}</span></td>
         <td><div class="qchips">${sh.req.map(q=>`<span class="q">${esc(q)}</span>`).join('')}${sh.pref.map(q=>`<span class="q pref" title="Preferred">${esc(q)}</span>`).join('')}</div></td>
-        <td>${gcell}</td><td>${ev?scoreBar(ev.score):'<span style="color:var(--muted)">—</span>'}</td><td>${stt.html}</td></tr>
-        ${exp?`<tr class="detail"><td colspan="7">${detailHTML(sid, rd)}</td></tr>`:''}`;
+        <td>${gcell}${gid&&!ev?`<div class="gcell bad">${ic('xcirc')}<span>${esc(guardById(gid).name)} no longer valid</span></div>`:''}</td><td>${ev?scoreBar(ev.score):'<span style="color:var(--muted)">—</span>'}</td><td>${stt.html}</td></tr>
+        ${exp?`<tr class="detail"><td colspan="8">${detailHTML(sid, rd)}</td></tr>`:''}`;
     }).join('')}</tbody></table></div>`;
 }
 const BLOCK_TEXT = {
   'Qualification mismatch': (n,sh)=>`${n} guard${n>1?'s':''} lack the required qualification (${sh.req.join(' + ')})`,
-  'Department mismatch': (n,sh)=>`${n} guard${n>1?'s are':' is'} outside ${sh.dept}`,
-  'Guard unavailable': n=>`${n} guard${n>1?'s are':' is'} unavailable`,
-  'Schedule conflict': n=>`${n} guard${n>1?'s have':' has'} schedule conflicts`,
-  'Impossible travel': n=>`${n} guard${n>1?'s':''} can't reach the site in time`,
+  'Certification expired': n=>`${n} guard${n>1?'s have':' has'} an expired required certification`,
+  'Missing required skill': (n,sh)=>`${n} guard${n>1?'s are':' is'} missing a required skill (${reqSkills(sh).join(', ')})`,
+  'Department mismatch': (n,sh)=>`${n} guard${n>1?'s are':' is'} outside the required department (${sh.dept})`,
+  'Unavailable for full shift': n=>`${n} guard${n>1?'s are':' is'} not available for the complete shift`,
+  'Overlapping shift': n=>`${n} guard${n>1?'s have':' has'} an overlapping shift`,
+  'Cannot reach site in time': n=>`${n} guard${n>1?'s':''} cannot travel from another shift in time`,
+  'Insufficient rest': n=>`${n} guard${n>1?'s do':' does'} not have the minimum ${S.rules.restHours}h rest between shifts`,
   'Not cleared for site': (n,sh)=>`${n} guard${n>1?'s are':' is'} not cleared for ${SITES[sh.site].name}`,
   'Weekly hour limit exceeded': n=>`${n} guard${n>1?'s':''} would exceed ${S.rules.maxHoursCap}h this week`,
+  'Overtime not allowed': n=>`${n} guard${n>1?'s':''} would go into overtime (not allowed)`,
   'Guard inactive': n=>`${n} guard${n>1?'s are':' is'} inactive`,
 };
 function excludedTable(rd){
-  return `<div class="excl"><table>${rd.excluded.map(ev=>`<tr><td>${esc(ev.guard.name)}</td><td>${ev.blocking.map(c=>`<span class="x-reason">✕ ${esc(c.blockLabel)} — ${esc(c.detail)}</span>`).join('')}</td></tr>`).join('')}</table></div>`;
+  return `<div class="excl"><table>${rd.excluded.map(ev=>`<tr><td>${esc(ev.guard.name)}</td><td>${ev.blocking.map(c=>`<span class="x-reason">✕ Not Eligible – ${esc(c.blockLabel)}: ${esc(c.detail)}</span>`).join('')}</td></tr>`).join('')}</table></div>`;
 }
+/* ---------- Shift priority (decides solve order only; never relaxes a hard rule) ---------- */
+function shType(sh){ return (sh.origStatus||sh.status)==='vacant'?'Vacant':'Open'; }
+function prioOf(sh){ return (S.run && S.run.prio && S.run.prio[sh.id]) || shiftPriority(sh); }
+function prioTip(sh, p){ return sh.priority ? 'Priority set by scheduler: '+PRIORITY[p].label : 'Auto from shift type: '+shType(sh)+' → '+PRIORITY[p].label; }
+function prioChip(sh, opt){ opt=opt||{}; const p=opt.p||prioOf(sh);
+  return `<span class="pchip p-${p}" title="${esc(prioTip(sh,p))}">${opt.short?PRIORITY[p].label:shType(sh).toUpperCase()+' · '+PRIORITY[p].label.toUpperCase()+' PRIORITY'}</span>`; }
+function prioSummary(shs){ const c={}; shs.forEach(sh=>{ const k=shType(sh)+' · '+PRIORITY[shiftPriority(sh)].label; const r=prioRank(sh); c[k]=c[k]||{n:0,r}; c[k].n++; }); return Object.entries(c).sort((a,b)=>a[1].r-b[1].r).map(([k,v])=>v.n+' '+k); }
+function sortByPrio(shs){ const q={}; shs.forEach(x=>{ q[x.id]=quickEligible(x); }); return shs.slice().sort((a,b)=> prioRank(a)-prioRank(b) || q[a.id]-q[b.id] || range(a)[0]-range(b)[0]); }
+function runOrder(){ return (S.run && S.run.order) || (S.run ? S.run.shiftIds : []); }
+function prioReason(sid, rd){
+  const sh=shiftById(sid), p=prioOf(sh), L=PRIORITY[p].label, type=shType(sh).toLowerCase();
+  const order=runOrder(), n=order.indexOf(sid)+1, tot=order.length;
+  const higher=order.filter(k=>PRIORITY[S.run.prio[k]].rank<PRIORITY[p].rank).length;
+  const pre = `${L}-priority ${type} shift · solved ${n} of ${tot}${higher?` (after ${higher} higher-priority shift${higher>1?'s':''})`:tot>1?' (no shift ranks higher)':''}.`;
+  const aiId=S.run.ai[sid], note=S.run.notes[sid];
+  let body, short;
+  if(!rd.eligible.length){ body=`No guard passes every mandatory rule, so it stays ${type}. Priority decides the solve order only – it never overrides a hard rule.`; short='No eligible guard'; }
+  else if(!aiId){ body = note&&note.kind==='starved'&&note.byHigher ? `Every eligible guard is needed for a higher-priority shift that was solved first and they cannot work both, so this shift is left ${type}.` : `Every eligible guard is needed for another selected shift they cannot also work, so this shift is left ${type}.`; short = note&&note.byHigher?'Guards used by higher-priority shift':'Guards needed elsewhere'; }
+  else { const a=rd.eligible.find(x=>x.ev.guard.id===aiId); const nm=guardById(aiId).name; const k=a?a.ev.checks.filter(c=>c.on).length:'all'; const sc=a?' ('+a.ev.score+'%)':'';
+    if(!note||!note.top){ body=`${nm} passed all ${k} mandatory eligibility rules and achieved the highest score among eligible guards${sc}.`; short='Highest eligible score'; }
+    else if(note.kind==='priority'){ body=`${guardById(note.top).name} (${note.topScore}%) is recommended for a higher-priority shift that was solved first. ${nm} passed all ${k} mandatory rules and is the best eligible guard still available${sc}.`; short='Best guard still available after higher priority'; }
+    else { body=`${nm} passed all ${k} mandatory rules and gives the best valid result across this run${sc}. ${guardById(note.top).name} ${note.reason}.`; short='Best fit across the run'; } }
+  return {pre, body, short, n};
+}
+function prioWhyHTML(sid, rd){ const sh=shiftById(sid), r=prioReason(sid, rd);
+  return `<div class="prio-why">${ic('route')}<div><div class="pw-h"><span class="pw-n">${r.n}</span>${prioChip(sh)}<b>Why this shift was handled ${r.n===1?'first':'in this order'}</b></div><p><b>${esc(r.pre)}</b> ${esc(r.body)}</p></div></div>`; }
 const TIERS = {
-  high:{label:'Highly Recommended', range:'85–100%', cls:'t-high'},
-  rec: {label:'Recommended', range:'70–84%', cls:'t-rec'},
-  low: {label:'Least Recommended', range:'below 70%', cls:'t-low'},
-  attn:{label:'Needs Attention', range:'blocked in this run', cls:'t-attn'},
+  rec: {label:'Recommended', cls:'t-high'},
+  elig:{label:'Eligible', cls:'t-rec'},
+  warn:{label:'Warning', cls:'t-low'},
+  ne:  {label:'Not Eligible', cls:'t-attn'},
 };
-function scoreTier(score){ return score>=85?'high':score>=70?'rec':'low'; }
-function tierOf(x){ return scoreTier(x.ev.score); }
+function scoreTier(score){ return score>=80?'rec':'elig'; }
 function tierBadge(t){ return `<span class="tbadge ${TIERS[t].cls}">${TIERS[t].label}</span>`; }
+function majorWarn(ev){ return ev.warnings.filter(w=>w.major); }
+function warnChip(ev){ const m=majorWarn(ev); return m.length?`<span class="tbadge t-low" title="${esc(m.map(w=>w.text).join(' • '))}">⚠ Warning</span>`:''; }
+function shiftReqHTML(sh){
+  const rs=reqSkills(sh), ps=shiftSkills(sh).filter(k=>!rs.includes(k)), site=SITES[sh.site], dm=deptMode(sh);
+  return `<div class="fillbox"><div class="fb-h">${ic('cal')}<b>Shift to fill</b><span>${fmtDay(sh.date)} · ${sh.start}–${sh.end} (${shHours(sh)}h, ${shiftType(sh)}) · ${esc(site.name)} · ${esc(sh.post)}${sh.note?' · '+esc(sh.note):''}</span>${prioChip(sh)}</div>
+    <div class="fb-reqs">
+      <span class="rq"><i>Qualification</i>${sh.req.map(q=>`<b class="req">${esc(q)}</b>`).join('')}${sh.pref.map(q=>`<b class="pref">${esc(q)}</b>`).join('')}</span>
+      <span class="rq"><i>Skills</i>${rs.map(q=>`<b class="req">${esc(q)}</b>`).join('')}${ps.map(q=>`<b class="pref">${esc(q)}</b>`).join('')}${!rs.length&&!ps.length?'<b class="none">None</b>':''}</span>
+      <span class="rq"><i>Department</i><b class="${dm==='required'?'req':'pref'}">${esc(sh.dept)}</b></span>
+      <span class="rq"><i>Site clearance</i><b class="${site.restricted?'req':'none'}">${site.restricted?'Required':'Not required'}</b></span>
+      <span class="rq legend"><b class="req">Required</b><b class="pref">Preferred</b></span>
+    </div></div>`;
+}
+function checklistHTML(ev){
+  return `<ul class="hrlist">${ev.checks.map(c=>`<li class="${!c.on?'off':c.pass?'pass':'fail'}">${!c.on?ic('info'):c.pass?ic('check','okc'):ic('xcirc','bc')}<span><b>${esc(c.label)}</b>${!c.on?' <em>(rule off)</em>':''}<small>${esc(c.detail)}</small></span></li>`).join('')}</ul>`;
+}
+function contextHTML(ev){
+  const sh=ev.shift, P=ev.ctx.prev, N=ev.ctx.next;
+  const line=(L,dir)=>{ if(!L) return `<div class="cx-row none"><span class="cx-k">${dir<0?'Previous shift':'Next shift'}</span><span>None in the schedule${dir<0?' before':' after'} this shift</span></div>`;
+    const o=L.x.a.shift; const far=L.gap>48*60;
+    return `<div class="cx-row ${L.gap<L.need?'bad':L.rest<(S.rules.restHours*60)?'bad':''}"><span class="cx-k">${dir<0?'Previous shift':'Next shift'}</span><span><b>${fmtDay(o.date)} ${o.start}–${o.end}</b> · ${esc(SITES[o.site].name)}${L.x.a.source==='batch'?' <em>(this run)</em>':''}<small>${far?'More than 48h away':(dir<0?'Ends ':'Starts ')+(dir<0?fmtT(L.x.r[1]):o.start)+' · gap '+hm(L.gap)+(L.tm?' · travel '+L.tm+' min':' · same site')+' · rest '+hm(L.rest)}</small></span></div>`; };
+  return `<div class="cxbox">${line(P,-1)}<div class="cx-row this"><span class="cx-k">This shift</span><span><b>${fmtDay(sh.date)} ${sh.start}–${sh.end}</b> · ${esc(SITES[sh.site].name)}</span></div>${line(N,1)}
+    <div class="cx-hours"><span>Week: <b>${ev.before}h</b> worked/scheduled + <b>${ev.shiftH}h</b> = <b>${ev.projected}h</b></span><span>Overtime after ${ev.otAt}h · Limit ${S.rules.maxHoursCap}h</span><span class="${ev.otH?'wc':'okc'}">${ev.otH?ev.otH+'h overtime'+(S.rules.overtimePolicy==='notallowed'?' (not allowed)':' (allowed, ranked lower)'):'No overtime'}</span></div></div>`;
+}
 function detailHTML(sid, rd){
   const sh = shiftById(sid);
+  const top = shiftReqHTML(sh) + prioWhyHTML(sid, rd);
   if(!rd.eligible.length){
     const reasons = noEligibleSummary(rd.excluded);
     const relaxed = Object.values(S.rules.hard).filter(v=>!v).length;
-    return `<div class="noelig"><div class="card"><h4>${ic('alert')}No Eligible Guard</h4>
-      <div class="when"><b>${fmtShort(sh.date)}</b> · ${sh.start} – ${sh.end} · ${esc(SITES[sh.site].name)}, ${esc(sh.post)}</div>
-      <div>No guard satisfies all required rules.${sh.note?' <span style="color:var(--muted)">('+esc(sh.note)+')</span>':''}</div>
+    const near = rd.excluded.filter(e=>e.guard.status==='Active').sort((a,b)=>a.blocking.length-b.blocking.length || b.score-a.score).slice(0,3);
+    return top+`<div class="noelig"><div class="card"><h4>${ic('alert')}No Eligible Guard Found</h4>
+      <div>No guard passes every mandatory rule, so AI will not assign this shift. It stays ${sh.status==='open'?'open':'vacant'}.</div>
       <ul>${reasons.map(([k,n])=>`<li>${esc((BLOCK_TEXT[k]||(x=>x+' guard'+(x>1?'s fail':' fails')+' “'+k+'”'))(n,sh))}</li>`).join('')}</ul>
-      <button class="link" data-act="toggle-excl" data-id="${sid}">${S.showExcl.has(sid)?'Hide details':'View Details'} ${ic('chevD')}</button>
+      <button class="link" data-act="toggle-excl" data-id="${sid}">${S.showExcl.has(sid)?'Hide details':'View every guard and the rule they fail'} ${ic('chevD')}</button>
       ${S.showExcl.has(sid)?excludedTable(rd):''}</div>
-      <div class="side"><h5 style="margin:0 0 10px;font-size:11.5px;letter-spacing:.9px;text-transform:uppercase;color:var(--muted)">What you can do</h5>
+      <div class="side"><h5 class="sideh">Closest alternatives (not valid AI recommendations)</h5>
+        ${near.map(e=>`<div class="near">${avatar(e.guard)}<div><b>${esc(e.guard.name)}</b><small class="bc">✕ ${esc(e.blocking.map(c=>c.blockLabel).join(', '))}</small><small>${esc(e.blocking[0].detail)}</small></div></div>`).join('')}
+        <h5 class="sideh" style="margin-top:14px">What you can do</h5>
         <div class="confirm-list" style="margin-top:0">
-          <div>${ic('clock')}<span>Leave the shift ${sh.status==='open'?'open':'vacant'} and fill it manually later from the Scheduler.</span></div>
-          <div>${ic('sliders')}<span>Adjust a hard rule (for example, Required Qualification) and recalculate.${relaxed?` ${relaxed} rule${relaxed>1?'s are':' is'} already off.`:''}</span></div>
+          <div>${ic('clock')}<span>Leave the shift ${sh.status==='open'?'open':'vacant'} and fill it later.</span></div>
+          <div>${ic('sliders')}<span>Change a hard rule or the shift's requirements, then re-run AI.${relaxed?` ${relaxed} rule${relaxed>1?'s are':' is'} already off.`:''}</span></div>
         </div>
         <button class="btn outline" data-act="rules" data-open="hard">${ic('sliders')} Adjust Rules</button></div></div>`;
   }
   const gid = selectedFor(sid), aiId = S.run.ai[sid];
   const focusId = S.focusG[sid] || gid || aiId || rd.eligible[0].ev.guard.id;
-  const fx = rd.eligible.find(x=>x.ev.guard.id===focusId) || rd.eligible[0];
+  const fxE = rd.eligible.find(x=>x.ev.guard.id===focusId);
+  const fxX = !fxE ? rd.excluded.find(e=>e.guard.id===focusId) : null;
+  const fx = fxE || (fxX ? {ev:fxX, excluded:true} : rd.eligible[0]);
   const ev = fx.ev;
-  const optRow = (x)=>{
-    const g=x.ev.guard, on = gid===g.id, isAI = g.id===aiId, dis = x.blockedLive && !on, foc = focusId===g.id, t = tierOf(x);
+  const valid = rd.eligible.filter(x=>!x.blockedLive), blocked = rd.eligible.filter(x=>x.blockedLive);
+  const aiRow = valid.find(x=>x.ev.guard.id===aiId);
+  const others = valid.filter(x=>x.ev.guard.id!==aiId);
+  const optRow = (x, n)=>{
+    const g=x.ev.guard, on = gid===g.id, isAI = g.id===aiId, dis = x.blockedLive, foc = focusId===g.id;
     const blk = x.ev.blocking[0];
-    return `<div class="opt ${on?'on':''} ${foc?'focus':''} ${dis?'dis':''}" data-act="inspect-guard" data-sid="${sid}" data-gid="${g.id}" ${dis?'role="button" aria-label="View '+esc(g.name)+' (cannot be assigned)"':`role="radio" aria-checked="${on}"`} tabindex="0" title="${dis?'View details. This guard cannot be assigned to this shift.':'View details and select this guard'}">
-      <span class="radio"></span>${avatar(g)}
-      <div class="ot"><b><span class="gname">${esc(g.name)}</span>${tierBadge(t)}</b>
-      ${dis?`<small class="bad">✕ ${esc(blk?blk.blockLabel+': '+blk.detail:'Conflicts with another selection')}</small>`:`<small>${x.ev.distance} mi · ${x.ev.projected}h projected · $${g.rate}/hr${x.ev.warnings.length?` · <span class="wi">${ic('alert')}${x.ev.warnings.length}</span>`:''}</small>`}</div>
+    return `<div class="opt ${on?'on':''} ${foc?'focus':''} ${dis?'dis':''}" data-act="inspect-guard" data-sid="${sid}" data-gid="${g.id}" ${dis?'role="button" aria-label="View '+esc(g.name)+' (cannot be assigned)"':`role="radio" aria-checked="${on}"`} tabindex="0">
+      <span class="radio"></span>${n?`<span class="rk">${n}</span>`:''}${avatar(g)}
+      <div class="ot"><b><span class="gname">${esc(g.name)}</span>${dis?tierBadge('ne'):tierBadge(isAI?'rec':'elig')}${dis?'':warnChip(x.ev)}</b>
+      ${dis?`<small class="bad">✕ Not available in this run – ${esc(blk?blk.detail:'conflicts with another selection')}</small>`:`<small>${x.ev.distance} mi · ${x.ev.projected}h this week${x.ev.otH?' · <span class="wc">'+x.ev.otH+'h OT</span>':''} · $${g.rate}/hr</small>`}</div>
       <span class="os">${x.ev.score}%</span>${foc?`<span class="viewing" aria-hidden="true">${ic('chevR')}</span>`:''}</div>`;
   };
-  const aiRow = rd.eligible.find(x=>x.ev.guard.id===aiId);
-  const others = rd.eligible.filter(x=>x.ev.guard.id!==aiId);
+  const exRow = e => `<div class="opt ne ${focusId===e.guard.id?'focus':''}" data-act="inspect-guard" data-sid="${sid}" data-gid="${e.guard.id}" role="button" tabindex="0" aria-label="View why ${esc(e.guard.name)} is not eligible">
+      <span class="radio"></span>${avatar(e.guard)}<div class="ot"><b><span class="gname">${esc(e.guard.name)}</span>${tierBadge('ne')}</b><small class="bad">✕ ${esc(e.blocking[0].blockLabel)} – ${esc(e.blocking[0].detail)}${e.blocking.length>1?' (+'+(e.blocking.length-1)+' more)':''}</small></div>${focusId===e.guard.id?`<span class="viewing" aria-hidden="true">${ic('chevR')}</span>`:''}</div>`;
+  const exAll = S.showExcl.has(sid), exList = rd.excluded.slice().sort((a,b)=>a.blocking.length-b.blocking.length);
   const note = S.run.notes[sid];
-  const factorRows = S.rules.factors.map(f=>{ const on=f.on; const v=ev.factors[f.key]||0;
-    return `<tr class="${on?'':'off'}"><td class="fl"><b>${esc(f.label)}</b><small>${esc(ev.details[f.key]||'')}</small></td><td class="fw">${on?'×'+f.weight+'<small>'+factorPct(S.rules,f.key).toFixed(1)+'%</small>':'Off'}</td><td class="fb"><div class="bar"><span class="${scoreCls(v)}" style="width:${v}%"></span></div></td><td class="fv">${on?v:'—'}</td></tr>`; }).join('');
-  const act = ev.activeFactors;
-  const calc = `${act.map(x=>x.value+'×'+(x.weight/ev.wsum*100).toFixed(1)+'%').join(' + ')} = ${(Math.round(ev.raw*10)/10)} → ${ev.score}%  (weights total 100%)`;
   const isAIfocus = ev.guard.id===aiId;
-  let explanation;
-  if(isAIfocus) explanation = explain(ev);
-  else if(aiRow){ const d = ev.score - aiRow.ev.score; explanation = `${ev.guard.name} scores ${Math.abs(d)} point${Math.abs(d)===1?'':'s'} ${d<=0?'below':'above'} the top-ranked guard (${aiRow.ev.guard.name}, ${aiRow.ev.score}%). ` + explain(ev, 'They'); }
-  else explanation = explain(ev, ev.guard.name+' is eligible: they');
-  return `<div class="detail-grid"><div class="dpane">
-      <h5>${ic('star')}Recommended Guards (${rd.eligible.length})<span class="h5r">Click a guard to view and select</span></h5>
-      ${['high','rec','low'].map(t=>{ const list=rd.eligible.filter(x=>tierOf(x)===t).sort((a,b)=>b.ev.score-a.ev.score); if(!list.length) return '';
-        return `<div class="tier-h">${tierBadge(t)}<span>${list.length} guard${list.length===1?'':'s'} · ${TIERS[t].range}</span></div>${list.map(optRow).join('')}`; }).join('')}
-      <div class="opt ${!gid?'on':''}" data-act="pick-guard" data-sid="${sid}" data-gid="" role="radio" aria-checked="${!gid}" tabindex="0"><span class="radio"></span><div class="ot"><b>Leave shift ${sh.status==='open'?'open':'vacant'}</b><small>Ignore the recommendation for now</small></div></div>
-      <button class="link" style="margin-top:6px" data-act="toggle-excl" data-id="${sid}">${ic('xcirc')}${rd.excluded.length} guard${rd.excluded.length===1?'':'s'} excluded by hard rules · ${S.showExcl.has(sid)?'Hide':'Show'}</button>
-      ${S.showExcl.has(sid)?excludedTable(rd):''}
-    </div>
-    <div class="dpane why-pane ${S.fadeKey===sid?'fade':''}">
-      <h5>${ic('info')}Why is this guard ${isAIfocus?'recommended':'ranked here'}?</h5>
-      <div class="why-head">${avatar(ev.guard)}<div><div class="nm">${esc(ev.guard.name)}</div><div style="color:var(--muted);font-size:12.5px">${ev.guard.id} · ${esc(ev.guard.dept)} · ${esc(ev.guard.quals.join(', '))}</div></div>
-        <span class="big ${''}">${ev.score}%</span>${tierBadge(tierOf(fx))}
-        <div class="actions"><button class="btn outline" data-act="history" data-gid="${ev.guard.id}" data-sid="${sid}">${ic('clock')} View Guard History</button></div></div>
-      <div class="selstate ${fx.blockedLive?'bad':gid===ev.guard.id?'ok':''}">${fx.blockedLive?ic('xcirc')+' Cannot be assigned: '+esc((ev.blocking[0]||{}).blockLabel||'conflict')+'. Viewing for comparison only.':gid===ev.guard.id?ic('check')+' Selected for this shift':ic('info')+' Viewing only. Click the guard again to select them.'}</div>
-      <table class="factors">${factorRows}<tr class="total"><td class="fl"><b>Final Score</b><small>Weighted average of ${act.length} factors</small></td><td></td><td></td><td class="fv">${ev.score}%</td></tr></table>
+  // right pane
+  let state;
+  if(fx.excluded) state = `<div class="selstate bad">${ic('xcirc')}<span><b>Not Eligible – ${esc(ev.blocking[0].blockLabel)}.</b> ${esc(ev.blocking[0].detail)}. AI will not recommend or assign this guard.</span></div>`;
+  else if(fx.blockedLive) state = `<div class="selstate bad">${ic('xcirc')}<span><b>Cannot be assigned here.</b> ${esc((ev.blocking[0]||{}).detail||'Conflicts with another selection in this run')}.</span><button class="btn sm outline" data-act="rerun-lock" data-sid="${sid}" data-gid="${ev.guard.id}">Assign here &amp; re-run AI for the other shifts</button></div>`;
+  else if(gid===ev.guard.id) state = `<div class="selstate ok">${ic('check')}<span>${isAIfocus?'<b>Selected · AI recommendation.</b>':'<b>Selected by you.</b> AI recommended '+esc(aiRow?aiRow.ev.guard.name+' ('+aiRow.ev.score+'%)':'—')+'.'} Re-validated against the latest schedule: passes all ${ev.checks.filter(c=>c.on).length} hard rules.</span></div>`;
+  else state = `<div class="selstate">${ic('info')}<span>Eligible. Click the guard on the left to select them for this shift.</span></div>`;
+  let ranking = '';
+  if(!fx.excluded){
+    const factorRows = S.rules.factors.map(f=>{ const on=f.on; const v=ev.factors[f.key]||0;
+      return `<tr class="${on?'':'off'}"><td class="fl"><b>${esc(f.label)}</b><small>${esc(ev.details[f.key]||'')}</small></td><td class="fw">${on?(factorPct(S.rules,f.key).toFixed(1)+'%'):'Off'}</td><td class="fb"><div class="bar"><span class="${scoreCls(v)}" style="width:${v}%"></span></div></td><td class="fv">${on?v:'—'}</td></tr>`; }).join('');
+    const act = ev.activeFactors; const eq = act.every(x=>x.weight===act[0].weight);
+    const calc = eq ? `(${act.map(x=>x.value).join(' + ')}) ÷ ${act.length} = ${(Math.round(ev.raw*10)/10)} → ${ev.score}%` : `${act.map(x=>x.value+'×'+(x.weight/ev.wsum*100).toFixed(1)+'%').join(' + ')} = ${(Math.round(ev.raw*10)/10)} → ${ev.score}%`;
+    let explanation;
+    if(isAIfocus) explanation = explain(ev);
+    else if(aiRow){ const d = ev.score - aiRow.ev.score; explanation = `${ev.guard.name} scores ${Math.abs(d)} point${Math.abs(d)===1?'':'s'} ${d<=0?'below':'above'} the AI recommendation (${aiRow.ev.guard.name}, ${aiRow.ev.score}%). ` + explain(ev, 'They'); }
+    else explanation = explain(ev, ev.guard.name+' is eligible: they');
+    ranking = `<h5 class="sec-h">${ic('trend')}Ranking – how the score was calculated</h5>
+      <table class="factors">${factorRows}<tr class="total"><td class="fl"><b>Final Score</b><small>${eq?'Average of '+act.length+' equally weighted factors':'Weighted average of '+act.length+' factors'}</small></td><td></td><td></td><td class="fv">${ev.score}%</td></tr></table>
       <div class="calc">${calc}</div>
       <p class="explain">${esc(explanation)}</p>
-      <div class="lists"><div><h5>Reasons</h5><ul>${ev.reasons.map(r=>`<li>${ic('check','okc')}${esc(r)}</li>`).join('')}</ul></div>
-        <div><h5>Warnings</h5><ul>${ev.warnings.length?ev.warnings.map(w=>`<li>${ic('alert','wc')}${esc(w.text)}</li>`).join(''):`<li style="color:var(--muted)">${ic('check','okc')}No warnings</li>`}${fx.blockedLive?`<li>${ic('xcirc','bc')}${esc(ev.blocking.map(b=>b.blockLabel+': '+b.detail).join('; '))}</li>`:''}</ul></div></div>
-      ${note&&note.top&&note.chosen?`<div class="optimiz">${ic('route')}<span><b>Optimized:</b> ${esc(guardById(note.top).name)} had the highest individual score (${note.topScore}%) but ${esc(note.reason.charAt(0).toLowerCase()+note.reason.slice(1))}${note.other&&note.other!==sid?' — see '+note.other:''}. The next-best eligible guard was selected.</span></div>`:''}
+      <div class="lists"><div><h5>Key reasons</h5><ul>${ev.reasons.map(r=>`<li>${ic('check','okc')}${esc(r)}</li>`).join('')}</ul></div>
+        <div><h5>Warnings</h5><ul>${ev.warnings.length?ev.warnings.map(w=>`<li class="${w.major?'':'minor'}">${ic(w.major?'alert':'info',w.major?'wc':'')}${esc(w.text)}</li>`).join(''):`<li style="color:var(--muted)">${ic('check','okc')}No warnings</li>`}</ul></div></div>`;
+  }
+  return top+`<div class="detail-grid"><div class="dpane">
+      <h5>${ic('star')}AI Recommendation</h5>
+      ${aiRow?optRow(aiRow,1):`<div class="note bad-note">${ic('alert')}<span>No valid recommendation in this run.${note&&note.kind==='starved'?' Every eligible guard is needed for another selected shift.':''}</span></div>`}
+      <div class="subhead"><span>Other Eligible Guards (${others.length})</span><span>Score</span></div>
+      ${others.length?others.map((x,i)=>optRow(x,i+2)).join(''):'<div class="note" style="margin-top:0">No other guard passes every hard rule.</div>'}
+      ${blocked.length?`<div class="subhead"><span>Not available in this run (${blocked.length})</span></div><p class="mini-help">Eligible on their own, but already recommended for another selected shift they cannot also work.</p>${blocked.map(x=>optRow(x,0)).join('')}`:''}
+      <div class="opt ${!gid?'on':''}" data-act="pick-guard" data-sid="${sid}" data-gid="" role="radio" aria-checked="${!gid}" tabindex="0"><span class="radio"></span><div class="ot"><b>Leave shift ${sh.status==='open'?'open':'vacant'}</b><small>Do not assign anyone for now</small></div></div>
+      <div class="subhead ne-h"><span>Not Eligible (${rd.excluded.length})</span><span>Failed a hard rule</span></div>
+      ${(exAll?exList:exList.slice(0,4)).map(exRow).join('')}
+      ${exList.length>4?`<button class="link" data-act="toggle-excl" data-id="${sid}">${exAll?'Show fewer':'Show all '+exList.length+' not eligible guards'}</button>`:''}
+    </div>
+    <div class="dpane why-pane ${S.fadeKey===sid?'fade':''}">
+      <h5>${ic('info')}${fx.excluded?'Why is this guard not eligible?':isAIfocus?'Why does AI recommend this guard?':'How does this guard compare?'}</h5>
+      <div class="why-head">${avatar(ev.guard)}<div><div class="nm">${esc(ev.guard.name)}</div><div style="color:var(--muted);font-size:12.5px">${ev.guard.id} · ${esc(ev.guard.dept)} · $${ev.guard.rate}/hr</div></div>
+        ${fx.excluded?'':`<span class="big">${ev.score}%</span>`}${fx.excluded||fx.blockedLive?tierBadge('ne'):tierBadge(isAIfocus?'rec':'elig')}${fx.excluded||fx.blockedLive?'':warnChip(ev)}
+        <div class="actions"><button class="btn outline" data-act="history" data-gid="${ev.guard.id}" data-sid="${sid}">${ic('clock')} View Guard History</button></div></div>
+      ${state}
+      <h5 class="sec-h">${ic('check')}Hard rules – checked first (${ev.checks.filter(c=>c.on&&c.pass).length}/${ev.checks.filter(c=>c.on).length} passed)</h5>
+      ${checklistHTML(ev)}
+      <h5 class="sec-h">${ic('cal')}Guard's schedule around this shift</h5>
+      ${contextHTML(ev)}
+      ${ranking}
+      ${note&&note.top&&note.chosen&&isAIfocus?`<div class="optimiz">${ic('route')}<span><b>Optimized across the run:</b> ${esc(guardById(note.top).name)} had the highest individual score (${note.topScore}%) but ${esc(note.reason)}.</span></div>`:''}
     </div></div>`;
 }
 
@@ -1687,14 +2079,18 @@ function detailHTML(sid, rd){
 function barHTML(){
   if(S.screen==='results'){
     const st = resultStats();
-    return `<div class="bbar ai"><div class="count">${st.ready} assignment${st.ready===1?'':'s'} ready<small>${st.unres} will stay open/vacant · created as Unpublished</small></div>
+    return `<div class="bbar ai"><div class="count">${st.ready} assignment${st.ready===1?'':'s'} ready<small>${st.unres} will stay open/vacant${st.invalid?' · <span class="bc">'+st.invalid+' need review</span>':''} · created as Unpublished</small></div>
       <div class="right"><button class="btn ghost" data-act="discard">Discard</button><button class="btn primary" data-act="apply-open" ${st.ready?'':'disabled'}>${ic('check')} Apply AI Recommendations</button></div></div>`;
   }
   if(S.mode==='ai-select'){
     const n=S.selected.size;
-    return `<div class="bbar ai"><div class="count">${n} shift${n===1?'':'s'} selected<small>Click Open or Vacant shifts to select them</small></div>
-      <div class="acts"><button class="link" data-act="sel-all">Select all open/vacant</button><button class="link" data-act="rules">${ic('sliders')}Rules</button></div>
-      <div class="right"><button class="btn ghost" data-act="sel-cancel">Cancel</button><button class="btn primary" data-act="sel-find" ${n?'':'disabled'}>${ic('spark')} Find Guards with AI</button></div></div>`;
+    const selS=[...S.selected].map(shiftById).filter(Boolean); const ru=S.runUI;
+    const btn = ru&&ru.state==='loading' ? `<button class="nbtn loading" disabled aria-busy="true" aria-live="polite"><span class="nspin" aria-hidden="true"></span>${esc(ru.label)}</button>`
+      : ru&&ru.state==='done' ? `<button class="nbtn strong" data-act="view-recs">${ic('spark')} View AI Recommendations</button>`
+      : `<button class="nbtn" data-act="sel-find" ${n?'':'disabled'} title="${n?'Analyze the complete schedule and recommend guards':'Select at least one Open or Vacant shift'}">${ic('spark')} Find Guards with AI</button>`;
+    return `<div class="bbar ai"><div class="count">${n} shift${n===1?'':'s'} selected<small>${n?'AI solves in this order: '+esc(prioSummary(selS).join(' → ')):'Click Open or Vacant shifts to select them'}</small></div>
+      <div class="acts"><button class="link" data-act="sel-all" ${ru&&ru.state==='loading'?'disabled':''}>Select all open/vacant</button>${n?`<button class="link" data-act="sel-order" aria-haspopup="menu">${ic('route')}Solve order</button>`:''}<button class="link" data-act="rules">${ic('sliders')}Rules</button></div>
+      <div class="right"><button class="btn ghost" data-act="sel-cancel">Cancel</button>${btn}</div></div>`;
   }
   if(S.mode==='multi'){
     const n=S.selected.size;
@@ -1709,6 +2105,12 @@ function barHTML(){
 function menuHTML(){
   const m = S.menu; if(!m) return '';
   const pos = `top:${m.top}px;${m.right!=null?'right:'+m.right+'px':'left:'+m.left+'px'}`;
+  if(m.type==='selorder'){
+    const list=sortByPrio([...S.selected].map(shiftById).filter(Boolean));
+    return `<div class="menu selorder" style="${pos}" role="menu"><div class="mh"><span>AI solves selected shifts in this order</span><span>${list.length}</span></div>
+      ${list.map((x,i)=>`<div class="so-r"><span class="so-n">${i+1}</span>${ic('check','okc')}<span class="so-t"><b>${fmtShort(x.date)} ${x.start}–${x.end}</b><small>${esc(SITES[x.site].name)} · ${esc(x.post)}</small></span>${prioChip(x)}</div>`).join('')}
+      <div class="so-f">${ic('info')}<span>Higher priority is solved first; within the same priority, the shift with the fewest eligible guards goes first. Priority never overrides a hard rule. Change it in Edit Shift.</span></div></div>`;
+  }
   if(m.type==='ai'){
     const [a,b]=viewRange(); const n = SHIFTS.filter(s=>s.date>=a&&s.date<=b&&isOpen(s)&&visible(s)).length;
     return `<div class="menu ai-menu" style="${pos}" role="menu"><div class="mh"><span>AI Scheduling</span><span>${esc(rangeLabel())}</span></div>
@@ -1738,6 +2140,7 @@ function menuHTML(){
     const n = SHIFTS.filter(s=>s.status==='assigned'&&!s.published).length;
     return `<div class="menu" style="${pos}"><button class="mi" data-act="m-multi-any">${ic('select')}Select Multiple</button>
       <button class="mi" data-act="publish-all">${ic('up')}<span class="t">Publish All Unpublished<small>${n} shift${n===1?'':'s'}</small></span></button>
+      <button class="mi" data-act="simulate-change">${ic('refresh')}<span class="t">Simulate schedule change <small>Demo: another scheduler books an AI-assigned guard elsewhere</small></span></button>
       <button class="mi" data-act="aionly-toggle">${ic('spark')}${S.aiOnly?'Show all shifts':'Show AI assignments only'}</button></div>`;
   }
   if(m.type==='cost' || m.type==='trend'){
@@ -1764,15 +2167,15 @@ function openMenu(type, el, opts={}){
 function openShiftsInView(){ const [a,b]=viewRange(); return SHIFTS.filter(s=>s.date>=a&&s.date<=b&&isOpen(s)&&visible(s)).sort((x,y)=>range(x)[0]-range(y)[0]); }
 function quickEligible(s){ const base=baseAssignments([s.id]); return GUARDS.filter(g=>evaluate(g,s,base,S.rules).eligible).length; }
 function rulesSummary(){
-  const h=S.rules.hard, ch=S.rules.customHard||[], on=Object.values(h).filter(Boolean).length+ch.filter(c=>c.on).length, hTot=7+ch.length, af=activeFactors(S.rules), f=af.length, eq=af.every(x=>x.weight===af[0].weight);
-  return `<div class="rulesum">${ic('sliders')}<div><b>${on} of ${hTot} hard rules active · ${f} scoring factors, ${eq?'equal weights':'custom weights'}</b><small>Max ${S.rules.maxHoursCap}h per guard per week · ${S.rules.conflictBuffer==='travel'?'travel time checked between sites':'overlap check only'}</small></div><button class="btn outline" data-act="rules">Review Rules</button></div>`;
+  const h=S.rules.hard, ch=S.rules.customHard||[], on=Object.values(h).filter(Boolean).length+ch.filter(c=>c.on).length, hTot=Object.keys(h).length+ch.length, af=activeFactors(S.rules), f=af.length, eq=af.every(x=>x.weight===af[0].weight);
+  return `<div class="rulesum">${ic('sliders')}<div><b>${on} of ${hTot} hard rules active · ${f} scoring factors, ${eq?'equal weights':'custom weights'}</b><small>Min ${S.rules.restHours}h rest · ${S.rules.travelBuffer} min arrival buffer · max ${S.rules.maxHoursCap}h/week · overtime ${S.rules.overtimePolicy==='notallowed'?'not allowed':'allowed (ranked lower)'}</small></div><button class="btn outline" data-act="rules">Review Rules</button></div>`;
 }
 function modalHTML(){
   const m = S.modal; if(!m) return '';
   const wrap = (inner, cls='') => `<div class="scrim" data-act="scrim"><div class="modal ${cls}" role="dialog" aria-modal="true">${inner}</div></div>`;
   const head = (t, sub, eyebrow, closable=true) => `<div class="mhd"><div>${eyebrow?`<div class="eyebrow">${ic('spark')}${eyebrow}</div>`:''}<h3>${t}</h3>${sub?`<p>${sub}</p>`:''}</div>${closable?`<button class="x" data-act="modal-close" aria-label="Close">${ic('x')}</button>`:''}</div>`;
   if(m.type==='all'){
-    const list = openShiftsInView(); const counts = list.map(s=>[s,quickEligible(s)]);
+    const list = sortByPrio(openShiftsInView()); const counts = list.map(s=>[s,quickEligible(s)]);
     const ready = counts.filter(c=>c[1]>0).length, att = counts.length-ready, f = m.filter||null;
     return wrap(head('All Open/Vacant Shifts', esc(rangeLabel())+' · current filters applied', 'AI Scheduling')+`<div class="mbd">
       <div class="bigcount" id="all-count">${allCountHTML(f, list.length, ready, att)}</div>
@@ -1780,43 +2183,62 @@ function modalHTML(){
         <button class="split ok fcard ${f==='ready'?'active':''}" data-act="all-filter" data-f="ready" aria-pressed="${f==='ready'}">${ic('check')}<b>${ready}</b> Ready for AI recommendation<span class="fhint">${f==='ready'?'Showing · click to clear':'Click to filter'}</span></button>
         <button class="split warn fcard ${f==='attn'?'active':''}" data-act="all-filter" data-f="attn" aria-pressed="${f==='attn'}">${ic('alert')}<b>${att}</b> Need attention<span class="fhint">${f==='attn'?'Showing · click to clear':'Click to filter'}</span></button></div>
       <div class="listbar"><span id="all-listlabel">${f==='ready'?'Ready shifts':f==='attn'?'Shifts needing attention':'All shifts'}</span><button class="link ${f?'':'hide'}" id="all-clear" data-act="all-filter" data-f="">Show all ${list.length}</button></div>
-      <div class="minilist fixed" id="all-list">${counts.map(([s,n])=>`<div class="r click ${f&&((f==='ready')!==(n>0))?'fhide':''}" data-state="${n?'ready':'attn'}" data-act="shift-review" data-id="${s.id}" tabindex="0" role="button" aria-label="Review ${fmtDay(s.date)} ${s.start} ${esc(SITES[s.site].name)}"><span class="num">${fmtDay(s.date)}</span><span class="num m2">${s.start}–${s.end}</span><span class="m">${esc(SITES[s.site].name)} · ${esc(s.post)}</span>${n?`<span class="st ok">${n} eligible</span>`:`<span class="st warn">${ic('alert')}No eligible guard</span>`}${ic('chevR','rchev')}</div>`).join('') || '<div class="r"><span class="m">No open or vacant shifts in this view.</span></div>'}
+      <div class="minilist fixed" id="all-list">${counts.map(([s,n])=>`<div class="r click ${f&&((f==='ready')!==(n>0))?'fhide':''}" data-state="${n?'ready':'attn'}" data-act="shift-review" data-id="${s.id}" tabindex="0" role="button" aria-label="Review ${fmtDay(s.date)} ${s.start} ${esc(SITES[s.site].name)}"><span class="num">${fmtDay(s.date)}</span><span class="num m2">${s.start}–${s.end}</span><span class="m">${prioChip(s,{short:true})} ${esc(SITES[s.site].name)} · ${esc(s.post)}</span>${n?`<span class="st ok">${n} eligible</span>`:`<span class="st warn">${ic('alert')}No eligible guard</span>`}${ic('chevR','rchev')}</div>`).join('') || '<div class="r"><span class="m">No open or vacant shifts in this view.</span></div>'}
         <div class="r fempty ${f&&!(f==='ready'?ready:att)?'':'fhide'}"><span class="m">No shifts in this group.</span></div></div>
       ${rulesSummary()}
+      <div class="note">${ic('route')}<span>Listed in solve order: <b>${esc(prioSummary(list).join(' → ')||'—')}</b>. AI fills higher-priority shifts first and never breaks a hard rule to do so.</span></div>
       <div class="note">${ic('info')}<span>Click any shift to see why it is ready or needs attention. Nothing is assigned until you review the recommendations.</span></div></div>
       <div class="mft"><button class="btn ghost" data-act="modal-close">Cancel</button><button class="btn primary" id="all-run" data-act="run-all" ${list.length?'':'disabled'}>${ic('spark')} ${allRunLabel(f, list.length, ready)}</button></div>`, 'wide');
   }
   if(m.type==='processing'){
-    const steps=['Checking guard availability','Applying hard rules','Checking qualifications','Checking schedule conflicts','Calculating guard scores','Ranking eligible guards','Optimizing assignments'];
+    const steps=procSteps(m);
     return wrap(head('Analyzing '+m.n+' selected shift'+(m.n===1?'':'s')+'…', `Evaluating ${GUARDS.length} guards against ${Object.values(S.rules.hard).filter(Boolean).length+(S.rules.customHard||[]).filter(c=>c.on).length} hard rules and ${activeFactors(S.rules).length} weighted scoring factors`, 'AI Scheduling', false)+`<div class="mbd"><div class="steps">${steps.map((t,i)=>`<div class="step ${i<m.step?'done':i===m.step?'now':''}"><i>${i<m.step?ic('check'):''}</i>${t}</div>`).join('')}</div><div class="progress"><span style="width:${Math.round(m.step/steps.length*100)}%"></span></div></div>`);
   }
   if(m.type==='complete'){
     const st = resultStats();
     return wrap(head('AI Scheduling Complete', 'Recommendations are ready for your review. Nothing has been assigned yet.', 'AI Scheduling')+`<div class="mbd">
       <div class="sumgrid"><div class="t"><b>${st.total}</b><span>Shifts analyzed</span></div><div class="t ok"><b>${st.ready}</b><span>Guards recommended</span></div><div class="t ${st.unres?'bad':''}"><b>${st.unres}</b><span>Unresolved</span></div>
-      <div class="t"><b>${st.avg}%</b><span>Average recommendation score</span></div><div class="t ok"><b>${st.hi}</b><span>High confidence</span></div><div class="t ${st.review?'warn':''}"><b>${st.review}</b><span>Needs review</span></div></div>
+      <div class="t"><b>${st.avg}%</b><span>Average recommendation score</span></div><div class="t ok"><b>${st.hi}</b><span>No warnings</span></div><div class="t ${st.review?'warn':''}"><b>${st.review}</b><span>With warnings</span></div></div>
+      <div class="optimiz">${ic('route')}<span>Solved in priority order: ${esc(prioSummary(runOrder().map(shiftById)).join(' → '))}. Eligibility was recalculated after every assignment.</span></div>
       ${Object.values(S.run.notes).some(n=>n.top&&n.chosen)?`<div class="optimiz">${ic('route')}<span>Shifts were optimized together: ${Object.values(S.run.notes).filter(n=>n.top&&n.chosen).length} recommendation(s) moved to the next-best guard to avoid conflicts or overtime.</span></div>`:''}</div>
-      <div class="mft"><button class="btn primary" data-act="review-recs">Review Recommendations</button></div>`);
+      <div class="mft"><button class="btn primary" data-act="review-recs">${ic('spark')} View AI Recommendations</button></div>`);
   }
   if(m.type==='confirm'){
-    const st = resultStats(); let warnN=0;
-    S.run.shiftIds.forEach(sid=>{ const gid=selectedFor(sid); if(!gid) return; const ev=rowData(sid).eligible.find(x=>x.ev.guard.id===gid).ev; if(ev.warnings.length) warnN++; });
+    const st = resultStats(); let warnN=0, otH=0;
+    S.run.shiftIds.forEach(sid=>{ const gid=selectedFor(sid); if(!gid) return; const f=rowData(sid).eligible.find(x=>x.ev.guard.id===gid); if(!f||f.blockedLive) return; if(majorWarn(f.ev).length) warnN++; otH+=f.ev.otH; });
     return wrap(head('Apply AI Recommendations?', '', '')+`<div class="mbd">
       <div class="bigcount"><b>${st.ready}</b><span>assignment${st.ready===1?'':'s'} will be created</span></div>
       <div class="confirm-list">
-        <div>${ic('check','okc')}<span>${st.hi} high-confidence recommendation${st.hi===1?'':'s'}</span></div>
-        <div>${ic('alert','wc')}<span>${warnN} recommendation${warnN===1?'':'s'} with warnings</span></div>
+        <div>${ic('check','okc')}<span>Re-validated just now against the latest schedule: every assignment passes all hard rules</span></div>
+        <div>${ic('check','okc')}<span>${st.hi} without warnings</span></div>
+        <div>${ic('alert','wc')}<span>${warnN} with warnings${otH?' · '+otH+'h overtime in total':''}</span></div>
+        ${st.manual?`<div>${ic('edit')}<span>${st.manual} guard${st.manual===1?'':'s'} changed by you from the AI recommendation (also re-validated)</span></div>`:''}
         <div>${ic('clock')}<span>${st.unres} shift${st.unres===1?'':'s'} will remain open/vacant</span></div></div>
       <div class="callout">${ic('info')}<div>All assignments will remain <b>UNPUBLISHED</b>. The schedule will <b>not</b> be published automatically and guards will not be notified until you publish.</div></div></div>
       <div class="mft"><button class="btn ghost" data-act="modal-close">Cancel</button><button class="btn primary" data-act="apply-confirm">Apply Recommendations</button></div>`);
+  }
+  if(m.type==='stale'){
+    return wrap(head('Schedule Changed – Recommendation Requires Review', 'The schedule changed after AI analysed it. These selections now break a hard rule, so they were not applied.')+`<div class="mbd">
+      <div class="issues">${m.issues.map(i=>{ const x=shiftById(i.sid); return `<div class="iss">${ic('xcirc','bc')}<div><b>${x?fmtDay(x.date)+' '+x.start+'–'+x.end+' · '+esc(SITES[x.site].name):i.sid} · ${esc(guardById(i.gid).name)}</b><small>Not Eligible – ${esc(i.label)}: ${esc(i.detail)}</small></div></div>`; }).join('')}</div>
+      <div class="note">${ic('info')}<span>Nothing has been assigned yet. Re-run AI to get new recommendations from the latest schedule, or go back and choose different guards.</span></div></div>
+      <div class="mft"><button class="btn ghost" data-act="modal-close">Back to review</button><button class="btn outline" data-act="stale-drop">Leave ${m.issues.length>1?'these shifts':'this shift'} open &amp; apply the rest</button><button class="btn primary" data-act="rerun-ai">${ic('refresh')} Re-run AI</button></div>`, 'wide');
+  }
+  if(m.type==='pubstale'){
+    const ok = m.ids.length - m.issues.length;
+    return wrap(head('Schedule Changed – Recommendation Requires Review', 'Before publishing, every assignment was re-checked against the latest schedule. '+m.issues.length+' no longer pass'+(m.issues.length===1?'es':'')+' the hard rules.')+`<div class="mbd">
+      <div class="issues">${m.issues.map(i=>{ const x=shiftById(i.sid); return `<div class="iss">${ic('xcirc','bc')}<div><b>${fmtDay(x.date)} ${x.start}–${x.end} · ${esc(SITES[x.site].name)} · ${esc(guardById(i.gid).name)}</b><small>Not Eligible – ${esc(i.label)}: ${esc(i.detail)}</small></div></div>`; }).join('')}</div>
+      <div class="note">${ic('info')}<span>Nothing was published. ${ok?ok+' other assignment'+(ok===1?' is':'s are')+' still valid.':''}</span></div></div>
+      <div class="mft"><button class="btn ghost" data-act="modal-close">Cancel</button>${ok?`<button class="btn outline" data-act="pub-valid">Publish ${ok} valid only</button>`:''}<button class="btn primary" data-act="pub-rerun">${ic('refresh')} Unassign &amp; re-run AI for ${m.issues.length>1?'these shifts':'this shift'}</button></div>`, 'wide');
   }
   if(m.type==='applying') return wrap(`<div class="mbd center" style="padding:36px 24px"><div class="spinner"></div><h3 style="margin:0 0 6px">Applying AI recommendations…</h3><p style="color:var(--muted);margin:0">Creating ${m.n} unpublished assignment${m.n===1?'':'s'}</p></div>`);
   if(m.type==='applied') return wrap(`<div class="mbd center" style="padding:32px 24px 20px"><div class="success-ic">${ic('check')}</div><h3 style="margin:0 0 6px">${m.n} assignment${m.n===1?'':'s'} created successfully.</h3><p style="color:var(--muted);margin:0 auto;max-width:42ch">Every AI assignment has status <b style="color:var(--text)">Unpublished</b>. Review the schedule and publish when you're ready.</p></div>
       <div class="mft" style="justify-content:center"><button class="btn primary" data-act="applied-done">Return to Scheduler</button></div>`);
   if(m.type==='publish'){
+
     const list = m.ids.map(shiftById);
-    return wrap(head('Publish '+list.length+' assignment'+(list.length===1?'':'s')+'?', 'Status changes from Unpublished to Published and assigned guards are notified.')+`<div class="mbd"><div class="minilist">${list.map(s=>`<div class="r"><span class="num">${fmtDay(s.date)}</span><span class="num m2">${s.start}–${s.end}</span><span class="m">${esc(guardById(s.guardId).name)} · ${esc(SITES[s.site].name)}</span>${s.ai?'<span class="mini-tag ai">AI</span>':'<span></span>'}</div>`).join('')}</div></div>
-      <div class="mft"><button class="btn ghost" data-act="modal-close">Cancel</button><button class="btn ok" data-act="publish-confirm">${ic('up')} Publish</button></div>`);
+    return wrap(head('Publish '+list.length+' assignment'+(list.length===1?'':'s')+'?', 'Status changes from Unpublished to Published and assigned guards are notified.')+`<div class="mbd"><div class="minilist">${list.map(s=>`<div class="r"><span class="num">${fmtDay(s.date)}</span><span class="num m2">${s.start}–${s.end}</span><span class="m">${esc(guardById(s.guardId).name)} · ${esc(SITES[s.site].name)}</span>${s.ai?'<span class="mini-tag ai">AI</span>':'<span></span>'}</div>`).join('')}</div>
+      <div class="note">${ic('check','okc')}<span>All ${list.length} re-validated just now against the latest schedule: no conflicts.</span></div></div>
+      <div class="mft"><button class="btn ghost" data-act="modal-close" ${m.state?'disabled':''}>Cancel</button>${pubBtnHTML(m)}</div>`);
   }
   if(m.type==='delete'){
     return wrap(head('Delete '+m.ids.length+' shift'+(m.ids.length===1?'':'s')+'?', 'This removes the shift from the schedule. This cannot be undone.')+`<div class="mft"><button class="btn ghost" data-act="modal-close">Cancel</button><button class="btn danger" data-act="delete-confirm">${ic('trash')} Delete</button></div>`);
@@ -1828,12 +2250,12 @@ function modalHTML(){
     const top = rk.elig[0];
     const selEv = g ? (rk.elig.find(e=>e.guard.id===g.id) || rk.inel.find(e=>e.guard.id===g.id)) : null;
     const openLabel = s.status==='open' ? 'No Guard (Open)' : s.status==='vacant' ? 'Vacant' : 'Unassign (make Vacant)';
-    const optLabel = e => `${e.guard.name} (${e.score}% match · ${top && e.guard.id===top.guard.id ? 'AI Recommended' : TIERS[scoreTier(e.score)].label})`;
+    const optLabel = e => `${e.guard.name} (${e.score}% match · ${top && e.guard.id===top.guard.id ? 'AI Recommended' : 'Eligible'}${majorWarn(e).length?' · warning':''})`;
     const card = (e, isTop) => {
       const on = d.guardId===e.guard.id, why = d.why===e.guard.id;
       return `<div class="eg-card ${on?'on':''} ${isTop?'top':''}" data-act="ed-pick" data-gid="${e.guard.id}" role="radio" aria-checked="${on}" tabindex="0">
         <div class="eg-row"><span class="radio"></span>${avatar(e.guard)}
-          <div class="eg-t"><b><span>${esc(e.guard.name)}</span>${isTop?'<span class="tbadge t-ai">AI Recommended</span>':''}${tierBadge(scoreTier(e.score))}</b>
+          <div class="eg-t"><b><span>${esc(e.guard.name)}</span>${tierBadge(isTop?'rec':'elig')}${warnChip(e)}</b>
             <small>${e.distance} mi · ${e.projected}h projected · $${e.guard.rate}/hr${e.warnings.length?` · <span class="wc">${ic('alert')} ${e.warnings.length} warning${e.warnings.length>1?'s':''}</span>`:''}</small></div>
           <span class="os">${e.score}%</span>
           <button class="why" data-act="ed-why" data-gid="${e.guard.id}" aria-expanded="${why}">${why?'Hide':'Why?'}</button></div>
@@ -1842,9 +2264,10 @@ function modalHTML(){
       </div>`; };
     let elig = '';
     if(selEv && !selEv.eligible){
-      elig = `<div class="elig"><b><span class="bc">✕ ${esc(g.name)} fails ${selEv.blocking.length} hard rule${selEv.blocking.length>1?'s':''}</span></b> <span style="color:var(--muted)">· score ${selEv.score}%</span>
-      <ul>${selEv.blocking.map(c=>`<li>${ic('xcirc','bc')}<span>${esc(c.label)}: ${esc(c.detail)}</span></li>`).join('')}</ul>
-      <div class="note">${ic('info')}<span>You can still save. The assignment will be saved as Unpublished.</span></div></div>`; }
+      elig = `<div class="elig blocked"><b><span class="bc">✕ This guard cannot be assigned because they fail ${selEv.blocking.length} mandatory rule${selEv.blocking.length>1?'s':''}.</span></b>
+      <ul>${selEv.blocking.map(c=>`<li>${ic('xcirc','bc')}<span><b>${esc(c.blockLabel)}</b> – ${esc(c.detail)}</span></li>`).join('')}</ul>
+      <div class="note">${ic('info')}<span>Choose an eligible guard, or change the shift or the rules first. Invalid assignments are not saved.</span></div></div>`; }
+    const blockedSel = selEv && !selEv.eligible;
     return wrap(head('Edit Shift', `${s.id} · ${esc(SITES[s.site].name)}`)+`<div class="mbd"><div class="form">
       <label>Date<span class="ro">${longDay(s.date)}</span></label><label>Site / Post<span class="ro">${esc(SITES[s.site].name)} · ${esc(s.post)}</span></label>
       <label>Start time<input class="field" type="time" id="ed-start" value="${d.start}" data-ch="ed-start"></label>
@@ -1852,18 +2275,20 @@ function modalHTML(){
       <label class="full">Guard<span class="selwrap">${top && d.guardId===top.guard.id?`<span class="tbadge t-ai sel-tag">AI Recommended</span>`:''}<select class="field" id="ed-guard" data-ch="ed-guard">
         <option value="" ${!d.guardId?'selected':''}>${openLabel}</option>
         ${rk.elig.length?`<optgroup label="Eligible guards (ranked by AI)">${rk.elig.map(e=>`<option value="${e.guard.id}" ${e.guard.id===d.guardId?'selected':''}>${esc(optLabel(e))}</option>`).join('')}</optgroup>`:''}
-        <optgroup label="Other guards (fail a hard rule)">${rk.inel.map(e=>`<option value="${e.guard.id}" ${e.guard.id===d.guardId?'selected':''}>${esc(e.guard.name)} · ${esc((e.blocking[0]||{}).blockLabel||'')}</option>`).join('')}</optgroup>
+        <optgroup label="Not eligible (cannot be assigned)">${rk.inel.map(e=>`<option value="${e.guard.id}" ${e.guard.id===d.guardId?'selected':''}>${esc(e.guard.name)} – Not Eligible: ${esc((e.blocking[0]||{}).blockLabel||'')}</option>`).join('')}</optgroup>
       </select></span></label>
+      ${isOpen(s)?`<label>Priority<select class="field" id="ed-prio" data-ch="ed-prio"><option value="" ${!d.priority?'selected':''}>Auto – ${PRIORITY[derivedPriority(s)].label} (${shType(s)} shift)</option>${['high','normal','low'].map(k=>`<option value="${k}" ${d.priority===k?'selected':''}>${PRIORITY[k].label}</option>`).join('')}</select></label>
+      <label>Solve order<span class="ro">${prioChip(s,{p:d.priority||derivedPriority(s)})}<small class="ro-sub">${d.priority?'Set by you':'Auto: Vacant → High, Open → Normal'} · decides which shift AI fills first; never overrides hard rules</small></span></label>`:''}
       <label class="full">Requires<span class="ro"><span class="qchips">${s.req.map(q=>`<span class="q">${esc(q)}</span>`).join('')}${s.pref.map(q=>`<span class="q pref">${esc(q)}</span>`).join('')}</span></span></label></div>
       <div class="egbox">
         <div class="eg-h">${ic('spark')}<b>AI Guard Recommendations</b><span>${rk.elig.length} eligible · ${rk.inel.length} excluded by hard rules</span></div>
         ${top?`<div class="eg-sub">Top AI Match${d.auto&&d.guardId===top.guard.id?' · pre-selected':''}</div>${card(top,true)}
           ${rk.elig.length>1?`<button class="eg-sub eg-toggle" data-act="ed-others" aria-expanded="${!d.hideOthers}">${ic(d.hideOthers?'chevR':'chevD')} Other Eligible Guards (${rk.elig.length-1})</button>${d.hideOthers?'':rk.elig.slice(1).map(e=>card(e,false)).join('')}`:''}`
-          :`<div class="eg-none">${ic('alert')}<span>No guard passes every active hard rule for this shift. Leave it ${s.status==='vacant'?'vacant':'open'}, or pick a guard from the list above to override.</span></div>`}
+          :`<div class="eg-none">${ic('alert')}<span><b>No Eligible Guard Found.</b> No guard passes every mandatory rule for this shift, so it stays ${s.status==='vacant'?'vacant':'open'}. Pick a guard from the list above to see exactly which rule they fail.</span></div>`}
         <div class="eg-card open-opt ${!d.guardId?'on':''}" data-act="ed-pick" data-gid="" role="radio" aria-checked="${!d.guardId}" tabindex="0"><div class="eg-row"><span class="radio"></span><div class="eg-t"><b>${openLabel}</b><small>Keep the shift without a guard for now</small></div></div></div>
       </div>${elig}
       ${s.ai?`<div class="note">${ic('spark')}<span>Created by AI Scheduling (score ${s.aiScore}%). Status: ${s.published?'Published':'Unpublished'}.</span></div>`:''}</div>
-      <div class="mft"><span class="mft-note left">${d.guardId?`Saving assigns <b>${esc(g.name)}</b> as Unpublished.`:'Saving leaves the shift without a guard.'}</span><button class="btn ghost" data-act="modal-close">Cancel</button><button class="btn primary" data-act="edit-save">Save</button></div>`, 'wide edit');
+      <div class="mft"><span class="mft-note left">${blockedSel?`<span class="bc">${esc(g.name)} cannot be assigned.</span>`:d.guardId?`Saving assigns <b>${esc(g.name)}</b> as Unpublished.`:'Saving leaves the shift without a guard.'}</span><button class="btn ghost" data-act="modal-close">Cancel</button><button class="btn primary" data-act="edit-save" ${blockedSel?'disabled':''}>Save</button></div>`, 'wide edit');
   }
   return '';
 }
@@ -1900,11 +2325,11 @@ function reviewHTML(){
   const changed = draftReq.join('|')!==sh.req.join('|');
   const site = SITES[sh.site];
   return `<div class="drawer-scrim rv" data-act="review-close"></div><div class="rm-wrap rv"><section class="rmodal review" role="dialog" aria-modal="true" aria-labelledby="rv-title">
-    <div class="dhd"><div><div class="eyebrow">${ic(elig.length?'check':'alert')}${elig.length?'Ready for AI recommendation':'Needs attention'}</div><h3 id="rv-title">Shift Review · ${fmtDay(sh.date)}, ${sh.start}–${sh.end}</h3><p>${esc(site.name)} · ${esc(sh.post)} · ${esc(sh.dept)} · ${sh.status==='open'?'Open':'Vacant'} · ${sh.id}${sh.note?' · '+esc(sh.note):''}</p></div><button class="x" data-act="review-close" aria-label="Close">${ic('x')}</button></div>
+    <div class="dhd"><div><div class="eyebrow">${ic(elig.length?'check':'alert')}${elig.length?'Ready for AI recommendation':'Needs attention'}</div><h3 id="rv-title">Shift Review · ${fmtDay(sh.date)}, ${sh.start}–${sh.end}</h3><p>${prioChip(sh)} ${esc(site.name)} · ${esc(sh.post)} · ${esc(sh.dept)} · ${sh.id}${sh.note?' · '+esc(sh.note):''}</p></div><button class="x" data-act="review-close" aria-label="Close">${ic('x')}</button></div>
     <div class="dbd">
       <div class="rv-status ${elig.length?'ok':'bad'}">${elig.length?ic('check')+`<b>${elig.length} eligible guard${elig.length===1?'':'s'}</b><span>${elig.length===1?'passes':'pass'} every active hard rule${changed?' with the edited requirements':''}.</span>`:ic('alert')+`<b>No eligible guard</b><span>No guard satisfies all required rules${changed?' even with the edited requirements':''}.</span>`}</div>
       ${!elig.length?`<h5 class="rv-h">Why this shift needs attention</h5><ul class="rv-reasons">${reasons.map(([k,n])=>`<li>${ic('xcirc','bc')}<span>${esc((BLOCK_TEXT[k]||(x=>x+' guard'+(x>1?'s fail':' fails')+' “'+k+'”'))(n,tmp))}</span></li>`).join('')}</ul>`
-        :`<h5 class="rv-h">Top eligible guards</h5><div class="rv-top">${elig.slice(0,3).map(e=>`<div class="rv-g">${avatar(e.guard)}<div><b>${esc(e.guard.name)}</b><small>${e.distance} mi · ${e.projected}h projected${e.warnings.length?` · <span class="wc">${e.warnings.length} warning${e.warnings.length>1?'s':''}</span>`:''}</small></div>${tierBadge(scoreTier(e.score))}<span class="os">${e.score}%</span></div>`).join('')}</div>`}
+        :`<h5 class="rv-h">Top eligible guards</h5><div class="rv-top">${elig.slice(0,3).map(e=>`<div class="rv-g">${avatar(e.guard)}<div><b>${esc(e.guard.name)}</b><small>${e.distance} mi · ${e.projected}h projected${e.warnings.length?` · <span class="wc">${e.warnings.length} warning${e.warnings.length>1?'s':''}</span>`:''}</small></div>${e===elig[0]?tierBadge('rec'):tierBadge('elig')}${warnChip(e)}<span class="os">${e.score}%</span></div>`).join('')}</div>`}
       <h5 class="rv-h">Shift requirements</h5>
       <div class="rv-req">
         ${sh.req.map(q=>`<label class="cb"><input type="checkbox" id="rq-${esc(q).replace(/[^a-z]/gi,'')}" data-ch="rv-req" data-q="${esc(q)}" ${draftReq.includes(q)?'checked':''}> Require <b>${esc(q)}</b> <small>${GUARDS.filter(g=>g.status==='Active'&&hasQual(g,q)).length} active guards hold it</small></label>`).join('')}
@@ -1943,7 +2368,7 @@ function drawerHTML(){
       + accHTML('warn', 'Warnings & Guidelines', 'Flag a recommendation for review without blocking it.', accBadge('warn', r),
         `<div class="hr-grid">
           <div class="rule"><div class="rt"><b>Long travel distance</b><div class="ctl">Warn above <input class="field n num" type="number" min="1" max="60" id="w-travel" data-ch="rule-num" data-k="travelWarn" value="${r.travelWarn}"> miles from the site</div></div></div>
-          <div class="rule"><div class="rt"><b>Short rest between shifts</b><div class="ctl">Warn when rest is under <input class="field n num" type="number" min="0" max="16" id="w-rest" data-ch="rule-num" data-k="restWarn" value="${r.restWarn}"> hours</div></div></div>
+          <div class="rule"><div class="rt"><b>Short rest between shifts</b><div class="ctl">Warn when rest is above the minimum but under <input class="field n num" type="number" min="0" max="24" id="w-rest" data-ch="rule-num" data-k="restWarn" value="${r.restWarn}"> hours</div></div></div>
           <div class="rule"><div class="rt"><b>Overtime risk and high weekly hours</b><small>Uses each guard’s contracted overtime threshold (40h full-time, 32h part-time).</small></div></div>
           <div class="rule"><div class="rt"><b>Skills gap</b><small>Flags a recommended guard who is missing any skill the shift requires.</small></div></div></div>
          <div class="guide">${ic('info')}<div><b>How the AI uses these rules</b><ol><li>Hard rules remove ineligible guards.</li><li>Scoring factors rank the remaining guards by weighted average.</li><li>Warnings flag risks but never block a recommendation.</li><li>The scheduler reviews, changes and publishes. AI never publishes.</li></ol></div></div>`),
@@ -1956,7 +2381,7 @@ function drawerHTML(){
     const hist = guardHistory(g);
     return shell(`<div class="dhd"><div class="gp-head">${avatar(g)}<div><h3>${esc(g.name)}</h3><p>${g.id} · ${esc(g.dept)}${g.cross.length?' (cross-trained: '+esc(g.cross.join(', '))+')':''} · <span class="${g.status==='Active'?'okc':'bc'}">${g.status}</span></p></div></div><button class="x" data-act="drawer-close" aria-label="Close">${ic('x')}</button></div>`,
       `<div class="kpis"><div><b>$${g.rate}/hr</b><span>Pay rate</span></div><div><b>${hrs}h</b><span>Hours this week</span></div><div><b>${g.otAt}h</b><span>Overtime after</span></div><div><b>${sh?distTo(g,sh.site)+' mi':g.home}</b><span>${sh?'To '+esc(SITES[sh.site].name):'Home area'}</span></div></div>
-      <div class="sec"><h4>Profile</h4><div class="kv2"><span>Qualifications</span><span>${esc(g.quals.join(', '))}</span><span>Preferred shifts</span><span>${esc(g.prefShifts.join(', '))}</span><span>Preferred sites</span><span>${esc(g.prefSites.map(x=>SITES[x].name).join(', ')||'None stated')}</span><span>Site clearance</span><span>${esc(g.cleared.map(x=>SITES[x].name).join(', '))}</span><span>Home area</span><span>${esc(g.home)}</span><span>Attendance / on time</span><span>${g.att}% / ${g.onTime}% · rating ${g.rating}</span>${g.timeOff.length?`<span>Time off</span><span>${g.timeOff.map(fmtShort).join(', ')}</span>`:''}</div>
+      <div class="sec"><h4>Profile</h4><div class="kv2"><span>Certifications</span><span>${g.quals.map(q=>{ const x=g.certExp[q]; return esc(q)+(x?(x<TODAY?' <b class="bc">(expired '+fmtLongDate(x)+')</b>':' <span class="wc">(expires '+fmtLongDate(x)+')</span>'):''); }).join(', ')}</span><span>Skills</span><span>${esc(g.skills.join(', ')||'—')}</span><span>Availability window</span><span>${g.availFrom==='00:00'&&g.availTo==='24:00'?'Any time':g.availFrom+'–'+g.availTo+(toMin(g.availTo)<=toMin(g.availFrom)?' (overnight)':'')} on available days</span><span>Preferred shifts</span><span>${esc(g.prefShifts.join(', '))}</span><span>Preferred sites</span><span>${esc(g.prefSites.map(x=>SITES[x].name).join(', ')||'None stated')}</span><span>Site clearance</span><span>${esc(g.cleared.map(x=>SITES[x].name).join(', '))}</span><span>Home area</span><span>${esc(g.home)}</span><span>Attendance / on time</span><span>${g.att}% / ${g.onTime}% · rating ${g.rating}</span>${g.timeOff.length?`<span>Time off</span><span>${g.timeOff.map(fmtShort).join(', ')}</span>`:''}</div>
         <div class="availrow" aria-label="Weekly availability">${['S','M','T','W','T','F','S'].map((x,i)=>`<span class="${g.avail[i]==='-'?'':g.avail[i]}" title="${DOWN[i]}: ${g.avail[i]==='A'?'Available':g.avail[i]==='C'?'On-call':'Unavailable'}">${x}</span>`).join('')}</div></div>
       <div class="sec"><h4>Shift history</h4><div style="overflow-x:auto"><table class="hist"><thead><tr><th>Date / Time</th><th>Site</th><th>Post</th><th>Department</th><th>Type</th><th>Hours</th><th>Distance</th><th>Status</th></tr></thead><tbody>
         ${hist.map(h=>`<tr><td class="num">${fmtShort(h.date)}, ${h.start}–${h.end}</td><td>${esc(SITES[h.site].name)}</td><td>${esc(h.post)}</td><td>${esc(SITES[h.site].dept.replace(' Security',''))}</td><td>${h.type}</td><td class="num">${h.hours}</td><td class="num">${distTo(g,h.site)} mi</td><td>${h.status==='Assigned'?'<span class="st info">Assigned</span>':h.flag?'<span class="st warn">'+esc(h.flag)+'</span>':'<span class="st ok">Completed</span>'}</td></tr>`).join('')}</tbody></table></div></div>`, '');
@@ -2016,32 +2441,82 @@ function renderOverlays(){
 }
 
 /* ---------- AI flow ---------- */
-function startRun(ids){
-  S.menu=null; S.mode=null; S.selected.clear();
+function procSteps(m){
+  const shs=(m.ids||[]).map(shiftById).filter(Boolean);
+  return ['Identifying '+shs.length+' selected shift'+(shs.length===1?'':'s')+' and their priority ('+(prioSummary(shs).join(', ')||'—')+')',
+    'Loading the complete schedule ('+SHIFTS.filter(x=>x.status==='assigned').length+' assigned shifts, '+GUARDS.length+' guards)',
+    'Checking availability, existing assignments, overlaps, rest and travel',
+    'Checking qualifications, certifications, department, site and post requirements',
+    'Checking weekly hours and overtime – removing every guard who fails a hard rule',
+    'Scoring eligible guards with the weighted factors',
+    'Solving the highest-priority shift first, updating the working schedule after each pick',
+    'Recalculating eligibility for the remaining shifts and validating the whole schedule'];
+}
+function setRunUI(ru){ S.runUI=ru; if(S.mode==='ai-select') document.getElementById('bars').innerHTML = barHTML(); }
+function startRun(ids, opt){
+  opt=opt||{};
+  S.menu=null;
+  if(!opt.keepSel){ S.mode=null; S.selected.clear(); }
   S.run = runBatch(ids, S.rules);
   S.sel = {...S.run.ai}; S.manual = {}; S.expanded = new Set(); S.focusG = {}; S.showExcl = new Set();
-  // expand the first row with a recommendation for a guided review
-  S.modal = {type:'processing', step:0, n:ids.length};
+  S.modal = {type:'processing', step:0, n:ids.length, ids:ids.slice()};
+  S.runUI = opt.keepSel ? {state:'loading', label:'Analyzing Schedule…', key:[...S.selected].sort().join(',')} : null;
   render();
+  const total = procSteps(S.modal).length;
   const tick = () => {
     if(!S.modal || S.modal.type!=='processing') return;
     S.modal.step++;
-    if(S.modal.step>=7){ setTimeout(()=>{ S.modal={type:'complete'}; renderOverlays(); }, reduceMotion?50:350); renderOverlays(); return; }
+    if(S.runUI && S.runUI.state==='loading' && S.modal.step>=Math.ceil(total/2)) setRunUI({...S.runUI, label:'Finding Best Guards…'});
+    if(S.modal.step>=total){ setTimeout(()=>{ S.modal={type:'complete'}; if(S.runUI) setRunUI({...S.runUI, state:'done'}); renderOverlays(); }, reduceMotion?50:350); renderOverlays(); return; }
     renderOverlays(); setTimeout(tick, reduceMotion?60:340);
   };
   setTimeout(tick, reduceMotion?60:340);
 }
-function recalc(msg){
+function pubBtnHTML(m){
+  const n=m.ids.length;
+  if(m.state==='loading') return `<button class="btn primary loading" disabled aria-busy="true"><span class="nspin" aria-hidden="true"></span>Publishing…</button>`;
+  if(m.state==='success') return `<button class="btn primary is-ok" disabled>${ic('check')} Published</button>`;
+  if(m.state==='error') return `<button class="btn primary is-err" disabled>${ic('xcirc')} Validation failed · ${m.err} need${m.err===1?'s':''} review</button>`;
+  return `<button class="btn primary" data-act="publish-confirm" ${n?'':'disabled'}>${ic('up')} Publish${n>1?' '+n:''}</button>`;
+}
+function requestPublish(ids){
+  const issues = validateAssignments(ids, S.rules);
+  S.modal = issues.length ? {type:'pubstale', ids, issues} : {type:'publish', ids};
+  renderOverlays();
+}
+/* Demo only: emulate another scheduler/process changing the schedule after AI ran */
+function simulateChange(){
+  let target=null, label='';
+  if(S.screen==='results' && S.run){
+    const sid = S.run.shiftIds.slice().sort((a,b)=>range(shiftById(a))[0]-range(shiftById(b))[0]).find(id=>S.sel[id]);
+    if(sid) target={sh:shiftById(sid), gid:S.sel[sid]};
+  } else {
+    const u = SHIFTS.filter(x=>x.status==='assigned' && !x.published).sort((a,b)=>range(a)[0]-range(b)[0])[0];
+    if(u) target={sh:u, gid:u.guardId};
+  }
+  if(!target){ toast('Nothing to change: there are no AI selections or unpublished assignments yet.','info'); return; }
+  const other = Object.keys(SITES).find(k=>k!==target.sh.site && !SITES[k].restricted) || 'MCT';
+  const st = toMin(target.sh.start)-120, stT = pad(Math.floor(((st%1440)+1440)%1440/60))+':'+pad(((st%60)+60)%60);
+  const n = {id:'SH-'+(seq++), date:target.sh.date, start:stT, end:target.sh.start==='00:00'?'23:00':pad(Math.floor((toMin(target.sh.start)+120)%1440/60))+':'+pad(toMin(target.sh.start)%60), site:other, post:SITES[other].posts[0], dept:SITES[other].dept, req:[], pref:[], status:'assigned', guardId:target.gid, published:true, note:'Added by another scheduler'};
+  SHIFTS.push(n); S.flash=new Set([n.id]); render(); setTimeout(()=>S.flash.clear(),1700);
+  toast('Simulated: another scheduler assigned '+guardById(target.gid).name+' to '+fmtShort(n.date)+' '+n.start+'–'+n.end+' at '+SITES[other].name+'. '+(S.screen==='results'?'Apply':'Publish')+' will now re-validate.','info');
+}
+function schedulerLocks(){ const L={}; if(!S.run) return L; S.run.shiftIds.forEach(sid=>{ const gid=S.sel[sid]||null; if(gid!==(S.run.ai[sid]||null) || S.manual[sid]==='skip') L[sid]=gid; }); return L; }
+function recalc(msg, extraLocks){
   if(!S.run) return;
-  S.run = runBatch(S.run.shiftIds, S.rules);
-  S.sel = {...S.run.ai}; S.manual = {}; S.focusG = {};
-  toast(msg || 'Rules saved. Recommendations recalculated.');
+  const before = {...S.sel};
+  const locks = Object.assign(schedulerLocks(), extraLocks||{});
+  const ids = S.run.shiftIds.filter(id=>{ const x=shiftById(id); return x && (x.status!=='assigned'); });
+  S.run = runBatch(ids, S.rules, locks);
+  S.sel = {...S.run.ai}; S.focusG = {}; Object.keys(S.manual).forEach(k=>{ if(!(k in locks)) delete S.manual[k]; });
+  const changed = ids.filter(id=>(before[id]||null)!==(S.sel[id]||null)).length;
+  toast((msg || 'AI re-ran on the latest schedule.')+' '+changed+' recommendation'+(changed===1?'':'s')+' changed'+(Object.keys(locks).length?'; your '+Object.keys(locks).length+' selection'+(Object.keys(locks).length===1?' was':'s were')+' kept':'')+'.', 'refresh');
 }
 function applyRun(){
   const created = [];
   S.run.shiftIds.forEach(sid=>{
     const gid = selectedFor(sid); if(!gid) return;
-    const sh = shiftById(sid); const rd = rowData(sid); const ev = rd.eligible.find(x=>x.ev.guard.id===gid).ev;
+    const sh = shiftById(sid); const rd = rowData(sid); const f = rd.eligible.find(x=>x.ev.guard.id===gid); if(!f || f.blockedLive) return; const ev = f.ev;
     created.push({sh, gid, score:ev.score, manual: gid!==S.run.ai[sid], ai:S.run.ai[sid]});
   });
   created.forEach(c=>{ Object.assign(c.sh, {status:'assigned', guardId:c.gid, published:false, ai:true, aiScore:c.score, aiRec:c.ai}); });
@@ -2069,7 +2544,8 @@ const A = {
     const s = shiftById(t.dataset.id); if(!s) return;
     if(S.mode==='ai-select'){
       if(!isOpen(s)){ toast('Only Open and Vacant shifts can be selected for AI Scheduling.', 'info'); return; }
-      S.selected.has(s.id)?S.selected.delete(s.id):S.selected.add(s.id); render(); return;
+      if(S.runUI && S.runUI.state==='loading') return;
+      S.selected.has(s.id)?S.selected.delete(s.id):S.selected.add(s.id); S.runUI=null; render(); return;
     }
     if(S.mode==='multi'){ S.selected.has(s.id)?S.selected.delete(s.id):S.selected.add(s.id); render(); return; }
     openQV(s.id, t);
@@ -2081,22 +2557,24 @@ const A = {
   'm-unassign': () => { const s=shiftById(S.menu.id); S.menu=null; s.status='vacant'; s.guardId=null; s.ai=false; s.published=true; render(); toast('Guard unassigned. Shift is now Vacant.'); },
   'm-multi': () => { const id=S.menu.id; S.menu=null; S.mode='multi'; S.selected=new Set([id]); render(); },
   'm-multi-any': () => { S.menu=null; S.mode='multi'; S.selected=new Set(); render(); },
-  'm-publish': () => { const id=S.menu.id; S.menu=null; S.modal={type:'publish', ids:[id]}; renderOverlays(); },
+  'm-publish': () => { const id=S.menu.id; S.menu=null; requestPublish([id]); },
   'm-unpublish': () => { const s=shiftById(S.menu.id); S.menu=null; s.published=false; render(); toast('Shift unpublished.'); },
   'm-dupmenu': () => { S.menu.dup=!S.menu.dup; renderOverlays(); },
   'm-dup': t => { const s=shiftById(S.menu.id); S.menu=null; const n={...s, id:'SH-'+(seq++), date:addDays(s.date,+t.dataset.days), published: s.status==='assigned'?false:true, confirmed:false};
-    if(n.status==='assigned'){ const conflict = !evaluate(guardById(n.guardId), n, baseAssignments(), S.rules).checks.find(c=>c.key==='conflict').pass; if(conflict){ n.status='open'; n.guardId=null; n.ai=false; toast('Duplicated as an Open shift: the guard is already booked then.','info'); } else toast('Shift duplicated to '+fmtShort(n.date)+' as Unpublished.'); } else toast('Open shift duplicated to '+fmtShort(n.date)+'.');
+    if(n.status==='assigned'){ const dv = evaluate(guardById(n.guardId), n, baseAssignments(), S.rules); if(!dv.eligible){ toast('Duplicated as an Open shift: '+guardById(n.guardId).name+' is not eligible then ('+dv.blocking[0].blockLabel.toLowerCase()+').','info'); n.status='open'; n.guardId=null; n.ai=false; } else toast('Shift duplicated to '+fmtShort(n.date)+' as Unpublished.'); } else toast('Open shift duplicated to '+fmtShort(n.date)+'.');
     SHIFTS.push(n); S.flash=new Set([n.id]); render(); setTimeout(()=>S.flash.clear(),1700); },
   'm-template': () => { const s=shiftById(S.menu.id); S.menu=null; renderOverlays(); toast('Shift template saved: '+SITES[s.site].name+' · '+s.post+' '+s.start+'–'+s.end+'.'); },
-  'sel-cancel': () => { S.mode=null; S.selected.clear(); render(); },
-  'sel-all': () => { openShiftsInView().forEach(s=>S.selected.add(s.id)); render(); },
-  'sel-find': () => { if(S.selected.size) startRun([...S.selected]); },
+  'sel-cancel': () => { S.mode=null; S.selected.clear(); S.runUI=null; render(); },
+  'sel-all': () => { if(S.runUI && S.runUI.state==='loading') return; openShiftsInView().forEach(s=>S.selected.add(s.id)); S.runUI=null; render(); },
+  'sel-find': () => { if(S.selected.size) startRun([...S.selected], {keepSel:true}); },
+  'view-recs': () => { A['review-recs'](); },
+  'sel-order': t => { if(S.menu && S.menu.type==='selorder'){ S.menu=null; renderOverlays(); return; } openMenu('selorder', t, {above:true}); },
   'multi': t => {
     const op=t.dataset.op; const ids=[...S.selected];
     if(op==='all'){ shiftsInView().forEach(s=>S.selected.add(s.id)); render(); return; }
     if(!ids.length){ toast('Select at least one shift first.','info'); return; }
     if(op==='delete'){ S.modal={type:'delete', ids}; renderOverlays(); return; }
-    if(op==='publish'){ const p=ids.filter(id=>{const s=shiftById(id); return s.status==='assigned'&&!s.published;}); if(!p.length){toast('None of the selected shifts are unpublished.','info');return;} S.modal={type:'publish', ids:p}; renderOverlays(); return; }
+    if(op==='publish'){ const p=ids.filter(id=>{const s=shiftById(id); return s.status==='assigned'&&!s.published;}); if(!p.length){toast('None of the selected shifts are unpublished.','info');return;} requestPublish(p); return; }
     let n=0;
     ids.forEach(id=>{ const s=shiftById(id);
       if(op==='unpublish' && s.status==='assigned' && s.published){ s.published=false; n++; }
@@ -2117,8 +2595,8 @@ const A = {
   'scrim': (t,e) => { if(e.target===t && S.modal && !['processing','applying'].includes(S.modal.type)){ S.modal=null; renderOverlays(); } },
   'run-all': () => { let list=openShiftsInView(); if(S.modal && S.modal.filter==='ready') list=list.filter(x=>quickEligible(x)>0); S.modal=null; startRun(list.map(x=>x.id)); },
   'review-recs': () => {
-    S.modal=null; S.screen='results';
-    const first = S.run.shiftIds.slice().sort((a,b)=>range(shiftById(a))[0]-range(shiftById(b))[0]).find(sid=>S.run.ai[sid]);
+    S.modal=null; S.screen='results'; S.mode=null; S.selected.clear(); S.runUI=null;
+    const first = runOrder().find(sid=>S.run.ai[sid]);
     if(first) S.expanded.add(first);
     render(); window.scrollTo({top:0});
   },
@@ -2126,6 +2604,12 @@ const A = {
   'expand-all': () => { if(S.expanded.size===S.run.shiftIds.length) S.expanded.clear(); else S.run.shiftIds.forEach(id=>S.expanded.add(id)); render(); },
   'pick-guard': t => { const sid=t.dataset.sid, gid=t.dataset.gid||null; S.sel[sid]=gid; S.manual[sid]= gid? null : 'skip'; if(gid) S.focusG[sid]=gid; render();
     if(gid && gid!==S.run.ai[sid]) toast('Manual override: '+guardById(gid).name+' selected. AI recommendation stays visible for comparison.','edit'); },
+  'rerun-ai': () => { S.modal=null; recalc('AI re-ran on the latest schedule.'); render(); },
+  'rerun-lock': t => { const sid=t.dataset.sid, gid=t.dataset.gid; S.sel[sid]=gid; S.manual[sid]=null; recalc(guardById(gid).name+' locked to this shift and AI re-ran the other shifts.', {[sid]:gid}); S.focusG[sid]=gid; S.expanded.add(sid); render(); },
+  'stale-drop': () => { S.modal.issues.forEach(i=>{ S.sel[i.sid]=null; S.manual[i.sid]='skip'; }); S.modal={type:'confirm'}; render(); },
+  'simulate-change': () => { S.menu=null; simulateChange(); },
+  'pub-valid': () => { const bad=new Set(S.modal.issues.map(i=>i.sid)); const ids=S.modal.ids.filter(id=>!bad.has(id)); S.modal={type:'publish', ids}; renderOverlays(); },
+  'pub-rerun': () => { const ids=S.modal.issues.map(i=>i.sid); ids.forEach(id=>{ const x=shiftById(id); x.guardId=null; x.status=x.ai?'open':'vacant'; x.ai=false; x.published=true; }); S.modal=null; render(); toast(ids.length+' invalid assignment'+(ids.length===1?'':'s')+' removed. AI is re-running on the latest schedule.','refresh'); setTimeout(()=>startRun(ids), 300); },
   'inspect-guard': t => { const sid=t.dataset.sid, gid=t.dataset.gid; const x=rowData(sid).eligible.find(y=>y.ev.guard.id===gid);
     S.focusG[sid]=gid; S.fadeKey=sid;
     if(x && !x.blockedLive){ S.sel[sid]=gid; S.manual[sid]=null; render(); S.fadeKey=null; }
@@ -2133,19 +2617,25 @@ const A = {
   'focus-guard': (t,e) => { e.stopPropagation(); S.focusG[t.dataset.sid]=t.dataset.gid; render(); },
   'toggle-excl': t => { const id=t.dataset.id; S.showExcl.has(id)?S.showExcl.delete(id):S.showExcl.add(id); render(); },
   'history': t => { S.drawer={type:'history', gid:t.dataset.gid, sid:t.dataset.sid}; renderOverlays(); },
-  'apply-open': () => { S.modal={type:'confirm'}; renderOverlays(); },
-  'apply-confirm': () => { const n=resultStats().ready; S.modal={type:'applying', n}; renderOverlays();
+  'apply-open': () => { const issues = validateSelections(S.run.shiftIds, S.sel, S.rules); S.modal = issues.length ? {type:'stale', issues} : {type:'confirm'}; renderOverlays(); },
+  'apply-confirm': () => { const issues = validateSelections(S.run.shiftIds, S.sel, S.rules); if(issues.length){ S.modal={type:'stale', issues}; renderOverlays(); return; } const n=resultStats().ready; S.modal={type:'applying', n}; renderOverlays();
     setTimeout(()=>{ const c=applyRun(); S.modal={type:'applied', n:c}; renderOverlays(); }, reduceMotion?100:1300); },
   'applied-done': () => { S.modal=null; S.screen='scheduler'; S.run=null; S.banner={type:'unpub'}; S.view='month';
     const firstDate = S.lastApplied.map(shiftById).sort((a,b)=>range(a)[0]-range(b)[0])[0]; if(firstDate) S.focus=firstDate.date;
     S.flash=new Set(S.lastApplied); render(); window.scrollTo({top:0}); setTimeout(()=>S.flash.clear(),1700); },
   'discard': () => { if(S.screen==='results'){ S.screen='scheduler'; S.run=null; render(); toast('AI recommendations discarded. No changes were made.','info'); } },
   'banner-review': () => { S.aiOnly=true; S.view='list'; render(); toast('Showing AI-created assignments. Use ⋮ on any row to edit, change guard, unassign, delete or publish.','info'); },
-  'banner-publish': () => { S.modal={type:'publish', ids:unpubAI().map(s=>s.id)}; renderOverlays(); },
-  'publish-all': () => { S.menu=null; const ids=SHIFTS.filter(s=>s.status==='assigned'&&!s.published).map(s=>s.id); if(!ids.length){ renderOverlays(); toast('Everything is already published.','info'); return; } S.modal={type:'publish', ids}; renderOverlays(); },
-  'publish-confirm': () => { const ids=S.modal.ids; let ai=0; ids.forEach(id=>{ const s=shiftById(id); s.published=true; if(s.ai) ai++; });
-    S.modal=null; S.mode=null; S.selected.clear(); if(ai) S.banner={type:'published', n:ai}; S.flash=new Set(ids); render(); setTimeout(()=>S.flash.clear(),1700);
-    toast(ids.length+' assignment'+(ids.length===1?'':'s')+' published. Guards notified.'); },
+  'banner-publish': () => { requestPublish(unpubAI().map(s=>s.id)); },
+  'publish-all': () => { S.menu=null; const ids=SHIFTS.filter(s=>s.status==='assigned'&&!s.published).map(s=>s.id); if(!ids.length){ renderOverlays(); toast('Everything is already published.','info'); return; } requestPublish(ids); },
+  'publish-confirm': () => { const m=S.modal; if(!m || m.state) return; m.state='loading'; renderOverlays();
+    setTimeout(()=>{ if(S.modal!==m) return;
+      const iss=validateAssignments(m.ids, S.rules);
+      if(iss.length){ m.state='error'; m.err=iss.length; renderOverlays(); setTimeout(()=>{ if(S.modal===m){ S.modal={type:'pubstale', ids:m.ids, issues:iss}; renderOverlays(); } }, reduceMotion?100:1100); return; }
+      const ids=m.ids; let ai=0; ids.forEach(id=>{ const s=shiftById(id); s.published=true; if(s.ai) ai++; });
+      m.state='success'; renderOverlays();
+      setTimeout(()=>{ if(S.modal===m) S.modal=null; S.mode=null; S.selected.clear(); if(ai) S.banner={type:'published', n:ai}; S.flash=new Set(ids); render(); setTimeout(()=>S.flash.clear(),1700);
+        toast(ids.length+' assignment'+(ids.length===1?'':'s')+' published. Guards notified.'); }, reduceMotion?80:750);
+    }, reduceMotion?60:650); },
   'banner-dismiss': () => { S.banner=null; render(); },
   'aionly-off': () => { S.aiOnly=false; render(); },
   'aionly-toggle': () => { S.menu=null; S.aiOnly=!S.aiOnly; render(); },
@@ -2159,13 +2649,15 @@ const A = {
   'trend': t => openMenu('trend', t, {alignRight:true}),
   'more': t => openMenu('more', t, {alignRight:true}),
   'delete-confirm': () => { const ids=S.modal.ids; ids.forEach(id=>{ const i=SHIFTS.findIndex(s=>s.id===id); if(i>=0) SHIFTS.splice(i,1); }); S.modal=null; S.mode=null; S.selected.clear(); render(); toast(ids.length+' shift'+(ids.length===1?'':'s')+' deleted.'); },
-  'edit-save': () => { const s=shiftById(S.modal.id), d=S.modal.draft; const changed = d.guardId!==s.guardId || d.start!==s.start || d.end!==s.end;
+  'edit-save': () => { const s=shiftById(S.modal.id), d=S.modal.draft; const prioChanged=(d.priority||null)!==(s.priority||null); const changed = d.guardId!==s.guardId || d.start!==s.start || d.end!==s.end || prioChanged;
+    if(prioChanged){ if(d.priority) s.priority=d.priority; else delete s.priority; }
+    if(d.guardId){ const ev=evaluate(guardById(d.guardId), {...s, start:d.start, end:d.end}, baseAssignments([s.id]), S.rules); if(!ev.eligible){ toast('This guard cannot be assigned: '+ev.blocking[0].blockLabel.toLowerCase()+'.','info'); return; } }
     const rk = d.guardId ? editRank(s, d) : null; const pick = rk ? rk.elig.find(e=>e.guard.id===d.guardId) : null;
     s.start=d.start; s.end=d.end;
     if(d.guardId){ if(d.guardId!==s.guardId){ s.guardId=d.guardId; s.status='assigned'; s.published=false; if(pick){ s.ai=true; s.aiScore=pick.score; } else s.ai=false; } else if(changed) s.published=false; }
     else if(s.status==='assigned'){ s.guardId=null; s.status='vacant'; s.ai=false; s.published=true; }
     S.modal=null; S.flash=new Set([s.id]); render(); setTimeout(()=>S.flash.clear(),1700);
-    toast(!changed?'No changes.': s.status==='assigned' ? guardById(s.guardId).name+' assigned to '+fmtShort(s.date)+' '+s.start+' as Unpublished.' : 'Shift saved without a guard.'); },
+    toast(!changed?'No changes.': (prioChanged && d.guardId===s.guardId && s.status!=='assigned') ? 'Priority set to '+PRIORITY[shiftPriority(s)].label+(s.priority?'':' (auto)')+'.' : s.status==='assigned' ? guardById(s.guardId).name+' assigned to '+fmtShort(s.date)+' '+s.start+' as Unpublished.' : 'Shift saved without a guard.'); },
   'ed-pick': t => { const d=S.modal.draft; d.guardId=t.dataset.gid||null; d.auto=false; renderOverlays(); },
   'ed-why': (t,e) => { e.stopPropagation(); const d=S.modal.draft; d.why = d.why===t.dataset.gid ? null : t.dataset.gid; renderOverlays(); },
   'ed-others': () => { const d=S.modal.draft; d.hideOthers=!d.hideOthers; renderOverlays(); },
@@ -2177,7 +2669,7 @@ function editRank(s, d){
   return { elig: rank(evs.filter(e=>e.eligible)), inel: evs.filter(e=>!e.eligible) };
 }
 function openEdit(id){
-  const s=shiftById(id); const draft={guardId:s.guardId, start:s.start, end:s.end, auto:false};
+  const s=shiftById(id); const draft={guardId:s.guardId, start:s.start, end:s.end, auto:false, priority:s.priority||''};
   if(isOpen(s)){ const top=editRank(s, draft).elig[0]; if(top){ draft.guardId=top.guard.id; draft.auto=true; } }
   S.modal={type:'edit', id, draft}; renderOverlays();
 }
@@ -2187,6 +2679,7 @@ const CH = {
   'rule-factor': t => { const f=S.drawer.draft.factors; f[t.dataset.k]=t.checked; if(!Object.values(f).some(Boolean)){ f[t.dataset.k]=true; toast('At least one scoring factor must apply.','info'); } renderOverlays(); },
   'rule-num': t => { const v=parseFloat(t.value); if(!isNaN(v)) S.drawer.draft[t.dataset.k]=v; renderOverlays(); },
   'rule-sel': t => { S.drawer.draft[t.dataset.k]=t.value; renderOverlays(); },
+  'ed-prio': t => { S.modal.draft.priority=t.value; renderOverlays(); },
   'ed-guard': t => { S.modal.draft.guardId=t.value||null; S.modal.draft.auto=false; renderOverlays(); },
   'ed-start': t => { S.modal.draft.start=t.value; renderOverlays(); },
   'ed-end': t => { S.modal.draft.end=t.value; renderOverlays(); },
@@ -2200,7 +2693,7 @@ document.addEventListener('click', e => {
     qvCommit(); if(same) return;
   }
   if(S.menu && !e.target.closest('.menu,.pop')){
-    const keep = t && ['aimenu','shiftmenu','monthmenu','cost','trend','more'].includes(t.dataset.act);
+    const keep = t && ['aimenu','shiftmenu','monthmenu','cost','trend','more','sel-order'].includes(t.dataset.act);
     if(!keep){ S.menu=null; renderOverlays(); }
   }
   if(!t) return;
@@ -2217,18 +2710,24 @@ window.addEventListener('resize', ()=>{ if(S.menu){ S.menu=null; renderOverlays(
 /* ---------- rules modal: hard rules, radar, weights, sub-dialogs ---------- */
 const HARD_RULES = [
   ['active','Guard must be Active','Inactive or on-leave guards are never recommended.'],
-  ['available','Guard must be Available','Respects weekly availability, shift-type availability and approved time off.'],
-  ['qualification','Required Qualification','Guard holds every certification the shift requires. Armed Guard also covers Unarmed posts.'],
-  ['department','Required Department','Guard’s home department, or a department they are cross-trained for.'],
-  ['conflict','No Schedule Conflict','No overlapping shift, including other recommendations in the same run.'],
+  ['available','Available for Full Shift','Weekly availability window and approved time off must cover the whole shift, not just its start.'],
+  ['qualification','Required Qualification / Certification','Guard holds every required license or certification and it is valid (not expired) on the shift date.'],
+  ['skills','Required Skills / Training','Post-specific mandatory skills (e.g. Vehicle Inspection at Harbor Logistics). Preferred skills only affect ranking.'],
+  ['department','Required Department','Applies when the post marks the department as Required. A Preferred department only affects ranking.'],
+  ['conflict','No Overlapping Shift','Checked against every existing shift and every other recommendation in the same run.'],
+  ['travel','Travel Feasibility','Previous shift end → travel time between sites → arrival buffer must fit before the shift starts (and before the next shift).'],
+  ['rest','Minimum Rest Between Shifts','Previous shift end → travel → required rest → next shift start.'],
   ['site','Site/Post Eligibility','Restricted sites (Riverside Medical Plaza, Harbor Logistics Warehouse) need site clearance.'],
-  ['maxHours','Maximum Weekly Hours','Projected hours this week, including this shift, stay under the limit.'],
+  ['maxHours','Maximum Weekly Hours','Hours worked + already scheduled + this shift must stay under the weekly limit.'],
+  ['overtime','Overtime Policy','When overtime is not allowed, any assignment that creates overtime is rejected. When allowed, the guard stays eligible but ranks lower.'],
 ];
 function hardRowHTML(r,k,l,dsc){
   const on = r.hard[k];
   return `<div class="rule ${on?'':'off'}" data-hr="${k}"><label class="switch"><input type="checkbox" id="hr-${k}" data-ch="rule-hard" data-k="${k}" ${on?'checked':''} aria-label="${l}"><span></span></label><div class="rt"><b>${l}</b><small>${dsc}</small>
     ${k==='maxHours'?`<div class="ctl">Limit <input class="field n num" type="number" min="8" max="80" step="1" id="hr-cap" data-ch="rule-num" data-k="maxHoursCap" value="${r.maxHoursCap}" ${on?'':'disabled'}> hours per guard per week</div>`:''}
-    ${k==='conflict'?`<div class="ctl">Check <select class="field" id="hr-buffer" data-ch="rule-sel" data-k="conflictBuffer" ${on?'':'disabled'}><option value="travel" ${r.conflictBuffer==='travel'?'selected':''}>Overlaps + travel time between sites</option><option value="none" ${r.conflictBuffer==='none'?'selected':''}>Overlapping shifts only</option></select></div>`:''}
+    ${k==='rest'?`<div class="ctl">Minimum <input class="field n num" type="number" min="0" max="16" step="1" id="hr-rest" data-ch="rule-num" data-k="restHours" value="${r.restHours}" ${on?'':'disabled'}> hours of rest after travel</div>`:''}
+    ${k==='travel'?`<div class="ctl">Arrival buffer <input class="field n num" type="number" min="0" max="60" step="5" id="hr-buf" data-ch="rule-num" data-k="travelBuffer" value="${r.travelBuffer}" ${on?'':'disabled'}> min · travel time from site distance at 30 mph</div>`:''}
+    ${k==='overtime'?`<div class="ctl">Overtime <select class="field" id="hr-ot" data-ch="rule-sel" data-k="overtimePolicy" ${on?'':'disabled'}><option value="allowed" ${r.overtimePolicy!=='notallowed'?'selected':''}>Allowed – eligible, ranked lower, warning shown</option><option value="notallowed" ${r.overtimePolicy==='notallowed'?'selected':''}>Not allowed – reject the guard</option></select></div>`:''}
   </div></div>`;
 }
 function condControl(c, attrs){
@@ -2464,7 +2963,7 @@ function accHTML(id, title, sub, badge, inner){
     <div class="acc-b" id="acc-${id}" ${open?'':'inert'}><div class="acc-in"><div class="acc-pad">${inner}</div></div></div></section>`;
 }
 function accBadge(id, r){
-  if(id==='hard'){ const ch=r.customHard||[]; const on=Object.values(r.hard).filter(Boolean).length+ch.filter(c=>c.on).length, tot=7+ch.length;
+  if(id==='hard'){ const ch=r.customHard||[]; const on=Object.values(r.hard).filter(Boolean).length+ch.filter(c=>c.on).length, tot=Object.keys(r.hard).length+ch.length;
     return `<span class="rtag strong">${on} Active Rule${on===1?'':'s'}</span>${on<tot?`<span class="rtag warnb">${tot-on} off</span>`:''}${ch.length?`<span class="rtag">${ch.length} custom</span>`:''}`; }
   if(id==='factors'){ const act=activeFactors(r); const eq=act.every(f=>f.weight===act[0].weight);
     return `<span class="rtag strong">${act.length} Active Factor${act.length===1?'':'s'}</span>${act.length<r.factors.length?`<span class="rtag warnb">${r.factors.length-act.length} off</span>`:''}<span class="rtag ${eq?'ok':''}">${eq?'Equal weights':'Custom weights'}</span>`; }
@@ -2490,8 +2989,8 @@ function openQV(id, anchorEl){
   renderQV();
 }
 function qvHeaderBadge(s, top){
-  if(s.status==='open') return `<span class="qv-state open">Open</span>`;
-  if(s.status==='vacant') return `<span class="qv-state vacant">Vacant</span>`;
+  if(s.status==='open') return `<span class="qv-state open">Open</span><span class="qv-prio p-${shiftPriority(s)}" title="${esc(prioTip(s,shiftPriority(s)))}">${PRIORITY[shiftPriority(s)].label} priority</span>`;
+  if(s.status==='vacant') return `<span class="qv-state vacant">Vacant</span><span class="qv-prio p-${shiftPriority(s)}" title="${esc(prioTip(s,shiftPriority(s)))}">${PRIORITY[shiftPriority(s)].label} priority</span>`;
   const aiTop = top && s.guardId===top.guard.id;
   return `<span class="qv-state ${aiTop?'ai':'asg'}">${aiTop?'AI Recommended':'Assigned'}</span>`;
 }
@@ -2506,7 +3005,7 @@ function qvHTML(){
   const pubBtn = s.status==='assigned' ? (s.published ? `<button class="qv-act" data-act="qv-unpub">Unpublish</button>` : `<button class="qv-act pub" data-act="qv-pub">Publish</button>`) : '';
   const isTopSel = top && g && top.guard.id===g.id && pending;
   const list = q.open ? `<div class="qv-dd" role="listbox">
-      ${elig.length?elig.map((e,i)=>`<div class="qv-opt ${q.gid===e.guard.id?'on':''} ${s.guardId===e.guard.id?'saved':''}" role="option" aria-selected="${q.gid===e.guard.id}" tabindex="0" data-act="qv-pick" data-gid="${e.guard.id}"><span class="qv-on">${esc(e.guard.name)}${i===0?'<em class="qv-ai">Top Match</em>':''}${s.guardId===e.guard.id?'<em class="qv-cur">Current</em>':''}</span><span class="qv-pct">${e.score}% Match</span><small>${TIERS[scoreTier(e.score)].label} · ${e.distance} mi${e.warnings.length?' · ⚠ '+e.warnings.length:''}</small>${s.guardId===e.guard.id?'':`<button class="qv-assign" data-act="qv-assign" data-gid="${e.guard.id}" aria-label="Assign ${esc(e.guard.name)}">Assign</button>`}</div>`).join(''):`<div class="qv-empty">No guard passes every hard rule for this shift.</div>`}
+      ${elig.length?elig.map((e,i)=>`<div class="qv-opt ${q.gid===e.guard.id?'on':''} ${s.guardId===e.guard.id?'saved':''}" role="option" aria-selected="${q.gid===e.guard.id}" tabindex="0" data-act="qv-pick" data-gid="${e.guard.id}"><span class="qv-on">${esc(e.guard.name)}${i===0?'<em class="qv-ai">Top Match</em>':''}${s.guardId===e.guard.id?'<em class="qv-cur">Current</em>':''}</span><span class="qv-pct">${e.score}% Match</span><small>${i===0?'Recommended':'Eligible'}${majorWarn(e).length?' · ⚠ '+esc(majorWarn(e)[0].type):''} · ${e.distance} mi${e.warnings.length?' · ⚠ '+e.warnings.length:''}</small>${s.guardId===e.guard.id?'':`<button class="qv-assign" data-act="qv-assign" data-gid="${e.guard.id}" aria-label="Assign ${esc(e.guard.name)}">Assign</button>`}</div>`).join(''):`<div class="qv-empty">No guard passes every hard rule for this shift.</div>`}
       <div class="qv-opt none ${!q.gid?'on':''}" role="option" aria-selected="${!q.gid}" tabindex="0" data-act="qv-none"><span class="qv-on">No Guard (Open)</span><small>${s.guardId?'Unassigns the current guard straight away':'Keep the shift without a guard'}</small></div></div>` : '';
   let hint='';
   if(q.saved && !pending) hint = `<div class="qv-hint ok">${q.saved}</div>`;
@@ -2568,7 +3067,7 @@ Object.assign(A, {
   'qv-savefull': () => { const q=S.qv, s=shiftById(q.id); S.qv=null; renderQV(); if((q.gid||null)!==(s.guardId||null)) qvApply(s, q.gid, false); },
   'qv-cancel': () => { S.qv=null; renderQV(); },
   'qv-unpub': () => { const s=shiftById(S.qv.id); s.published=false; render(); renderQV(); toast('Shift unpublished.'); },
-  'qv-pub': () => { const s=shiftById(S.qv.id); s.published=true; render(); renderQV(); toast('Shift published. Guard notified.'); },
+  'qv-pub': () => { const s=shiftById(S.qv.id); const iss=validateAssignments([s.id], S.rules); if(iss.length){ S.qv=null; renderQV(); S.modal={type:'pubstale', ids:[s.id], issues:iss}; renderOverlays(); return; } s.published=true; render(); renderQV(); toast('Re-validated and published. Guard notified.'); },
   'qv-full': () => { const id=S.qv.id; S.qv=null; renderQV(); openEdit(id); },
 });
 
