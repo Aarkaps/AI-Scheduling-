@@ -78,7 +78,8 @@ input,select{font:inherit;color:var(--text)}
 .pillbtn{height:46px;min-width:66px;padding:0 20px;border-radius:24px;background:var(--pill);display:inline-flex;align-items:center;justify-content:center;gap:8px;font-weight:700;font-size:14.5px}
 .pillbtn:hover{background:var(--pill-h)}
 .pillbtn .ic{width:21px;height:21px;stroke-width:2.2}
-.pillbtn:active,.pillbtn[aria-expanded="true"]{background:#3d4862}
+.pillbtn.ai{background:var(--accent-2);color:var(--on-accent);box-shadow:inset 0 0 0 1px rgba(255,255,255,.12)}
+.pillbtn.ai:hover,.pillbtn.ai[aria-expanded="true"]{background:var(--accent)}
 .pillbtn .cnt{background:var(--accent);color:#fff;border-radius:10px;font-size:11px;padding:1px 6px}
 .iconbtn{width:40px;height:46px;display:grid;place-items:center;border-radius:6px}
 .iconbtn:hover{background:var(--panel)}
@@ -99,9 +100,8 @@ input,select{font:inherit;color:var(--text)}
 /* ---------- buttons ---------- */
 .btn{height:40px;padding:0 18px;border-radius:5px;display:inline-flex;align-items:center;justify-content:center;gap:8px;font-weight:500;white-space:nowrap}
 .btn .ic{width:18px;height:18px}
-.btn.primary{background:#e6e9f0;color:#141c2c;font-weight:700}
-.btn.primary:hover{background:#fff}
-.btn.primary:active{background:#cfd4de}
+.btn.primary{background:var(--accent-2);color:var(--on-accent)}
+.btn.primary:hover{background:var(--accent)}
 .btn.primary:disabled{background:var(--pill);color:var(--dim);cursor:not-allowed}
 .btn.ghost{background:var(--pill)}
 .btn.ghost:hover{background:var(--pill-h)}
@@ -190,7 +190,7 @@ table.grid tr.selected td{background:var(--accent-soft)}
 .bbar .acts{display:flex;align-items:center;gap:22px;flex-wrap:wrap}
 .bbar .acts .link{font-size:16px;font-weight:400}
 .bbar .right{margin-left:auto;display:flex;gap:10px;align-items:center;flex-wrap:wrap}
-.bbar.ai{border-color:var(--line-2)}
+.bbar.ai{border-color:rgba(111,120,255,.6)}
 .bbar .aihint{display:flex;align-items:center;gap:8px;color:#b6bbff;font-size:13px}
 .bbar .aihint .ic{width:18px;height:18px}
 
@@ -999,65 +999,6 @@ table.hist td{padding:8px 6px;border-bottom:1px solid var(--line);vertical-align
 .btn:disabled{opacity:.5;cursor:not-allowed}
 @media (max-width:900px){.hrlist{grid-template-columns:1fr}.fillbox{margin:12px 12px 0}}
 
-/* ---------- Native GuardsPro action buttons (no AI colour scheme) ---------- */
-.nbtn{height:40px;padding:0 20px;border-radius:24px;background:var(--pill);color:var(--text);display:inline-flex;align-items:center;justify-content:center;gap:8px;font-weight:700;font-size:14px;white-space:nowrap;transition:background-color .12s}
-.nbtn .ic{width:18px;height:18px;stroke-width:2.1}
-.nbtn:hover{background:var(--pill-h)}
-.nbtn:active{background:#3d4862}
-.nbtn:disabled{opacity:.45;cursor:not-allowed;background:var(--pill)}
-.nbtn.loading{opacity:1;cursor:progress;color:var(--muted)}
-.nbtn.strong{background:#e6e9f0;color:#141c2c}
-.nbtn.strong:hover{background:#fff}
-.nbtn.strong:active{background:#cfd4de}
-.nspin{width:15px;height:15px;border-radius:50%;border:2px solid currentColor;border-right-color:transparent;animation:spin .8s linear infinite;flex:none;opacity:.8}
-.btn.primary.loading{opacity:1;cursor:progress;background:#cfd4de;color:#3a4357}
-.btn.primary.is-ok{opacity:1;background:var(--ok);color:#0d2a1d}
-.btn.primary.is-err{opacity:1;background:var(--bad);color:#2b0c12}
-.btn.primary:disabled:not(.loading):not(.is-ok):not(.is-err){background:var(--pill);color:var(--dim)}
-.eyebrow{color:var(--muted)}
-
-/* ---------- Shift priority ---------- */
-.pchip{display:inline-flex;align-items:center;height:20px;padding:0 7px;border-radius:4px;font-size:10.5px;font-weight:700;letter-spacing:.4px;white-space:nowrap;border:1px solid var(--line-2);color:var(--muted);background:transparent;vertical-align:middle}
-.pchip.p-critical{color:var(--bad);border-color:rgba(242,103,122,.55)}
-.pchip.p-high{color:var(--warn);border-color:rgba(246,185,75,.5)}
-.pchip.p-normal{color:var(--muted)}
-.pchip.p-low{color:var(--dim);border-style:dashed}
-.tag.prio{background:rgba(24,32,46,.1);color:var(--card-sub);font-weight:700}
-.tag.prio.p-high,.tag.prio.p-critical{background:#18202e;color:#ffd38a}
-.st + .pchip{margin-left:6px}
-.res .ordh{width:34px;text-align:center}
-.res td.ord{text-align:center;vertical-align:middle}
-.res td.ord span{display:inline-flex;width:24px;height:24px;border-radius:50%;align-items:center;justify-content:center;background:var(--pill);font-weight:700;font-size:12px;font-variant-numeric:tabular-nums}
-.res .cell-shift .pchip{margin:3px 0 2px}
-.rowwhy{display:block;font-size:11.5px;color:var(--muted);margin-top:3px}
-.callout.prio{border-color:var(--line-2)}
-.prio-why{display:flex;gap:10px;align-items:flex-start;border:1px solid var(--line);background:var(--panel-2);border-radius:6px;padding:10px 12px;margin:10px 0 12px}
-.prio-why>.ic{width:18px;height:18px;color:var(--muted);margin-top:2px}
-.prio-why .pw-h{display:flex;align-items:center;gap:8px;flex-wrap:wrap}
-.prio-why .pw-n{display:inline-flex;width:22px;height:22px;border-radius:50%;align-items:center;justify-content:center;background:var(--pill);font-weight:700;font-size:12px}
-.prio-why p{margin:6px 0 0;color:var(--muted);font-size:13px;line-height:1.5}
-.prio-why p b{color:var(--text);font-weight:500}
-.fillbox .fb-h .pchip{margin-left:8px}
-.menu.selorder{width:420px;max-width:calc(100vw - 16px);padding-bottom:6px;max-height:360px;overflow-y:auto}
-.so-r{display:flex;align-items:center;gap:10px;padding:8px 14px;border-top:1px solid var(--line)}
-.so-n{width:20px;text-align:right;color:var(--dim);font-variant-numeric:tabular-nums;font-size:12px}
-.so-r .ic{width:16px;height:16px}
-.so-t{flex:1;min-width:0}
-.so-t b{display:block;font-weight:500;font-size:13px}
-.so-t small{display:block;color:var(--muted);font-size:12px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-.so-f{display:flex;gap:8px;align-items:flex-start;padding:10px 14px 6px;color:var(--muted);font-size:12px;border-top:1px solid var(--line)}
-.so-f .ic{width:15px;height:15px;margin-top:1px}
-.ro-sub{display:block;color:var(--muted);font-size:11.5px;margin-top:4px;font-weight:400}
-.qv-prio{display:inline-flex;align-items:center;height:20px;padding:0 7px;border-radius:4px;font-size:11px;font-weight:700;border:1px solid #c9ced8;color:#4a5263;margin-left:6px}
-.qv-prio.p-high,.qv-prio.p-critical{border-color:#e7b25a;color:#8a5a06;background:#fff7e8}
-.minilist .r .m .pchip{margin-right:4px;height:18px;font-size:10px}
-.banner.unpub{background:var(--panel-2);border-color:var(--line-2)}
-.principle{background:var(--pill);color:var(--muted)}
-.res .cell-shift>span{display:block}
-.res .cell-shift .pchip{display:inline-flex}
-.form label .ro:has(.ro-sub){flex-wrap:wrap;gap:4px}
-.form .ro .ro-sub{flex-basis:100%;margin-top:2px}
-
 </style>
 <div class="app" id="app">
   <aside class="sidebar" id="sidebar" aria-label="Main navigation"></aside>
@@ -1474,54 +1415,24 @@ function explain(ev, lead){
    Objective: (1) fill as many shifts as possible with valid assignments, (2) maximise total score.
    Every candidate is evaluated against the full schedule PLUS the other recommendations in the run,
    so the same guard is never recommended for two shifts they cannot both work. */
-/* ---------- Shift priority ----------
-   Priority decides WHICH SHIFT gets optimization attention first.
-   It is never a scoring factor and never relaxes a hard rule. */
-const PRIORITY = {
-  critical:{rank:0, label:'Critical'},
-  high:    {rank:1, label:'High'},
-  normal:  {rank:2, label:'Normal'},
-  low:     {rank:3, label:'Low'},
-};
-const PRIORITY_KEYS = Object.keys(PRIORITY).sort((a,b)=>PRIORITY[a].rank-PRIORITY[b].rank);
-function derivedPriority(sh){ return (sh.origStatus||sh.status)==='vacant' ? 'high' : 'normal'; }
-function shiftPriority(sh){ return (sh && sh.priority && PRIORITY[sh.priority]) ? sh.priority : derivedPriority(sh||{}); }
-function prioRank(sh){ return PRIORITY[shiftPriority(sh)].rank; }
-function prioLabel(sh){ return PRIORITY[shiftPriority(sh)].label; }
-
 function runBatch(shiftIds, rules, locks){
   locks = locks || {};
   const shifts = shiftIds.map(shiftById).filter(Boolean);
   const ids0 = shifts.map(s=>s.id);
-  const prio = {}; shifts.forEach(sh=>{ prio[sh.id] = shiftPriority(sh); });
-  const pr = sid => PRIORITY[prio[sid]].rank;
   const base = baseAssignments(ids0);
   const indep = {};
   shifts.forEach(sh=>{ indep[sh.id] = rank(GUARDS.map(g=>evaluate(g,sh,base,rules)).filter(e=>e.eligible)); });
-  // Step 2–3: order by priority first; within a priority, hardest-to-fill first, then by start time
-  const ids = shifts.slice().sort((a,b)=> pr(a.id)-pr(b.id) || indep[a.id].length-indep[b.id].length || range(a)[0]-range(b)[0]).map(s=>s.id);
+  const ids = shifts.slice().sort((a,b)=> indep[a.id].length-indep[b.id].length || range(a)[0]-range(b)[0]).map(s=>s.id);
   const ctx = (pick, sid) => base.concat(Object.entries(pick).filter(([k,v])=>k!==sid && v).map(([k,v])=>({shift:shiftById(k), guardId:v, source:'batch'})));
   const cands = (pick, sid) => rank(GUARDS.map(g=>evaluate(g,shiftById(sid),ctx(pick,sid),rules)).filter(e=>e.eligible));
   const valid = (pick, sid) => !pick[sid] || evaluate(guardById(pick[sid]),shiftById(sid),ctx(pick,sid),rules).eligible;
-  // Objective (lexicographic): coverage by priority tier, then match quality by priority tier.
-  // A higher-priority shift is filled, and best-matched, before any lower-priority one. Invalid = null.
-  const NT = PRIORITY_KEYS.length;
-  const objective = pick => { const v = new Array(NT*2).fill(0);
-    for(const sid of ids){ const gid=pick[sid]; if(!gid) continue; const ev=evaluate(guardById(gid),shiftById(sid),ctx(pick,sid),rules); if(!ev.eligible) return null; v[pr(sid)]++; v[NT+pr(sid)]+=ev.score; }
-    return v; };
-  const better = (a,b) => { if(!a) return false; if(!b) return true; for(let i=0;i<a.length;i++){ if(a[i]!==b[i]) return a[i]>b[i]; } return false; };
-  const totalScore = v => v ? v.slice(NT).reduce((x,y)=>x+y,0) : 0;
+  const objective = pick => { let filled=0, sum=0; for(const sid of ids){ const gid=pick[sid]; if(!gid) continue; const ev=evaluate(guardById(gid),shiftById(sid),ctx(pick,sid),rules); if(!ev.eligible) return -1; filled++; sum+=ev.score; } return filled*1000+sum; };
   let pick = {};
   const dropped = [];
   Object.entries(locks).forEach(([sid,gid])=>{ if(ids.includes(sid)) pick[sid]=gid||null; });
   Object.keys(locks).forEach(sid=>{ if(pick[sid] && !valid(pick,sid)){ dropped.push({sid, gid:pick[sid]}); delete pick[sid]; } });
   const locked = sid => (sid in locks) && !dropped.find(d=>d.sid===sid);
-  // Steps 4–10: sequential pass in priority order. Each pick updates the temporary schedule,
-  // and eligibility for every later shift is recalculated against it.
-  const seq = {};
-  for(const sid of ids){ if(locked(sid)) continue; const c=cands(pick,sid); pick[sid]=c.length?c[0].guard.id:null;
-    seq[sid] = { removed: indep[sid].filter(e=>!c.find(x=>x.guard.id===e.guard.id)).map(e=>{ const by=Object.keys(pick).find(k=>k!==sid && pick[k]===e.guard.id); return {gid:e.guard.id, by}; }) }; }
-  // Global improvement: only accept changes that improve the priority-ordered objective
+  for(const sid of ids){ if(locked(sid)) continue; const c=cands(pick,sid); pick[sid]=c.length?c[0].guard.id:null; }
   let best = objective(pick);
   for(let pass=0; pass<5; pass++){
     let improved=false;
@@ -1533,7 +1444,7 @@ function runBatch(shiftIds, rules, locks){
         for(const t of ids){ if(t===sid || locked(t) || !trial[t]) continue; if(!valid(trial,t)){ const c=cands(trial,t); trial[t]=c.length?c[0].guard.id:null; } }
         for(const t of ids){ if(t===sid || locked(t) || trial[t]) continue; const c=cands(trial,t); if(c.length) trial[t]=c[0].guard.id; }
         const sc = objective(trial);
-        if(better(sc, best)){ best=sc; pick=trial; improved=true; }
+        if(sc > best){ best=sc; pick=trial; improved=true; }
       }
     }
     if(!improved) break;
@@ -1544,42 +1455,25 @@ function runBatch(shiftIds, rules, locks){
     const sh = shiftById(sid);
     if(!pick[sid]){
       const users = indep[sid].map(e=>Object.keys(pick).find(k=>pick[k]===e.guard.id)).filter(Boolean);
-      const uu=[...new Set(users)];
-      notes[sid] = { kind:'starved', top: top.guard.id, users:uu, byHigher: uu.some(u=>pr(u)<pr(sid)) }; continue;
+      notes[sid] = { kind:'starved', top: top.guard.id, users:[...new Set(users)] }; continue;
     }
     if(top.guard.id === pick[sid]) continue;
     const re = evaluate(top.guard, sh, ctx(pick,sid), rules);
+    const where = Object.keys(pick).find(k=>pick[k]===top.guard.id && k!==sid);
     const why = re.blocking[0];
-    // Which higher-priority shifts already hold this guard, and would they be hurt by moving the guard here too?
-    const tTrial = {...pick, [sid]:top.guard.id};
-    const hp = Object.keys(pick).filter(k=>k!==sid && pick[k]===top.guard.id && pr(k)<pr(sid)).map(k=>{
-      const before = evaluate(top.guard, shiftById(k), ctx(pick,k), rules), after = evaluate(top.guard, shiftById(k), ctx(tTrial,k), rules);
-      const direct = why && why.withId===k;
-      return {k, before, after, hit: direct || !after.eligible || after.score<before.score};
-    });
-    const hit = hp.find(x=>x.hit);
-    const where = (hit&&hit.k) || (why&&why.withId&&pick[why.withId]===top.guard.id?why.withId:null) || Object.keys(pick).find(k=>pick[k]===top.guard.id && k!==sid);
-    let reason, kind='opt';
-    if(hit){
-      kind='priority';
-      const w=shiftById(hit.k), wt=((w.origStatus||w.status)==='vacant'?'vacant':'open');
-      const effect = (why && why.withId===hit.k) ? 'with that assignment in the schedule they fail “'+why.blockLabel+'” here'
-        : !hit.after.eligible ? 'taking this shift as well would make them ineligible there ('+hit.after.blocking[0].blockLabel.toLowerCase()+')'
-        : 'taking this shift as well would lower their match there from '+hit.before.score+'% to '+hit.after.score+'%'+(hit.after.otH?' ('+hit.after.otH+'h overtime)':' (weekly hours)');
-      reason = 'is recommended for the higher-priority '+wt+' shift '+shLabel(w)+' ('+PRIORITY[prio[hit.k]].label+' priority, solved first, '+hit.before.score+'% there); '+effect+'. '+((why && why.withId===hit.k) || !hit.after.eligible ? 'Priority never overrides hard rules, so the next-best eligible guard is used here' : 'Higher-priority shifts keep their best match first, so the next-best eligible guard is used here');
-    }
-    else if(why) reason = why.blockLabel.toLowerCase()+': '+why.detail;
+    let reason;
+    if(why) reason = why.blockLabel.toLowerCase()+': '+why.detail;
     else if(where){
       const trial = {...pick, [sid]:top.guard.id, [where]:null};
       for(const t of ids){ if(t===sid || locked(t)) continue; if(trial[t] && !valid(trial,t)){ const c=cands(trial,t); trial[t]=c.length?c[0].guard.id:null; } if(!trial[t]){ const c=cands(trial,t); if(c.length) trial[t]=c[0].guard.id; } }
-      const fill = p => ids.filter(t=>p[t]).length, tv = objective(trial);
-      const lost = fill(pick)-fill(trial), d = Math.round(totalScore(best)-totalScore(tv));
-      reason = 'is recommended for '+shLabel(shiftById(where))+' instead; '+(lost>0 ? 'moving them here would leave '+lost+' shift'+(lost>1?'s':'')+' without a valid guard' : (!tv ? 'moving them here would create a conflict elsewhere in this run' : 'moving them here lowers the combined score of this run'+(d>0?' by '+d+' point'+(d===1?'':'s'):'')+' (overtime or weaker matches elsewhere)'));
+      const fill = p => ids.filter(t=>p[t]).length, tot = objective(trial);
+      const lost = fill(pick)-fill(trial);
+      reason = 'is recommended for '+shLabel(shiftById(where))+' instead; '+(lost>0 ? 'moving them here would leave '+lost+' shift'+(lost>1?'s':'')+' without a valid guard' : (tot<0 ? 'moving them here would create a conflict elsewhere in this run' : 'moving them here lowers the combined score of this run by '+Math.max(1,Math.round((best-fill(pick)*1000)-(tot-fill(trial)*1000)))+' point'+(Math.round((best-fill(pick)*1000)-(tot-fill(trial)*1000))===1?'':'s')+' (overtime or weaker matches elsewhere)'));
     }
     else reason = 'scores lower ('+re.score+'%) once hours from other recommendations in this run are counted';
-    notes[sid] = { kind, top: top.guard.id, topScore: top.score, chosen: pick[sid], other: (why&&why.withId)||where, reason };
+    notes[sid] = { top: top.guard.id, topScore: top.score, chosen: pick[sid], other: (why&&why.withId)||where, reason };
   }
-  return { shiftIds: ids0.slice(), order: ids.slice(), prio, ai: pick, notes, seq, locks: {...locks}, dropped, ranAt: Date.now() };
+  return { shiftIds: ids0.slice(), ai: pick, notes, locks: {...locks}, dropped, ranAt: Date.now() };
 }
 
 /* Re-validate selections against the CURRENT schedule (used before Apply). */
@@ -1626,7 +1520,7 @@ function noEligibleSummary(excluded){
   return Object.entries(counts).sort((a,b)=>b[1]-a[1]);
 }
 
-if(typeof module!=='undefined') module.exports = { PRIORITY, shiftPriority, derivedPriority, prioRank, validateSelections, validateAssignments, reqSkills, deptMode, HARD_TEMPLATES, activeFactors, CUSTOM_SOURCES, SHIFTS, GUARDS, SITES, FACTORS, defaultRules, runBatch, rowEval, evaluate, baseAssignments, shiftById, explain, noEligibleSummary };
+if(typeof module!=='undefined') module.exports = { validateSelections, validateAssignments, reqSkills, deptMode, HARD_TEMPLATES, activeFactors, CUSTOM_SOURCES, SHIFTS, GUARDS, SITES, FACTORS, defaultRules, runBatch, rowEval, evaluate, baseAssignments, shiftById, explain, noEligibleSummary };
 
 </script>
 <script>
@@ -1772,7 +1666,6 @@ function cardHTML(s, variant){
   const tags = [];
   if(s.status==='assigned' && !s.published) tags.push('<span class="tag unpub">Unpublished</span>');
   if(s.ai && s.status==='assigned' && !s.published) tags.push('<span class="tag ai">AI</span>');
-  if(S.mode==='ai-select' && isOpen(s)){ const p=shiftPriority(s); tags.push(`<span class="tag prio p-${p}" title="${esc(prioTip(s,p))}">${PRIORITY[p].label}</span>`); }
   const sub = variant==='wide' ? `<span class="sub">${esc(site.name)} · ${esc(s.post)}</span>` : '';
   const right = S.mode ? `<span class="pick"><i></i></span>` : `<button class="kebab" data-act="shiftmenu" data-id="${s.id}" aria-label="Shift actions">${ic('kebab','fill')}</button>`;
   const title = `${s.id} · ${site.name} · ${s.post} · ${s.status==='assigned'?(s.published?'Published':'Unpublished'):s.status==='open'?'Open':'Vacant'}`;
@@ -1792,7 +1685,7 @@ function toolbarHTML(){
     <div class="tools">
       <button class="pillbtn" data-act="cost" aria-label="Labor cost">${ic('dollar')}</button>
       <button class="pillbtn" data-act="trend" aria-label="Coverage">${ic('trend')}</button>
-      <button class="pillbtn" data-act="aimenu" aria-haspopup="menu" aria-expanded="${S.menu&&S.menu.type==='ai'}">${ic('spark')} AI Scheduling ${ic('chevD')}</button>
+      <button class="pillbtn ai" data-act="aimenu" aria-haspopup="menu" aria-expanded="${S.menu&&S.menu.type==='ai'}">${ic('spark')} AI Scheduling ${ic('chevD')}</button>
       <button class="pillbtn" data-act="filters">${ic('filter')} Filters${fc?` <span class="cnt">${fc}</span>`:''}</button>
       <button class="iconbtn" data-act="more" aria-label="More">${ic('kebab','fill')}</button>
     </div></div>`;
@@ -1828,7 +1721,7 @@ function listHTML(){
   return `<div class="tablewrap"><table class="grid"><thead><tr><th>Date</th><th>Time</th><th>Site</th><th>Post</th><th>Guard</th><th>Status</th><th>Publishing</th><th></th></tr></thead><tbody>${rows.map(s=>{
     const g = s.guardId?guardById(s.guardId):null; const site=SITES[s.site];
     let rc='click'; if(S.selected.has(s.id)) rc+=' selected'; if(S.mode==='ai-select' && !isOpen(s)) rc+=' locked';
-    const st = s.status==='assigned' ? `<span class="st ok">Assigned</span>` : (s.status==='open' ? `<span class="st bad">Open</span>` : `<span class="st warn">Vacant</span>`)+' '+prioChip(s,{short:true});
+    const st = s.status==='assigned' ? `<span class="st ok">Assigned</span>` : s.status==='open' ? `<span class="st bad">Open</span>` : `<span class="st warn">Vacant</span>`;
     const pb = s.status!=='assigned' ? '<span class="st muted">—</span>' : s.published ? `<span class="st ok">${ic('check')}Published</span>` : `<span class="st muted">Unpublished</span>`;
     const ai = s.ai && !s.published ? ` <span class="mini-tag ai">AI${s.aiScore?' '+s.aiScore+'%':''}</span>` : '';
     return `<tr class="${rc}" data-act="card" data-id="${s.id}"><td class="num">${fmtDay(s.date)}</td><td class="num">${timeRange(s)}</td><td><span class="dot" style="background:var(--c-${site.color})"></span>${esc(site.name)}</td><td>${esc(s.post)}</td><td>${g?esc(g.name):'<span style="color:var(--muted)">'+(s.status==='open'?'No Guard':'Vacant')+'</span>'}${ai}</td><td>${st}</td><td>${pb}</td><td>${S.mode?'':`<button class="iconbtn" data-act="shiftmenu" data-id="${s.id}" aria-label="Shift actions">${ic('kebab','fill')}</button>`}</td></tr>`;
@@ -1864,9 +1757,7 @@ function resultStats(){
 function resultsHTML(){
   const st = resultStats();
   const notes = Object.entries(S.run.notes).filter(([k,v])=>v.top && v.chosen);
-  const sorted = runOrder().slice();
-  const tierCount = {}; sorted.forEach(k=>{ const p=S.run.prio[k]; tierCount[p]=(tierCount[p]||0)+1; });
-  const tierTxt = PRIORITY_KEYS.filter(k=>tierCount[k]).map(k=>tierCount[k]+' '+PRIORITY[k].label).join(' → ');
+  const sorted = S.run.shiftIds.slice().sort((a,b)=>{ const A=shiftById(a),B=shiftById(b); return range(A)[0]-range(B)[0]; });
   return `<div class="res-head"><div><div class="eyebrow">${ic('spark')}AI Scheduling</div><h2>AI Scheduling Results</h2>
       <p>Review each recommendation, compare alternatives and change any guard. Nothing is assigned until you apply, and nothing is published until you publish.</p>
       <span class="principle">${ic('spark')}AI recommends. Scheduler decides.</span>
@@ -1882,12 +1773,11 @@ function resultsHTML(){
     </div>
     ${st.invalid?`<div class="callout bad">${ic('xcirc')}<div><b>Schedule changed – ${st.invalid} selection${st.invalid>1?'s':''} no longer valid.</b> The schedule changed after this analysis, so ${st.invalid>1?'these guards':'this guard'} now fail${st.invalid>1?'':'s'} a hard rule. Choose another guard or <button class="link" data-act="rerun-ai">re-run AI with the latest schedule</button>.</div></div>`:''}
     ${S.run.dropped&&S.run.dropped.length?`<div class="callout warn">${ic('alert')}<div>${S.run.dropped.length} of your earlier selection${S.run.dropped.length>1?'s are':' is'} no longer valid against the latest schedule and ${S.run.dropped.length>1?'were':'was'} replaced by AI: ${S.run.dropped.map(d=>esc(guardById(d.gid).name)+' ('+d.sid+')').join(', ')}.</div></div>`:''}
-    ${sorted.length>1?`<div class="callout prio">${ic('route')}<div><b>Solved in priority order: ${esc(tierTxt)}.</b> Vacant shifts are High priority and Open shifts are Normal by default. AI finds the best eligible guard for the highest-priority shift first, adds it to the working schedule, then recalculates eligibility for the remaining shifts. Priority decides the order only – it never overrides a hard rule.</div></div>`:''}
     ${(()=>{ const st2=Object.entries(S.run.notes).filter(([k,v])=>v.kind==='starved'); if(!notes.length && !st2.length) return '';
-      return `<div class="callout optnote">${ic('route')}<div><b>Optimized across all ${st.total} shifts together.</b> The same guard is never recommended for two shifts they cannot both work. Where shifts compete for a guard, the higher-priority shift keeps them.
-        <ul class="optlist">${notes.map(([k,v])=>{ const x=shiftById(k); return `<li><b>${fmtShort(x.date)} ${x.start} · ${esc(SITES[x.site].name)}</b> ${prioChip(x,{short:true})} ${esc(guardById(v.top).name)} (${v.topScore}%) ${esc(v.reason)} → ${esc(guardById(v.chosen).name)} recommended.</li>`; }).join('')}
-        ${st2.map(([k,v])=>{ const x=shiftById(k); return `<li class="bad"><b>${fmtShort(x.date)} ${x.start} · ${esc(SITES[x.site].name)}:</b> left unresolved. Its eligible guard${v.users.length>1?'s are':' is'} needed for${v.byHigher?' higher-priority':''} ${v.users.map(u=>{ const y=shiftById(u); return fmtShort(y.date)+' '+y.start+' '+SITES[y.site].name; }).join(', ')}, and one guard cannot work both${v.byHigher?'. Higher-priority shifts are solved first':''}.</li>`; }).join('')}</ul></div></div>`; })()}
-    <div class="tablewrap"><table class="res"><thead><tr><th style="width:34px"></th><th class="ordh" title="Order in which AI solved the shifts">#</th><th>Shift</th><th>Site / Post</th><th>Requires</th><th>Recommended guard</th><th>Score</th><th>Status</th></tr></thead><tbody>
+      return `<div class="callout optnote">${ic('route')}<div><b>Optimized across all ${st.total} shifts together.</b> The same guard is never recommended for two shifts they cannot both work.
+        <ul class="optlist">${notes.map(([k,v])=>{ const x=shiftById(k); return `<li><b>${fmtShort(x.date)} ${x.start} · ${esc(SITES[x.site].name)}:</b> ${esc(guardById(v.top).name)} (${v.topScore}%) ${esc(v.reason)} → ${esc(guardById(v.chosen).name)} recommended.</li>`; }).join('')}
+        ${st2.map(([k,v])=>{ const x=shiftById(k); return `<li class="bad"><b>${fmtShort(x.date)} ${x.start} · ${esc(SITES[x.site].name)}:</b> left unresolved. Its eligible guard${v.users.length>1?'s are':' is'} needed for ${v.users.map(u=>{ const y=shiftById(u); return fmtShort(y.date)+' '+y.start+' '+SITES[y.site].name; }).join(', ')}, and one guard cannot work both.</li>`; }).join('')}</ul></div></div>`; })()}
+    <div class="tablewrap"><table class="res"><thead><tr><th style="width:34px"></th><th>Shift</th><th>Site / Post</th><th>Requires</th><th>Recommended guard</th><th>Score</th><th>Status</th></tr></thead><tbody>
     ${sorted.map(sid=>{
       const sh=shiftById(sid), rd=rowData(sid), gid=selectedFor(sid), exp=S.expanded.has(sid), stt=rowStatus(sid,rd);
       const fnd = gid ? rd.eligible.find(x=>x.ev.guard.id===gid) : null; const ev = fnd && !fnd.blockedLive ? fnd.ev : null;
@@ -1895,16 +1785,15 @@ function resultsHTML(){
       let gcell = '<span style="color:var(--muted)">—</span>';
       if(ev){
         const isAI = gid===S.run.ai[sid];
-        gcell = `<div class="gcell">${avatar(ev.guard)}<div class="gt"><b>${esc(ev.guard.name)}</b><small>${tierBadge(gid===S.run.ai[sid]?'rec':'elig')}${warnChip(ev)}</small>${isAI?`<span class="rowwhy">${esc(prioReason(sid,rd).short)}</span>`:`<span class="rowwhy">Selected by you</span>`}</div></div>`;
+        gcell = `<div class="gcell">${avatar(ev.guard)}<div class="gt"><b>${esc(ev.guard.name)}</b><small>${tierBadge(gid===S.run.ai[sid]?'rec':'elig')}${warnChip(ev)}</small>${S.run.notes[sid]&&S.run.notes[sid].top&&isAI?`<span class="rowflag">${ic('route')}Optimized</span>`:''}</div></div>`;
       }
       return `<tr class="row ${exp?'exp':''}" data-act="toggle-row" data-id="${sid}" tabindex="0">
         <td>${ic('chevR','caret')}</td>
-        <td class="ord"><span>${sorted.indexOf(sid)+1}</span></td>
-        <td class="cell-shift"><b>${fmtDay(sh.date)} · ${sh.start}–${sh.end}</b><span>${prioChip(sh)}</span><span>${sid} · ${shiftType(sh)}</span></td>
+        <td class="cell-shift"><b>${fmtDay(sh.date)} · ${sh.start}–${sh.end}</b><span>${sid} · ${shiftType(sh)} · ${sh.status==='open'?'Open':'Vacant'}</span></td>
         <td class="cell-site"><b>${esc(SITES[sh.site].name)}</b><span>${esc(sh.post)} · ${esc(sh.dept)}</span></td>
         <td><div class="qchips">${sh.req.map(q=>`<span class="q">${esc(q)}</span>`).join('')}${sh.pref.map(q=>`<span class="q pref" title="Preferred">${esc(q)}</span>`).join('')}</div></td>
         <td>${gcell}${gid&&!ev?`<div class="gcell bad">${ic('xcirc')}<span>${esc(guardById(gid).name)} no longer valid</span></div>`:''}</td><td>${ev?scoreBar(ev.score):'<span style="color:var(--muted)">—</span>'}</td><td>${stt.html}</td></tr>
-        ${exp?`<tr class="detail"><td colspan="8">${detailHTML(sid, rd)}</td></tr>`:''}`;
+        ${exp?`<tr class="detail"><td colspan="7">${detailHTML(sid, rd)}</td></tr>`:''}`;
     }).join('')}</tbody></table></div>`;
 }
 const BLOCK_TEXT = {
@@ -1924,32 +1813,6 @@ const BLOCK_TEXT = {
 function excludedTable(rd){
   return `<div class="excl"><table>${rd.excluded.map(ev=>`<tr><td>${esc(ev.guard.name)}</td><td>${ev.blocking.map(c=>`<span class="x-reason">✕ Not Eligible – ${esc(c.blockLabel)}: ${esc(c.detail)}</span>`).join('')}</td></tr>`).join('')}</table></div>`;
 }
-/* ---------- Shift priority (decides solve order only; never relaxes a hard rule) ---------- */
-function shType(sh){ return (sh.origStatus||sh.status)==='vacant'?'Vacant':'Open'; }
-function prioOf(sh){ return (S.run && S.run.prio && S.run.prio[sh.id]) || shiftPriority(sh); }
-function prioTip(sh, p){ return sh.priority ? 'Priority set by scheduler: '+PRIORITY[p].label : 'Auto from shift type: '+shType(sh)+' → '+PRIORITY[p].label; }
-function prioChip(sh, opt){ opt=opt||{}; const p=opt.p||prioOf(sh);
-  return `<span class="pchip p-${p}" title="${esc(prioTip(sh,p))}">${opt.short?PRIORITY[p].label:shType(sh).toUpperCase()+' · '+PRIORITY[p].label.toUpperCase()+' PRIORITY'}</span>`; }
-function prioSummary(shs){ const c={}; shs.forEach(sh=>{ const k=shType(sh)+' · '+PRIORITY[shiftPriority(sh)].label; const r=prioRank(sh); c[k]=c[k]||{n:0,r}; c[k].n++; }); return Object.entries(c).sort((a,b)=>a[1].r-b[1].r).map(([k,v])=>v.n+' '+k); }
-function sortByPrio(shs){ const q={}; shs.forEach(x=>{ q[x.id]=quickEligible(x); }); return shs.slice().sort((a,b)=> prioRank(a)-prioRank(b) || q[a.id]-q[b.id] || range(a)[0]-range(b)[0]); }
-function runOrder(){ return (S.run && S.run.order) || (S.run ? S.run.shiftIds : []); }
-function prioReason(sid, rd){
-  const sh=shiftById(sid), p=prioOf(sh), L=PRIORITY[p].label, type=shType(sh).toLowerCase();
-  const order=runOrder(), n=order.indexOf(sid)+1, tot=order.length;
-  const higher=order.filter(k=>PRIORITY[S.run.prio[k]].rank<PRIORITY[p].rank).length;
-  const pre = `${L}-priority ${type} shift · solved ${n} of ${tot}${higher?` (after ${higher} higher-priority shift${higher>1?'s':''})`:tot>1?' (no shift ranks higher)':''}.`;
-  const aiId=S.run.ai[sid], note=S.run.notes[sid];
-  let body, short;
-  if(!rd.eligible.length){ body=`No guard passes every mandatory rule, so it stays ${type}. Priority decides the solve order only – it never overrides a hard rule.`; short='No eligible guard'; }
-  else if(!aiId){ body = note&&note.kind==='starved'&&note.byHigher ? `Every eligible guard is needed for a higher-priority shift that was solved first and they cannot work both, so this shift is left ${type}.` : `Every eligible guard is needed for another selected shift they cannot also work, so this shift is left ${type}.`; short = note&&note.byHigher?'Guards used by higher-priority shift':'Guards needed elsewhere'; }
-  else { const a=rd.eligible.find(x=>x.ev.guard.id===aiId); const nm=guardById(aiId).name; const k=a?a.ev.checks.filter(c=>c.on).length:'all'; const sc=a?' ('+a.ev.score+'%)':'';
-    if(!note||!note.top){ body=`${nm} passed all ${k} mandatory eligibility rules and achieved the highest score among eligible guards${sc}.`; short='Highest eligible score'; }
-    else if(note.kind==='priority'){ body=`${guardById(note.top).name} (${note.topScore}%) is recommended for a higher-priority shift that was solved first. ${nm} passed all ${k} mandatory rules and is the best eligible guard still available${sc}.`; short='Best guard still available after higher priority'; }
-    else { body=`${nm} passed all ${k} mandatory rules and gives the best valid result across this run${sc}. ${guardById(note.top).name} ${note.reason}.`; short='Best fit across the run'; } }
-  return {pre, body, short, n};
-}
-function prioWhyHTML(sid, rd){ const sh=shiftById(sid), r=prioReason(sid, rd);
-  return `<div class="prio-why">${ic('route')}<div><div class="pw-h"><span class="pw-n">${r.n}</span>${prioChip(sh)}<b>Why this shift was handled ${r.n===1?'first':'in this order'}</b></div><p><b>${esc(r.pre)}</b> ${esc(r.body)}</p></div></div>`; }
 const TIERS = {
   rec: {label:'Recommended', cls:'t-high'},
   elig:{label:'Eligible', cls:'t-rec'},
@@ -1962,7 +1825,7 @@ function majorWarn(ev){ return ev.warnings.filter(w=>w.major); }
 function warnChip(ev){ const m=majorWarn(ev); return m.length?`<span class="tbadge t-low" title="${esc(m.map(w=>w.text).join(' • '))}">⚠ Warning</span>`:''; }
 function shiftReqHTML(sh){
   const rs=reqSkills(sh), ps=shiftSkills(sh).filter(k=>!rs.includes(k)), site=SITES[sh.site], dm=deptMode(sh);
-  return `<div class="fillbox"><div class="fb-h">${ic('cal')}<b>Shift to fill</b><span>${fmtDay(sh.date)} · ${sh.start}–${sh.end} (${shHours(sh)}h, ${shiftType(sh)}) · ${esc(site.name)} · ${esc(sh.post)}${sh.note?' · '+esc(sh.note):''}</span>${prioChip(sh)}</div>
+  return `<div class="fillbox"><div class="fb-h">${ic('cal')}<b>Shift to fill</b><span>${fmtDay(sh.date)} · ${sh.start}–${sh.end} (${shHours(sh)}h, ${shiftType(sh)}) · ${esc(site.name)} · ${esc(sh.post)} · ${sh.status==='open'?'Open':'Vacant'}${sh.note?' · '+esc(sh.note):''}</span></div>
     <div class="fb-reqs">
       <span class="rq"><i>Qualification</i>${sh.req.map(q=>`<b class="req">${esc(q)}</b>`).join('')}${sh.pref.map(q=>`<b class="pref">${esc(q)}</b>`).join('')}</span>
       <span class="rq"><i>Skills</i>${rs.map(q=>`<b class="req">${esc(q)}</b>`).join('')}${ps.map(q=>`<b class="pref">${esc(q)}</b>`).join('')}${!rs.length&&!ps.length?'<b class="none">None</b>':''}</span>
@@ -1984,7 +1847,7 @@ function contextHTML(ev){
 }
 function detailHTML(sid, rd){
   const sh = shiftById(sid);
-  const top = shiftReqHTML(sh) + prioWhyHTML(sid, rd);
+  const top = shiftReqHTML(sh);
   if(!rd.eligible.length){
     const reasons = noEligibleSummary(rd.excluded);
     const relaxed = Object.values(S.rules.hard).filter(v=>!v).length;
@@ -2084,13 +1947,9 @@ function barHTML(){
   }
   if(S.mode==='ai-select'){
     const n=S.selected.size;
-    const selS=[...S.selected].map(shiftById).filter(Boolean); const ru=S.runUI;
-    const btn = ru&&ru.state==='loading' ? `<button class="nbtn loading" disabled aria-busy="true" aria-live="polite"><span class="nspin" aria-hidden="true"></span>${esc(ru.label)}</button>`
-      : ru&&ru.state==='done' ? `<button class="nbtn strong" data-act="view-recs">${ic('spark')} View AI Recommendations</button>`
-      : `<button class="nbtn" data-act="sel-find" ${n?'':'disabled'} title="${n?'Analyze the complete schedule and recommend guards':'Select at least one Open or Vacant shift'}">${ic('spark')} Find Guards with AI</button>`;
-    return `<div class="bbar ai"><div class="count">${n} shift${n===1?'':'s'} selected<small>${n?'AI solves in this order: '+esc(prioSummary(selS).join(' → ')):'Click Open or Vacant shifts to select them'}</small></div>
-      <div class="acts"><button class="link" data-act="sel-all" ${ru&&ru.state==='loading'?'disabled':''}>Select all open/vacant</button>${n?`<button class="link" data-act="sel-order" aria-haspopup="menu">${ic('route')}Solve order</button>`:''}<button class="link" data-act="rules">${ic('sliders')}Rules</button></div>
-      <div class="right"><button class="btn ghost" data-act="sel-cancel">Cancel</button>${btn}</div></div>`;
+    return `<div class="bbar ai"><div class="count">${n} shift${n===1?'':'s'} selected<small>Click Open or Vacant shifts to select them</small></div>
+      <div class="acts"><button class="link" data-act="sel-all">Select all open/vacant</button><button class="link" data-act="rules">${ic('sliders')}Rules</button></div>
+      <div class="right"><button class="btn ghost" data-act="sel-cancel">Cancel</button><button class="btn primary" data-act="sel-find" ${n?'':'disabled'}>${ic('spark')} Find Guards with AI</button></div></div>`;
   }
   if(S.mode==='multi'){
     const n=S.selected.size;
@@ -2105,12 +1964,6 @@ function barHTML(){
 function menuHTML(){
   const m = S.menu; if(!m) return '';
   const pos = `top:${m.top}px;${m.right!=null?'right:'+m.right+'px':'left:'+m.left+'px'}`;
-  if(m.type==='selorder'){
-    const list=sortByPrio([...S.selected].map(shiftById).filter(Boolean));
-    return `<div class="menu selorder" style="${pos}" role="menu"><div class="mh"><span>AI solves selected shifts in this order</span><span>${list.length}</span></div>
-      ${list.map((x,i)=>`<div class="so-r"><span class="so-n">${i+1}</span>${ic('check','okc')}<span class="so-t"><b>${fmtShort(x.date)} ${x.start}–${x.end}</b><small>${esc(SITES[x.site].name)} · ${esc(x.post)}</small></span>${prioChip(x)}</div>`).join('')}
-      <div class="so-f">${ic('info')}<span>Higher priority is solved first; within the same priority, the shift with the fewest eligible guards goes first. Priority never overrides a hard rule. Change it in Edit Shift.</span></div></div>`;
-  }
   if(m.type==='ai'){
     const [a,b]=viewRange(); const n = SHIFTS.filter(s=>s.date>=a&&s.date<=b&&isOpen(s)&&visible(s)).length;
     return `<div class="menu ai-menu" style="${pos}" role="menu"><div class="mh"><span>AI Scheduling</span><span>${esc(rangeLabel())}</span></div>
@@ -2175,7 +2028,7 @@ function modalHTML(){
   const wrap = (inner, cls='') => `<div class="scrim" data-act="scrim"><div class="modal ${cls}" role="dialog" aria-modal="true">${inner}</div></div>`;
   const head = (t, sub, eyebrow, closable=true) => `<div class="mhd"><div>${eyebrow?`<div class="eyebrow">${ic('spark')}${eyebrow}</div>`:''}<h3>${t}</h3>${sub?`<p>${sub}</p>`:''}</div>${closable?`<button class="x" data-act="modal-close" aria-label="Close">${ic('x')}</button>`:''}</div>`;
   if(m.type==='all'){
-    const list = sortByPrio(openShiftsInView()); const counts = list.map(s=>[s,quickEligible(s)]);
+    const list = openShiftsInView(); const counts = list.map(s=>[s,quickEligible(s)]);
     const ready = counts.filter(c=>c[1]>0).length, att = counts.length-ready, f = m.filter||null;
     return wrap(head('All Open/Vacant Shifts', esc(rangeLabel())+' · current filters applied', 'AI Scheduling')+`<div class="mbd">
       <div class="bigcount" id="all-count">${allCountHTML(f, list.length, ready, att)}</div>
@@ -2183,15 +2036,14 @@ function modalHTML(){
         <button class="split ok fcard ${f==='ready'?'active':''}" data-act="all-filter" data-f="ready" aria-pressed="${f==='ready'}">${ic('check')}<b>${ready}</b> Ready for AI recommendation<span class="fhint">${f==='ready'?'Showing · click to clear':'Click to filter'}</span></button>
         <button class="split warn fcard ${f==='attn'?'active':''}" data-act="all-filter" data-f="attn" aria-pressed="${f==='attn'}">${ic('alert')}<b>${att}</b> Need attention<span class="fhint">${f==='attn'?'Showing · click to clear':'Click to filter'}</span></button></div>
       <div class="listbar"><span id="all-listlabel">${f==='ready'?'Ready shifts':f==='attn'?'Shifts needing attention':'All shifts'}</span><button class="link ${f?'':'hide'}" id="all-clear" data-act="all-filter" data-f="">Show all ${list.length}</button></div>
-      <div class="minilist fixed" id="all-list">${counts.map(([s,n])=>`<div class="r click ${f&&((f==='ready')!==(n>0))?'fhide':''}" data-state="${n?'ready':'attn'}" data-act="shift-review" data-id="${s.id}" tabindex="0" role="button" aria-label="Review ${fmtDay(s.date)} ${s.start} ${esc(SITES[s.site].name)}"><span class="num">${fmtDay(s.date)}</span><span class="num m2">${s.start}–${s.end}</span><span class="m">${prioChip(s,{short:true})} ${esc(SITES[s.site].name)} · ${esc(s.post)}</span>${n?`<span class="st ok">${n} eligible</span>`:`<span class="st warn">${ic('alert')}No eligible guard</span>`}${ic('chevR','rchev')}</div>`).join('') || '<div class="r"><span class="m">No open or vacant shifts in this view.</span></div>'}
+      <div class="minilist fixed" id="all-list">${counts.map(([s,n])=>`<div class="r click ${f&&((f==='ready')!==(n>0))?'fhide':''}" data-state="${n?'ready':'attn'}" data-act="shift-review" data-id="${s.id}" tabindex="0" role="button" aria-label="Review ${fmtDay(s.date)} ${s.start} ${esc(SITES[s.site].name)}"><span class="num">${fmtDay(s.date)}</span><span class="num m2">${s.start}–${s.end}</span><span class="m">${esc(SITES[s.site].name)} · ${esc(s.post)}</span>${n?`<span class="st ok">${n} eligible</span>`:`<span class="st warn">${ic('alert')}No eligible guard</span>`}${ic('chevR','rchev')}</div>`).join('') || '<div class="r"><span class="m">No open or vacant shifts in this view.</span></div>'}
         <div class="r fempty ${f&&!(f==='ready'?ready:att)?'':'fhide'}"><span class="m">No shifts in this group.</span></div></div>
       ${rulesSummary()}
-      <div class="note">${ic('route')}<span>Listed in solve order: <b>${esc(prioSummary(list).join(' → ')||'—')}</b>. AI fills higher-priority shifts first and never breaks a hard rule to do so.</span></div>
       <div class="note">${ic('info')}<span>Click any shift to see why it is ready or needs attention. Nothing is assigned until you review the recommendations.</span></div></div>
       <div class="mft"><button class="btn ghost" data-act="modal-close">Cancel</button><button class="btn primary" id="all-run" data-act="run-all" ${list.length?'':'disabled'}>${ic('spark')} ${allRunLabel(f, list.length, ready)}</button></div>`, 'wide');
   }
   if(m.type==='processing'){
-    const steps=procSteps(m);
+    const steps=['Loading the complete schedule ('+SHIFTS.filter(x=>x.status==='assigned').length+' assigned shifts, '+GUARDS.length+' guards)','Checking availability for the full shift duration','Applying hard rules: qualifications, certifications, department, site','Checking overlaps, travel time and rest against every existing shift','Checking weekly hours and overtime','Scoring eligible guards','Optimizing across all selected shifts and re-validating'];
     return wrap(head('Analyzing '+m.n+' selected shift'+(m.n===1?'':'s')+'…', `Evaluating ${GUARDS.length} guards against ${Object.values(S.rules.hard).filter(Boolean).length+(S.rules.customHard||[]).filter(c=>c.on).length} hard rules and ${activeFactors(S.rules).length} weighted scoring factors`, 'AI Scheduling', false)+`<div class="mbd"><div class="steps">${steps.map((t,i)=>`<div class="step ${i<m.step?'done':i===m.step?'now':''}"><i>${i<m.step?ic('check'):''}</i>${t}</div>`).join('')}</div><div class="progress"><span style="width:${Math.round(m.step/steps.length*100)}%"></span></div></div>`);
   }
   if(m.type==='complete'){
@@ -2199,9 +2051,8 @@ function modalHTML(){
     return wrap(head('AI Scheduling Complete', 'Recommendations are ready for your review. Nothing has been assigned yet.', 'AI Scheduling')+`<div class="mbd">
       <div class="sumgrid"><div class="t"><b>${st.total}</b><span>Shifts analyzed</span></div><div class="t ok"><b>${st.ready}</b><span>Guards recommended</span></div><div class="t ${st.unres?'bad':''}"><b>${st.unres}</b><span>Unresolved</span></div>
       <div class="t"><b>${st.avg}%</b><span>Average recommendation score</span></div><div class="t ok"><b>${st.hi}</b><span>No warnings</span></div><div class="t ${st.review?'warn':''}"><b>${st.review}</b><span>With warnings</span></div></div>
-      <div class="optimiz">${ic('route')}<span>Solved in priority order: ${esc(prioSummary(runOrder().map(shiftById)).join(' → '))}. Eligibility was recalculated after every assignment.</span></div>
       ${Object.values(S.run.notes).some(n=>n.top&&n.chosen)?`<div class="optimiz">${ic('route')}<span>Shifts were optimized together: ${Object.values(S.run.notes).filter(n=>n.top&&n.chosen).length} recommendation(s) moved to the next-best guard to avoid conflicts or overtime.</span></div>`:''}</div>
-      <div class="mft"><button class="btn primary" data-act="review-recs">${ic('spark')} View AI Recommendations</button></div>`);
+      <div class="mft"><button class="btn primary" data-act="review-recs">Review Recommendations</button></div>`);
   }
   if(m.type==='confirm'){
     const st = resultStats(); let warnN=0, otH=0;
@@ -2234,11 +2085,10 @@ function modalHTML(){
   if(m.type==='applied') return wrap(`<div class="mbd center" style="padding:32px 24px 20px"><div class="success-ic">${ic('check')}</div><h3 style="margin:0 0 6px">${m.n} assignment${m.n===1?'':'s'} created successfully.</h3><p style="color:var(--muted);margin:0 auto;max-width:42ch">Every AI assignment has status <b style="color:var(--text)">Unpublished</b>. Review the schedule and publish when you're ready.</p></div>
       <div class="mft" style="justify-content:center"><button class="btn primary" data-act="applied-done">Return to Scheduler</button></div>`);
   if(m.type==='publish'){
-
     const list = m.ids.map(shiftById);
     return wrap(head('Publish '+list.length+' assignment'+(list.length===1?'':'s')+'?', 'Status changes from Unpublished to Published and assigned guards are notified.')+`<div class="mbd"><div class="minilist">${list.map(s=>`<div class="r"><span class="num">${fmtDay(s.date)}</span><span class="num m2">${s.start}–${s.end}</span><span class="m">${esc(guardById(s.guardId).name)} · ${esc(SITES[s.site].name)}</span>${s.ai?'<span class="mini-tag ai">AI</span>':'<span></span>'}</div>`).join('')}</div>
       <div class="note">${ic('check','okc')}<span>All ${list.length} re-validated just now against the latest schedule: no conflicts.</span></div></div>
-      <div class="mft"><button class="btn ghost" data-act="modal-close" ${m.state?'disabled':''}>Cancel</button>${pubBtnHTML(m)}</div>`);
+      <div class="mft"><button class="btn ghost" data-act="modal-close">Cancel</button><button class="btn ok" data-act="publish-confirm">${ic('up')} Publish</button></div>`);
   }
   if(m.type==='delete'){
     return wrap(head('Delete '+m.ids.length+' shift'+(m.ids.length===1?'':'s')+'?', 'This removes the shift from the schedule. This cannot be undone.')+`<div class="mft"><button class="btn ghost" data-act="modal-close">Cancel</button><button class="btn danger" data-act="delete-confirm">${ic('trash')} Delete</button></div>`);
@@ -2277,8 +2127,6 @@ function modalHTML(){
         ${rk.elig.length?`<optgroup label="Eligible guards (ranked by AI)">${rk.elig.map(e=>`<option value="${e.guard.id}" ${e.guard.id===d.guardId?'selected':''}>${esc(optLabel(e))}</option>`).join('')}</optgroup>`:''}
         <optgroup label="Not eligible (cannot be assigned)">${rk.inel.map(e=>`<option value="${e.guard.id}" ${e.guard.id===d.guardId?'selected':''}>${esc(e.guard.name)} – Not Eligible: ${esc((e.blocking[0]||{}).blockLabel||'')}</option>`).join('')}</optgroup>
       </select></span></label>
-      ${isOpen(s)?`<label>Priority<select class="field" id="ed-prio" data-ch="ed-prio"><option value="" ${!d.priority?'selected':''}>Auto – ${PRIORITY[derivedPriority(s)].label} (${shType(s)} shift)</option>${['high','normal','low'].map(k=>`<option value="${k}" ${d.priority===k?'selected':''}>${PRIORITY[k].label}</option>`).join('')}</select></label>
-      <label>Solve order<span class="ro">${prioChip(s,{p:d.priority||derivedPriority(s)})}<small class="ro-sub">${d.priority?'Set by you':'Auto: Vacant → High, Open → Normal'} · decides which shift AI fills first; never overrides hard rules</small></span></label>`:''}
       <label class="full">Requires<span class="ro"><span class="qchips">${s.req.map(q=>`<span class="q">${esc(q)}</span>`).join('')}${s.pref.map(q=>`<span class="q pref">${esc(q)}</span>`).join('')}</span></span></label></div>
       <div class="egbox">
         <div class="eg-h">${ic('spark')}<b>AI Guard Recommendations</b><span>${rk.elig.length} eligible · ${rk.inel.length} excluded by hard rules</span></div>
@@ -2325,7 +2173,7 @@ function reviewHTML(){
   const changed = draftReq.join('|')!==sh.req.join('|');
   const site = SITES[sh.site];
   return `<div class="drawer-scrim rv" data-act="review-close"></div><div class="rm-wrap rv"><section class="rmodal review" role="dialog" aria-modal="true" aria-labelledby="rv-title">
-    <div class="dhd"><div><div class="eyebrow">${ic(elig.length?'check':'alert')}${elig.length?'Ready for AI recommendation':'Needs attention'}</div><h3 id="rv-title">Shift Review · ${fmtDay(sh.date)}, ${sh.start}–${sh.end}</h3><p>${prioChip(sh)} ${esc(site.name)} · ${esc(sh.post)} · ${esc(sh.dept)} · ${sh.id}${sh.note?' · '+esc(sh.note):''}</p></div><button class="x" data-act="review-close" aria-label="Close">${ic('x')}</button></div>
+    <div class="dhd"><div><div class="eyebrow">${ic(elig.length?'check':'alert')}${elig.length?'Ready for AI recommendation':'Needs attention'}</div><h3 id="rv-title">Shift Review · ${fmtDay(sh.date)}, ${sh.start}–${sh.end}</h3><p>${esc(site.name)} · ${esc(sh.post)} · ${esc(sh.dept)} · ${sh.status==='open'?'Open':'Vacant'} · ${sh.id}${sh.note?' · '+esc(sh.note):''}</p></div><button class="x" data-act="review-close" aria-label="Close">${ic('x')}</button></div>
     <div class="dbd">
       <div class="rv-status ${elig.length?'ok':'bad'}">${elig.length?ic('check')+`<b>${elig.length} eligible guard${elig.length===1?'':'s'}</b><span>${elig.length===1?'passes':'pass'} every active hard rule${changed?' with the edited requirements':''}.</span>`:ic('alert')+`<b>No eligible guard</b><span>No guard satisfies all required rules${changed?' even with the edited requirements':''}.</span>`}</div>
       ${!elig.length?`<h5 class="rv-h">Why this shift needs attention</h5><ul class="rv-reasons">${reasons.map(([k,n])=>`<li>${ic('xcirc','bc')}<span>${esc((BLOCK_TEXT[k]||(x=>x+' guard'+(x>1?'s fail':' fails')+' “'+k+'”'))(n,tmp))}</span></li>`).join('')}</ul>`
@@ -2441,43 +2289,20 @@ function renderOverlays(){
 }
 
 /* ---------- AI flow ---------- */
-function procSteps(m){
-  const shs=(m.ids||[]).map(shiftById).filter(Boolean);
-  return ['Identifying '+shs.length+' selected shift'+(shs.length===1?'':'s')+' and their priority ('+(prioSummary(shs).join(', ')||'—')+')',
-    'Loading the complete schedule ('+SHIFTS.filter(x=>x.status==='assigned').length+' assigned shifts, '+GUARDS.length+' guards)',
-    'Checking availability, existing assignments, overlaps, rest and travel',
-    'Checking qualifications, certifications, department, site and post requirements',
-    'Checking weekly hours and overtime – removing every guard who fails a hard rule',
-    'Scoring eligible guards with the weighted factors',
-    'Solving the highest-priority shift first, updating the working schedule after each pick',
-    'Recalculating eligibility for the remaining shifts and validating the whole schedule'];
-}
-function setRunUI(ru){ S.runUI=ru; if(S.mode==='ai-select') document.getElementById('bars').innerHTML = barHTML(); }
-function startRun(ids, opt){
-  opt=opt||{};
-  S.menu=null;
-  if(!opt.keepSel){ S.mode=null; S.selected.clear(); }
+function startRun(ids){
+  S.menu=null; S.mode=null; S.selected.clear();
   S.run = runBatch(ids, S.rules);
   S.sel = {...S.run.ai}; S.manual = {}; S.expanded = new Set(); S.focusG = {}; S.showExcl = new Set();
-  S.modal = {type:'processing', step:0, n:ids.length, ids:ids.slice()};
-  S.runUI = opt.keepSel ? {state:'loading', label:'Analyzing Schedule…', key:[...S.selected].sort().join(',')} : null;
+  // expand the first row with a recommendation for a guided review
+  S.modal = {type:'processing', step:0, n:ids.length};
   render();
-  const total = procSteps(S.modal).length;
   const tick = () => {
     if(!S.modal || S.modal.type!=='processing') return;
     S.modal.step++;
-    if(S.runUI && S.runUI.state==='loading' && S.modal.step>=Math.ceil(total/2)) setRunUI({...S.runUI, label:'Finding Best Guards…'});
-    if(S.modal.step>=total){ setTimeout(()=>{ S.modal={type:'complete'}; if(S.runUI) setRunUI({...S.runUI, state:'done'}); renderOverlays(); }, reduceMotion?50:350); renderOverlays(); return; }
+    if(S.modal.step>=7){ setTimeout(()=>{ S.modal={type:'complete'}; renderOverlays(); }, reduceMotion?50:350); renderOverlays(); return; }
     renderOverlays(); setTimeout(tick, reduceMotion?60:340);
   };
   setTimeout(tick, reduceMotion?60:340);
-}
-function pubBtnHTML(m){
-  const n=m.ids.length;
-  if(m.state==='loading') return `<button class="btn primary loading" disabled aria-busy="true"><span class="nspin" aria-hidden="true"></span>Publishing…</button>`;
-  if(m.state==='success') return `<button class="btn primary is-ok" disabled>${ic('check')} Published</button>`;
-  if(m.state==='error') return `<button class="btn primary is-err" disabled>${ic('xcirc')} Validation failed · ${m.err} need${m.err===1?'s':''} review</button>`;
-  return `<button class="btn primary" data-act="publish-confirm" ${n?'':'disabled'}>${ic('up')} Publish${n>1?' '+n:''}</button>`;
 }
 function requestPublish(ids){
   const issues = validateAssignments(ids, S.rules);
@@ -2544,8 +2369,7 @@ const A = {
     const s = shiftById(t.dataset.id); if(!s) return;
     if(S.mode==='ai-select'){
       if(!isOpen(s)){ toast('Only Open and Vacant shifts can be selected for AI Scheduling.', 'info'); return; }
-      if(S.runUI && S.runUI.state==='loading') return;
-      S.selected.has(s.id)?S.selected.delete(s.id):S.selected.add(s.id); S.runUI=null; render(); return;
+      S.selected.has(s.id)?S.selected.delete(s.id):S.selected.add(s.id); render(); return;
     }
     if(S.mode==='multi'){ S.selected.has(s.id)?S.selected.delete(s.id):S.selected.add(s.id); render(); return; }
     openQV(s.id, t);
@@ -2564,11 +2388,9 @@ const A = {
     if(n.status==='assigned'){ const dv = evaluate(guardById(n.guardId), n, baseAssignments(), S.rules); if(!dv.eligible){ toast('Duplicated as an Open shift: '+guardById(n.guardId).name+' is not eligible then ('+dv.blocking[0].blockLabel.toLowerCase()+').','info'); n.status='open'; n.guardId=null; n.ai=false; } else toast('Shift duplicated to '+fmtShort(n.date)+' as Unpublished.'); } else toast('Open shift duplicated to '+fmtShort(n.date)+'.');
     SHIFTS.push(n); S.flash=new Set([n.id]); render(); setTimeout(()=>S.flash.clear(),1700); },
   'm-template': () => { const s=shiftById(S.menu.id); S.menu=null; renderOverlays(); toast('Shift template saved: '+SITES[s.site].name+' · '+s.post+' '+s.start+'–'+s.end+'.'); },
-  'sel-cancel': () => { S.mode=null; S.selected.clear(); S.runUI=null; render(); },
-  'sel-all': () => { if(S.runUI && S.runUI.state==='loading') return; openShiftsInView().forEach(s=>S.selected.add(s.id)); S.runUI=null; render(); },
-  'sel-find': () => { if(S.selected.size) startRun([...S.selected], {keepSel:true}); },
-  'view-recs': () => { A['review-recs'](); },
-  'sel-order': t => { if(S.menu && S.menu.type==='selorder'){ S.menu=null; renderOverlays(); return; } openMenu('selorder', t, {above:true}); },
+  'sel-cancel': () => { S.mode=null; S.selected.clear(); render(); },
+  'sel-all': () => { openShiftsInView().forEach(s=>S.selected.add(s.id)); render(); },
+  'sel-find': () => { if(S.selected.size) startRun([...S.selected]); },
   'multi': t => {
     const op=t.dataset.op; const ids=[...S.selected];
     if(op==='all'){ shiftsInView().forEach(s=>S.selected.add(s.id)); render(); return; }
@@ -2595,8 +2417,8 @@ const A = {
   'scrim': (t,e) => { if(e.target===t && S.modal && !['processing','applying'].includes(S.modal.type)){ S.modal=null; renderOverlays(); } },
   'run-all': () => { let list=openShiftsInView(); if(S.modal && S.modal.filter==='ready') list=list.filter(x=>quickEligible(x)>0); S.modal=null; startRun(list.map(x=>x.id)); },
   'review-recs': () => {
-    S.modal=null; S.screen='results'; S.mode=null; S.selected.clear(); S.runUI=null;
-    const first = runOrder().find(sid=>S.run.ai[sid]);
+    S.modal=null; S.screen='results';
+    const first = S.run.shiftIds.slice().sort((a,b)=>range(shiftById(a))[0]-range(shiftById(b))[0]).find(sid=>S.run.ai[sid]);
     if(first) S.expanded.add(first);
     render(); window.scrollTo({top:0});
   },
@@ -2627,15 +2449,9 @@ const A = {
   'banner-review': () => { S.aiOnly=true; S.view='list'; render(); toast('Showing AI-created assignments. Use ⋮ on any row to edit, change guard, unassign, delete or publish.','info'); },
   'banner-publish': () => { requestPublish(unpubAI().map(s=>s.id)); },
   'publish-all': () => { S.menu=null; const ids=SHIFTS.filter(s=>s.status==='assigned'&&!s.published).map(s=>s.id); if(!ids.length){ renderOverlays(); toast('Everything is already published.','info'); return; } requestPublish(ids); },
-  'publish-confirm': () => { const m=S.modal; if(!m || m.state) return; m.state='loading'; renderOverlays();
-    setTimeout(()=>{ if(S.modal!==m) return;
-      const iss=validateAssignments(m.ids, S.rules);
-      if(iss.length){ m.state='error'; m.err=iss.length; renderOverlays(); setTimeout(()=>{ if(S.modal===m){ S.modal={type:'pubstale', ids:m.ids, issues:iss}; renderOverlays(); } }, reduceMotion?100:1100); return; }
-      const ids=m.ids; let ai=0; ids.forEach(id=>{ const s=shiftById(id); s.published=true; if(s.ai) ai++; });
-      m.state='success'; renderOverlays();
-      setTimeout(()=>{ if(S.modal===m) S.modal=null; S.mode=null; S.selected.clear(); if(ai) S.banner={type:'published', n:ai}; S.flash=new Set(ids); render(); setTimeout(()=>S.flash.clear(),1700);
-        toast(ids.length+' assignment'+(ids.length===1?'':'s')+' published. Guards notified.'); }, reduceMotion?80:750);
-    }, reduceMotion?60:650); },
+  'publish-confirm': () => { const iss=validateAssignments(S.modal.ids, S.rules); if(iss.length){ S.modal={type:'pubstale', ids:S.modal.ids, issues:iss}; renderOverlays(); return; } const ids=S.modal.ids; let ai=0; ids.forEach(id=>{ const s=shiftById(id); s.published=true; if(s.ai) ai++; });
+    S.modal=null; S.mode=null; S.selected.clear(); if(ai) S.banner={type:'published', n:ai}; S.flash=new Set(ids); render(); setTimeout(()=>S.flash.clear(),1700);
+    toast(ids.length+' assignment'+(ids.length===1?'':'s')+' published. Guards notified.'); },
   'banner-dismiss': () => { S.banner=null; render(); },
   'aionly-off': () => { S.aiOnly=false; render(); },
   'aionly-toggle': () => { S.menu=null; S.aiOnly=!S.aiOnly; render(); },
@@ -2649,15 +2465,14 @@ const A = {
   'trend': t => openMenu('trend', t, {alignRight:true}),
   'more': t => openMenu('more', t, {alignRight:true}),
   'delete-confirm': () => { const ids=S.modal.ids; ids.forEach(id=>{ const i=SHIFTS.findIndex(s=>s.id===id); if(i>=0) SHIFTS.splice(i,1); }); S.modal=null; S.mode=null; S.selected.clear(); render(); toast(ids.length+' shift'+(ids.length===1?'':'s')+' deleted.'); },
-  'edit-save': () => { const s=shiftById(S.modal.id), d=S.modal.draft; const prioChanged=(d.priority||null)!==(s.priority||null); const changed = d.guardId!==s.guardId || d.start!==s.start || d.end!==s.end || prioChanged;
-    if(prioChanged){ if(d.priority) s.priority=d.priority; else delete s.priority; }
+  'edit-save': () => { const s=shiftById(S.modal.id), d=S.modal.draft; const changed = d.guardId!==s.guardId || d.start!==s.start || d.end!==s.end;
     if(d.guardId){ const ev=evaluate(guardById(d.guardId), {...s, start:d.start, end:d.end}, baseAssignments([s.id]), S.rules); if(!ev.eligible){ toast('This guard cannot be assigned: '+ev.blocking[0].blockLabel.toLowerCase()+'.','info'); return; } }
     const rk = d.guardId ? editRank(s, d) : null; const pick = rk ? rk.elig.find(e=>e.guard.id===d.guardId) : null;
     s.start=d.start; s.end=d.end;
     if(d.guardId){ if(d.guardId!==s.guardId){ s.guardId=d.guardId; s.status='assigned'; s.published=false; if(pick){ s.ai=true; s.aiScore=pick.score; } else s.ai=false; } else if(changed) s.published=false; }
     else if(s.status==='assigned'){ s.guardId=null; s.status='vacant'; s.ai=false; s.published=true; }
     S.modal=null; S.flash=new Set([s.id]); render(); setTimeout(()=>S.flash.clear(),1700);
-    toast(!changed?'No changes.': (prioChanged && d.guardId===s.guardId && s.status!=='assigned') ? 'Priority set to '+PRIORITY[shiftPriority(s)].label+(s.priority?'':' (auto)')+'.' : s.status==='assigned' ? guardById(s.guardId).name+' assigned to '+fmtShort(s.date)+' '+s.start+' as Unpublished.' : 'Shift saved without a guard.'); },
+    toast(!changed?'No changes.': s.status==='assigned' ? guardById(s.guardId).name+' assigned to '+fmtShort(s.date)+' '+s.start+' as Unpublished.' : 'Shift saved without a guard.'); },
   'ed-pick': t => { const d=S.modal.draft; d.guardId=t.dataset.gid||null; d.auto=false; renderOverlays(); },
   'ed-why': (t,e) => { e.stopPropagation(); const d=S.modal.draft; d.why = d.why===t.dataset.gid ? null : t.dataset.gid; renderOverlays(); },
   'ed-others': () => { const d=S.modal.draft; d.hideOthers=!d.hideOthers; renderOverlays(); },
@@ -2669,7 +2484,7 @@ function editRank(s, d){
   return { elig: rank(evs.filter(e=>e.eligible)), inel: evs.filter(e=>!e.eligible) };
 }
 function openEdit(id){
-  const s=shiftById(id); const draft={guardId:s.guardId, start:s.start, end:s.end, auto:false, priority:s.priority||''};
+  const s=shiftById(id); const draft={guardId:s.guardId, start:s.start, end:s.end, auto:false};
   if(isOpen(s)){ const top=editRank(s, draft).elig[0]; if(top){ draft.guardId=top.guard.id; draft.auto=true; } }
   S.modal={type:'edit', id, draft}; renderOverlays();
 }
@@ -2679,7 +2494,6 @@ const CH = {
   'rule-factor': t => { const f=S.drawer.draft.factors; f[t.dataset.k]=t.checked; if(!Object.values(f).some(Boolean)){ f[t.dataset.k]=true; toast('At least one scoring factor must apply.','info'); } renderOverlays(); },
   'rule-num': t => { const v=parseFloat(t.value); if(!isNaN(v)) S.drawer.draft[t.dataset.k]=v; renderOverlays(); },
   'rule-sel': t => { S.drawer.draft[t.dataset.k]=t.value; renderOverlays(); },
-  'ed-prio': t => { S.modal.draft.priority=t.value; renderOverlays(); },
   'ed-guard': t => { S.modal.draft.guardId=t.value||null; S.modal.draft.auto=false; renderOverlays(); },
   'ed-start': t => { S.modal.draft.start=t.value; renderOverlays(); },
   'ed-end': t => { S.modal.draft.end=t.value; renderOverlays(); },
@@ -2693,7 +2507,7 @@ document.addEventListener('click', e => {
     qvCommit(); if(same) return;
   }
   if(S.menu && !e.target.closest('.menu,.pop')){
-    const keep = t && ['aimenu','shiftmenu','monthmenu','cost','trend','more','sel-order'].includes(t.dataset.act);
+    const keep = t && ['aimenu','shiftmenu','monthmenu','cost','trend','more'].includes(t.dataset.act);
     if(!keep){ S.menu=null; renderOverlays(); }
   }
   if(!t) return;
@@ -2989,8 +2803,8 @@ function openQV(id, anchorEl){
   renderQV();
 }
 function qvHeaderBadge(s, top){
-  if(s.status==='open') return `<span class="qv-state open">Open</span><span class="qv-prio p-${shiftPriority(s)}" title="${esc(prioTip(s,shiftPriority(s)))}">${PRIORITY[shiftPriority(s)].label} priority</span>`;
-  if(s.status==='vacant') return `<span class="qv-state vacant">Vacant</span><span class="qv-prio p-${shiftPriority(s)}" title="${esc(prioTip(s,shiftPriority(s)))}">${PRIORITY[shiftPriority(s)].label} priority</span>`;
+  if(s.status==='open') return `<span class="qv-state open">Open</span>`;
+  if(s.status==='vacant') return `<span class="qv-state vacant">Vacant</span>`;
   const aiTop = top && s.guardId===top.guard.id;
   return `<span class="qv-state ${aiTop?'ai':'asg'}">${aiTop?'AI Recommended':'Assigned'}</span>`;
 }
