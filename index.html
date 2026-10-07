@@ -218,6 +218,30 @@ table.grid tr.selected td{background:var(--accent-soft)}
 .scrim{position:fixed;inset:0;background:rgba(5,9,18,.62);z-index:70;display:grid;place-items:center;padding:16px}
 .modal{background:var(--panel);border:1px solid var(--line-2);border-radius:8px;box-shadow:var(--shadow);width:min(560px,100%);max-height:calc(100vh - 32px);display:flex;flex-direction:column}
 .modal.wide{width:min(760px,100%)}
+.modal.sm{width:min(460px,100%)}
+.modal.scope-modal{width:min(500px,100%)}
+.cf-main{flex:1;min-width:0}
+.scope{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:16px}
+.scope-opt{display:flex;gap:10px;align-items:flex-start;padding:10px 12px;border:1px solid var(--line-2);border-radius:7px;cursor:pointer;background:var(--bg);transition:border-color .15s,background-color .15s}
+.scope-opt:hover{border-color:#4a5672}
+.scope-opt.on{border-color:var(--accent);background:var(--accent-soft)}
+.scope-opt input{margin:2px 0 0;accent-color:var(--accent);width:15px;height:15px;flex:none}
+.scope-opt b{display:block;font-size:13.5px;font-weight:500}
+.scope-opt small{display:block;font-size:12px;color:var(--muted);margin-top:2px}
+.scope-range{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:10px}
+.scope-range.hide{display:none}
+.scope-range label{display:flex;flex-direction:column;gap:5px;font-size:12px;color:var(--muted)}
+.scope-range .field{height:38px;width:100%;min-width:0;box-sizing:border-box}
+.scope-modal,.scope-modal *{box-sizing:border-box}
+@media (max-width:560px){.scope,.scope-range{grid-template-columns:1fr}}
+.confirm-ai{display:flex;gap:16px;align-items:flex-start;padding:24px 24px 20px}
+.confirm-ai h3{margin:0 0 6px;font-size:18px}
+.confirm-ai p{margin:0;color:var(--text);font-size:14.5px}
+.confirm-ai small{color:var(--muted);font-size:12.5px}
+.confirm-ai .eyebrow{margin-bottom:6px}
+.cf-badge{width:42px;height:42px;border-radius:50%;background:var(--accent-soft);color:#b6bbff;display:grid;place-items:center;flex:none}
+.cf-badge .ic{width:22px;height:22px}
+.confirm-ai .cf-ic{width:24px;height:24px;color:var(--muted);margin-top:2px}
 .modal .mhd{padding:20px 24px 14px;display:flex;align-items:flex-start;gap:12px;border-bottom:1px solid var(--line)}
 .modal .mhd h3{margin:0;font-size:18px}
 .modal .mhd p{margin:4px 0 0;color:var(--muted);font-size:13px}
@@ -313,7 +337,7 @@ select.field{padding-right:8px}
 .cb input{width:17px;height:17px;accent-color:var(--accent)}
 
 /* ---------- results ---------- */
-.res-head{display:flex;gap:16px;align-items:flex-start;flex-wrap:wrap;margin-bottom:18px}
+.res-head{display:flex;gap:16px;align-items:center;flex-wrap:wrap;margin-bottom:18px}
 .res-head h2{margin:0;font-size:22px}
 .res-head p{margin:6px 0 0;color:var(--muted);max-width:640px}
 .res-head .acts{margin-left:auto;display:flex;gap:10px;flex-wrap:wrap}
@@ -334,7 +358,8 @@ table.res tr.row.exp td{background:var(--raise);border-bottom-color:transparent}
 table.res tr.detail > td{background:#151d2d;padding:0;border-bottom:1px solid var(--line-2)}
 .caret{width:18px;height:18px;transition:transform .15s;color:var(--muted)}
 tr.exp .caret{transform:rotate(90deg)}
-.cell-shift b{display:block;font-weight:500}
+.cell-shift b{display:block;font-weight:500;white-space:nowrap}
+.cell-shift{min-width:170px}
 .cell-shift span,.cell-site span{color:var(--muted);font-size:12.5px}
 .cell-site b{display:block;font-weight:500}
 .qchips{display:flex;gap:4px;flex-wrap:wrap}
@@ -689,7 +714,7 @@ table.hist td{padding:8px 6px;border-bottom:1px solid var(--line);vertical-align
 
 /* ---- rules modal v5: header add buttons ---- */
 .acc-h{cursor:pointer;padding:0;gap:0}
-.acc-toggle{flex:1;min-width:0;display:flex;align-items:center;gap:10px;padding:11px 10px 11px 14px;text-align:left;border-radius:8px 0 0 8px}
+.acc-toggle{flex:1;min-width:0;display:flex;align-items:center;gap:10px;padding:11px 14px;text-align:left;border-radius:8px}
 .acc-toggle:focus-visible{outline-offset:-2px}
 .add-btn{margin-right:12px;flex:none;background:var(--accent-soft);color:#c3c7ff;box-shadow:inset 0 0 0 1px rgba(111,120,255,.45)}
 .add-btn:hover{background:rgba(111,120,255,.26);color:#fff}
@@ -798,6 +823,236 @@ table.hist td{padding:8px 6px;border-bottom:1px solid var(--line);vertical-align
 .opt .ot b{gap:8px}
 .opt .ot b .tbadge{font-size:10px;padding:2px 6px}
 .opt .ot small{margin-top:3px}
+
+/* ---- Post Sites ---- */
+.muted{color:var(--muted)} .sm{font-size:12.5px}
+.ps-addr{color:var(--dim);font-size:13px;margin-left:6px}
+.ps-list-head p{margin:0 0 16px;color:var(--muted)}
+.ps-table td{vertical-align:middle}
+.ps-table .qchips{max-width:420px}
+.ps-wrap{display:grid;grid-template-columns:270px minmax(0,1fr);border:1px solid var(--line);border-radius:4px;background:var(--bg);min-height:600px}
+.ps-nav{border-right:1px solid var(--line);display:flex;flex-direction:column}
+.ps-nav a{display:flex;align-items:center;justify-content:space-between;min-height:56px;padding:0 24px;border-bottom:1px solid var(--line);font-weight:700;font-size:14px;color:var(--text);cursor:pointer}
+.ps-nav a:hover{background:var(--panel)}
+.ps-nav a.on{background:linear-gradient(90deg,#2e3a55,#1b2335);color:#a9b4ff}
+.ps-badge{background:#4552d6;color:#fff;border-radius:4px;font-size:11.5px;padding:2px 7px}
+.ps-main{min-width:0}
+.ps-main-h{display:flex;align-items:center;justify-content:space-between;height:72px;padding:0 28px;border-bottom:1px solid var(--line);color:var(--muted);font-size:17px}
+.ps-main-h .ic{width:24px;height:24px}
+.ps-body{padding:20px 28px 40px}
+.ps-general{display:flex;flex-direction:column;padding-bottom:12px}
+.ps-check{display:flex;align-items:center;gap:20px;min-height:58px;cursor:pointer;font-size:15px}
+.ps-check input{width:22px;height:22px;accent-color:#ffffff;flex:none;margin:0 0 0 24px}
+.ps-i{width:18px;height:18px;border-radius:50%;background:#7b8395;color:var(--bg);font-size:11px;font-weight:700;display:grid;place-items:center;font-family:Georgia,serif;flex:none}
+.psr{border:1px solid var(--line-2);border-radius:8px;background:var(--panel);padding:20px 22px;margin-top:16px;scroll-margin-top:96px}
+.psr-h{display:flex;gap:16px;align-items:flex-start;flex-wrap:wrap}
+.psr-h > div:first-child{flex:1;min-width:260px}
+.psr-h h2{margin:0 0 6px;font-size:18px;display:flex;align-items:center;gap:10px;flex-wrap:wrap}
+.psr-h h2 .tbadge{font-size:10px}
+.psr-h p{margin:0;color:var(--muted);font-size:13.5px;max-width:72ch}
+.psr-h p b{color:var(--text);font-weight:500}
+.psr-acts{display:flex;gap:8px}
+.psr-del:hover{color:var(--bad)}
+.psr-empty{display:flex;gap:16px;align-items:flex-start;margin-top:18px;padding:22px;border:1px dashed var(--line-2);border-radius:8px;background:var(--bg)}
+.psr-empty > .ic{width:28px;height:28px;color:var(--muted);margin-top:2px}
+.psr-empty b{font-size:15px}
+.psr-empty p{margin:4px 0 14px;color:var(--muted);font-size:13.5px}
+.psr-view{margin-top:16px;border-top:1px solid var(--line)}
+.psr-row{display:grid;grid-template-columns:190px minmax(0,1fr);gap:14px;padding:12px 0;border-bottom:1px solid var(--line);align-items:center}
+.psr-row > span{color:var(--muted);font-size:13px}
+.psr-row > div{display:flex;flex-wrap:wrap;gap:6px;align-items:center;font-size:14px}
+.rchip{display:inline-flex;align-items:center;gap:6px;height:28px;padding:0 10px;border-radius:14px;background:var(--pill);font-size:13px;white-space:nowrap}
+.rchip em{font-style:normal;font-size:10.5px;font-weight:700;letter-spacing:.3px;text-transform:uppercase;border-radius:3px;padding:1px 5px}
+.rchip.required em{background:rgba(111,120,255,.2);color:#c3c7ff}
+.rchip.preferred em{background:var(--line-2);color:var(--muted)}
+.rchip.edit{padding-right:4px;background:var(--bg);box-shadow:inset 0 0 0 1px var(--line-2)}
+.rchip .lvl{display:inline-flex;border-radius:10px;overflow:hidden;box-shadow:inset 0 0 0 1px var(--line-2)}
+.rchip .lvl button{font-size:11px;padding:2px 8px;color:var(--muted)}
+.rchip .lvl button.on{background:var(--accent-2);color:#fff}
+.rchip .rx{width:22px;height:22px;border-radius:50%;display:grid;place-items:center;color:var(--muted)}
+.rchip .rx:hover{background:var(--bad-soft);color:var(--bad)}
+.rchip .rx .ic{width:13px;height:13px}
+.psr-meta{font-size:12px;color:var(--dim);margin-top:10px}
+.ps-impact{display:flex;gap:10px;align-items:flex-start;margin-top:14px;padding:10px 12px;border-radius:6px;background:var(--bg);border:1px solid var(--line);font-size:13px}
+.ps-impact .ic{width:18px;height:18px;color:#b6bbff;margin-top:1px}
+.ps-impact b{font-weight:500;display:block}
+.ps-impact small{color:var(--muted);font-size:12px}
+.ps-impact.low{border-color:rgba(246,185,75,.45);background:var(--warn-soft)}
+.ps-impact.low .ic{color:var(--warn)}
+.psr-form{margin-top:16px;border-top:1px solid var(--line);padding-top:6px}
+.psr-f{display:flex;flex-direction:column;gap:7px;padding:10px 0}
+.psr-f > label{font-size:13.5px;font-weight:500}
+.psr-f > label small{display:block;font-weight:400;color:var(--muted);font-size:12px;margin-top:2px}
+.psr-chips{display:flex;flex-wrap:wrap;gap:8px;align-items:center}
+.psr-add{height:30px;border-style:dashed;color:var(--muted);max-width:240px}
+.ovt{font-size:10px;font-weight:700;letter-spacing:.3px;text-transform:uppercase;border-radius:3px;padding:1px 5px;display:inline-flex;align-items:center;gap:3px;margin-left:2px}
+.ovt.yes{background:var(--line-2);color:var(--muted)}
+.ovt.no{background:var(--bad-soft);color:#f68b9a}
+.ovt .ic{width:11px;height:11px}
+.psr-row > div .ovt{margin-left:8px}
+.req-rows{display:flex;flex-direction:column;border:1px solid var(--line);border-radius:6px;margin-bottom:8px;background:var(--bg)}
+.req-row{display:grid;grid-template-columns:minmax(140px,1fr) auto auto 28px;gap:14px;align-items:center;padding:8px 10px 8px 14px;border-bottom:1px solid var(--line);font-size:13.5px}
+.req-row:last-child{border-bottom:0}
+.req-row b{font-weight:500}
+.req-row .lvl{display:inline-flex;border-radius:10px;overflow:hidden;box-shadow:inset 0 0 0 1px var(--line-2)}
+.req-row .lvl button{font-size:11.5px;padding:3px 10px;color:var(--muted)}
+.req-row .lvl button.on{background:var(--accent-2);color:#fff}
+.req-fixed{font-size:11.5px;color:var(--muted);padding:3px 10px;border-radius:10px;box-shadow:inset 0 0 0 1px var(--line-2);justify-self:start}
+.req-row .rx{width:26px;height:26px;border-radius:50%;display:grid;place-items:center;color:var(--muted)}
+.req-row .rx:hover{background:var(--bad-soft);color:var(--bad)}
+.req-row .rx .ic{width:14px;height:14px}
+.ovr-cb{display:inline-flex;align-items:center;gap:7px;font-size:12.5px;cursor:pointer;white-space:nowrap}
+.ovr-cb input{width:16px;height:16px;accent-color:var(--accent);margin:0}
+.ovr-cb.dis{opacity:.45;cursor:not-allowed}
+.ovr-line{display:flex;align-items:center;gap:18px;flex-wrap:wrap;padding:6px 0 10px;font-size:12.5px;color:var(--muted)}
+.ovr-line > span{color:var(--text);font-weight:500;font-size:13px}
+@media (max-width:700px){.req-row{grid-template-columns:1fr 28px}.req-row .lvl,.req-row .req-fixed,.req-row .ovr-cb{grid-column:1}}
+.psr-new{display:inline-flex;align-items:center;gap:6px;flex-wrap:wrap}
+.psr-new .field{height:30px;width:220px;box-sizing:border-box}
+.psr-new .psr-err{min-height:0;flex-basis:100%}
+.psr-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:4px 16px}
+.psr-grid .field{height:38px;width:100%;min-width:0;box-sizing:border-box}
+.affix{display:flex;align-items:center;border:1px solid var(--line-2);border-radius:4px;background:var(--bg);overflow:hidden}
+.affix:focus-within{outline:2px solid var(--accent);outline-offset:1px}
+.affix span{padding:0 10px;color:var(--muted);font-size:13px;white-space:nowrap}
+.affix .field{border:0;border-radius:0;background:transparent;padding:0 4px;outline:none}
+.affix .field.bad{color:var(--bad)}
+.affix:has(.field.bad){border-color:var(--bad)}
+.psr-err{min-height:16px;font-size:12px;color:var(--bad)}
+.psr-hint{display:flex;gap:8px;font-size:12.5px;color:var(--muted);margin-top:2px}
+.psr-hint .ic{width:15px;height:15px;margin-top:1px}
+.psr-foot{display:flex;align-items:center;gap:10px;margin-top:18px;padding-top:14px;border-top:1px solid var(--line);flex-wrap:wrap}
+.psr-foot .link{margin-right:auto;color:var(--muted);font-weight:400;font-size:13px}
+.psr-dirty{font-size:12.5px;color:var(--warn)}
+.psr-note{display:flex;gap:8px;margin-top:18px;font-size:12.5px;color:var(--muted)}
+.psr-note .ic{width:16px;height:16px;margin-top:1px;color:#b6bbff}
+.psr-note b{color:var(--text);font-weight:500}
+.psr-confirm{display:flex;gap:12px;align-items:center;flex-wrap:wrap;margin-top:14px;padding:12px 14px;border-radius:6px;background:var(--bad-soft);border:1px solid rgba(242,103,122,.4);font-size:13px}
+.psr-confirm > .ic{width:18px;height:18px;color:var(--bad)}
+.psr-confirm > div{flex:1;min-width:220px}
+.psr-confirm span{display:block;color:var(--muted);font-size:12.5px}
+.psr-notice{display:flex;gap:12px;align-items:flex-start;margin-top:14px;padding:12px 14px;border-radius:6px;background:var(--ok-soft);border:1px solid rgba(60,207,145,.35);font-size:13px}
+.psr-notice > .ic{width:18px;height:18px;color:var(--ok);margin-top:1px}
+.psr-notice > div{flex:1}
+.psr-notice span{display:block;color:var(--muted);margin-top:3px}
+.psr-notice span.wc{color:var(--warn)}
+.psr-notice ul{margin:6px 0 0;padding-left:18px;color:var(--text);font-size:12.5px;display:flex;flex-direction:column;gap:3px}
+.cf-badge.warnb{background:var(--warn-soft);color:var(--warn)}
+@media (max-width:900px){.ps-wrap{grid-template-columns:1fr}.ps-nav{flex-direction:row;overflow-x:auto;border-right:0;border-bottom:1px solid var(--line)}.ps-nav a{white-space:nowrap;border-bottom:0;min-height:48px;padding:0 16px}.psr-grid{grid-template-columns:1fr 1fr}.psr-row{grid-template-columns:1fr}}
+@media (max-width:560px){.psr-grid{grid-template-columns:1fr}.ps-body{padding:16px}}
+/* ---- requirement match in AI results ---- */
+.rqc{display:inline-flex;align-items:center;gap:3px;font-size:10.5px;font-weight:700;border-radius:4px;padding:2px 6px;white-space:nowrap}
+.rqc .ic{width:11px;height:11px;stroke-width:2.6}
+.rqc.ok{background:var(--ok-soft);color:var(--ok)} .rqc.part{background:var(--warn-soft);color:var(--warn)} .rqc.fail{background:var(--bad-soft);color:var(--bad)}
+.rqb{margin:-2px 0 12px;padding:10px 12px;border-radius:6px;background:var(--bg);border:1px solid var(--line);font-size:13px}
+.rqb.fail{border-color:rgba(242,103,122,.45)} .rqb.part{border-color:rgba(246,185,75,.4)}
+.rqb.none{display:flex;align-items:center;gap:8px;color:var(--muted)}
+.rqb.none > .ic{width:16px;height:16px}
+.rqb-h{display:flex;align-items:center;gap:4px;flex-wrap:wrap}
+.rq-edit{margin-left:auto;font-size:12.5px;font-weight:400}
+.rq-edit .ic{width:13px;height:13px}
+.rqb-items{display:flex;flex-wrap:wrap;gap:6px 12px;margin-top:8px}
+.rqi{display:inline-flex;align-items:center;gap:5px;font-size:12.5px}
+.rqi .ic{width:14px;height:14px;stroke-width:2.4}
+.rqi.ok .ic{color:var(--ok)} .rqi.partial .ic{color:var(--warn)} .rqi.fail .ic{color:var(--bad)}
+.rq-list{list-style:none;margin:6px 0 4px;padding:0;display:flex;flex-direction:column;gap:6px;font-size:13px}
+.rq-list li{display:grid;grid-template-columns:18px 110px minmax(0,1fr);gap:6px;align-items:start}
+.rq-list .ic{width:15px;height:15px;margin-top:2px;stroke-width:2.4}
+.rq-list li.ok .ic{color:var(--ok)} .rq-list li.partial .ic{color:var(--warn)} .rq-list li.fail .ic{color:var(--bad)}
+.rq-list b{font-weight:500} .rq-list span{color:var(--muted)}
+.ne-toggle{margin-top:8px;font-size:12.5px}
+.ne-list{margin-top:8px;max-height:300px;overflow-y:auto;border:1px solid var(--line);border-radius:6px}
+.ne-row{padding:9px 12px;border-bottom:1px solid var(--line)}
+.ne-row:last-child{border-bottom:0}
+.ne-h{display:flex;align-items:center;gap:8px;justify-content:space-between}
+.ne-h b{font-weight:500;font-size:13px}
+.ne-h .tbadge{font-size:9.5px}
+.ne-row ul{list-style:none;margin:5px 0 0;padding:0;display:flex;flex-direction:column;gap:3px;font-size:12.5px}
+.ne-row li{display:flex;gap:6px;align-items:flex-start}
+.ne-row li .ic{width:13px;height:13px;margin-top:2px;flex:none}
+.ne-row li em{font-style:normal;font-size:10px;font-weight:700;letter-spacing:.3px;text-transform:uppercase;color:#c3c7ff;background:var(--accent-soft);border-radius:3px;padding:1px 5px;margin-left:auto;white-space:nowrap}
+.psr-pointer{display:flex;gap:10px;align-items:flex-start;margin-bottom:10px;padding:10px 12px;border-radius:6px;background:#0F172A;border:1px solid #334155;font-size:12.5px}
+.psr-pointer > .ic{width:16px;height:16px;color:#b6bbff;margin-top:1px}
+.psr-pointer small{display:block;color:var(--muted);font-size:11.5px;margin-top:3px}
+/* ---- requirement override ---- */
+.tbadge.t-ovr{background:var(--warn-soft);color:#f8c76a;box-shadow:inset 0 0 0 1px rgba(246,185,75,.4);gap:3px}
+.tbadge.t-ovr .ic{width:11px;height:11px}
+.ovr-btn{background:transparent;color:#f8c76a;box-shadow:inset 0 0 0 1px rgba(246,185,75,.55)}
+.ovr-btn:hover{background:var(--warn-soft)}
+.ovr-btn.solid{background:#b7791f;color:#fff;box-shadow:none}
+.ovr-btn.solid:hover{background:#c98a2a}
+.ovr-btn[aria-disabled=true]{opacity:.5}
+.opt.conf{border-style:dashed}
+.opt.conf .ot small .ic{width:12px;height:12px;vertical-align:-2px}
+.opt.conf .ovr-btn{margin-left:4px}
+.opt.conf.on{border-style:solid;border-color:rgba(246,185,75,.6);background:var(--warn-soft)}
+.conf-h{margin-top:14px}
+.selstate.warn{background:var(--warn-soft);color:#f8c76a;flex-wrap:wrap}
+.selstate.warn span{flex:1;min-width:200px}
+.selstate.warn b{color:var(--text);font-weight:500}
+.rqb-h b .ic{width:14px;height:14px;vertical-align:-2px;margin-right:4px}
+.rq-list.in{margin-top:8px}
+.rq-list .ovt{vertical-align:1px}
+.ne-row li em.strict{background:var(--bad-soft);color:#f68b9a}
+.drawer-scrim.ovr-scrim{z-index:92}
+.rm-wrap.ovr-wrap{z-index:93}
+.rmodal.ovr-modal{max-width:560px}
+.ovr-facts{display:grid;grid-template-columns:110px minmax(0,1fr);gap:7px 12px;font-size:13px;margin-top:12px}
+.ovr-facts > span{color:var(--muted)}
+.ovr-facts b{font-weight:500}
+.ovr-note{display:block;font-weight:400;color:var(--muted);margin-top:3px}
+.ovr-table{width:100%;border-collapse:collapse;font-size:13px;border:1px solid #334155;border-radius:6px;overflow:hidden}
+.ovr-table th{text-align:left;font-weight:500;color:var(--muted);font-size:11.5px;text-transform:uppercase;letter-spacing:.5px;padding:8px 10px;background:#172235;border-bottom:1px solid #334155}
+.ovr-table td{padding:9px 10px;border-bottom:1px solid #334155}
+.ovr-table tr:last-child td{border-bottom:0}
+.ovr-table td .ic{width:14px;height:14px;vertical-align:-2px;margin-right:6px}
+.ovr-say{display:flex;gap:8px;margin-top:12px;padding:10px 12px;border-radius:6px;background:var(--warn-soft);color:#f8c76a;font-size:13px}
+.ovr-say .ic{width:16px;height:16px;margin-top:1px;flex:none}
+.ovr-p{font-size:13px;color:var(--muted);margin:12px 0 4px}
+.ovr-form{display:flex;flex-direction:column;gap:6px;margin-top:8px}
+.ovr-form label{font-size:12.5px;font-weight:500;margin-top:6px}
+.ovr-form .field{width:100%;box-sizing:border-box;height:36px}
+.ovr-form textarea.field{height:auto;padding:8px 10px;resize:vertical;font:inherit;color:var(--text)}
+.ovr-form .field.bad{border-color:var(--bad)}
+.modal.ovr-info .mhd h3 .ic{width:18px;height:18px;color:var(--warn);vertical-align:-3px}
+.modal.ovr-info .ovr-table{border-color:var(--line)}
+.tag.ovr{background:#b7791f;color:#fff;cursor:pointer}
+.ovr-badge{display:inline-flex;align-items:center;gap:4px;margin-left:8px;font-size:11px;font-weight:700;color:#f8c76a;background:var(--warn-soft);border-radius:4px;padding:2px 7px;cursor:pointer}
+.ovr-badge:hover{background:rgba(246,185,75,.25)}
+.ovr-badge .ic{width:12px;height:12px}
+.qv-ovr{display:flex;align-items:center;gap:6px;width:100%;text-align:left;font-size:12.5px;font-weight:600;color:#92400e;background:#fef3c7;border-radius:4px;padding:6px 8px}
+.qv-ovr:hover{background:#fde68a}
+.qv-ovr .ic{width:14px;height:14px}
+/* ---- results: row selection ---- */
+table.res th.pickcol,table.res td.pickcol{width:40px;padding-left:16px;padding-right:0}
+.rsel{display:grid;place-items:center;width:28px;height:28px;cursor:pointer;border-radius:4px}
+.rsel:hover{background:var(--pill)}
+.rsel input{width:17px;height:17px;accent-color:var(--accent);cursor:pointer;margin:0}
+.rsel input:disabled{cursor:not-allowed;opacity:.4}
+table.res tr.row.picked td{background:rgba(111,120,255,.06)}
+/* ---- results: guard dropdown per row ---- */
+.gsel{display:flex;align-items:flex-start;gap:10px;min-width:240px}
+.gsel .av{margin-top:4px}
+.av-empty{background:var(--pill);color:var(--dim)}
+.gs-body{flex:1;min-width:0;display:flex;flex-direction:column;gap:5px}
+.gs-select{width:100%;max-width:250px;height:36px;cursor:pointer;background:var(--bg)}
+.gs-select.is-ai{border-color:rgba(111,120,255,.6)}
+.gs-select.is-ov{border-color:rgba(242,103,122,.6)}
+.gs-select optgroup{color:var(--muted);font-style:normal}
+.gs-select option{color:var(--text);background:var(--panel)}
+.gs-meta{display:flex;align-items:center;gap:5px;flex-wrap:wrap}
+table.res td,table.res th{padding-left:10px;padding-right:10px}
+table.res .score{min-width:140px}
+.gs-meta .tbadge{font-size:9.5px;padding:2px 6px}
+.gs-meta .rowflag{margin-top:0}
+.gs-none{font-size:12px;color:var(--muted)}
+.sd-toggle{margin-top:12px}
+.sd-toggle .sd-hint{font-size:11.5px;color:var(--muted);font-weight:400;margin-left:4px}
+.sd-panel{margin-top:12px;border:1px solid var(--line);border-radius:6px;padding:2px 14px 14px;background:var(--bg)}
+.sd-panel .lists{margin-top:12px}
+.dpane h5.sd-sub{margin:20px 0 4px;padding-top:14px;border-top:1px solid var(--line);font-size:11.5px;letter-spacing:.9px;text-transform:uppercase;color:var(--muted)}
+.tbadge.t-man{background:var(--pill);color:var(--muted);box-shadow:inset 0 0 0 1px var(--line-2)}
+.bbar .btn.ok:disabled,.bbar .btn.outline:disabled{opacity:.45;cursor:not-allowed}
 
 /* ---- Edit Shift: AI guard recommendations ---- */
 .modal.edit{width:min(720px,100%)}
@@ -935,7 +1190,7 @@ table.hist td{padding:8px 6px;border-bottom:1px solid var(--line);vertical-align
     <main class="content" id="content"></main>
   </div>
 </div>
-<div id="bars"></div><div id="menus"></div><div id="modals"></div><div id="drawers"></div><div id="subdlg"></div><div id="review"></div><div id="qv"></div><div id="toasts" aria-live="polite"></div>
+<div id="bars"></div><div id="menus"></div><div id="modals"></div><div id="drawers"></div><div id="subdlg"></div><div id="review"></div><div id="qv"></div><div id="ovr"></div><div id="toasts" aria-live="polite"></div>
 <script>
 /* ===================== MOCK DATA ===================== */
 const TODAY = '2026-10-06';
@@ -954,7 +1209,7 @@ const GUARDS = [
   { id:'G-101', name:'John Smith', status:'Active', dept:'Retail Security', cross:['Corporate Security'], quals:['Armed Guard','CPR/First Aid'], rate:24, extraHours:12, otAt:40, avail:'AAACAAA', shiftTypes:['Evening','Overnight'], prefShifts:['Overnight'], prefSites:['ABC'], avoidSites:[], home:'Eastgate', hx:2, hy:3.5, cleared:['ABC','XYZ','MCT'], siteHist:{ABC:14, XYZ:3}, postHist:['ABC|Main Entrance','ABC|Parking Garage'], att:98, onTime:96, timeOff:[], rating:4.8 },
   { id:'G-102', name:'Sarah Johnson', status:'Active', dept:'Retail Security', cross:['Corporate Security'], quals:['Armed Guard','CPR/First Aid'], rate:23, extraHours:8, otAt:40, avail:'AAAAAAA', shiftTypes:['Day','Evening','Overnight'], prefShifts:['Evening','Day'], prefSites:['XYZ','ABC'], avoidSites:[], home:'Lakeview', hx:6, hy:3, cleared:['ABC','XYZ','MCT'], siteHist:{XYZ:11, ABC:6}, postHist:['XYZ|Food Court','XYZ|North Gate'], att:97, onTime:94, timeOff:[], rating:4.7 },
   { id:'G-103', name:'David Brown', status:'Active', dept:'Retail Security', cross:[], quals:['Unarmed Guard','Fire Watch'], rate:19, extraHours:0, otAt:40, avail:'-AAAAAC', shiftTypes:['Day','Evening'], prefShifts:['Day'], prefSites:['XYZ'], avoidSites:[], home:'North Hills', hx:11, hy:6, cleared:['ABC','XYZ'], siteHist:{XYZ:18}, postHist:['XYZ|Food Court'], att:95, onTime:90, timeOff:['2026-10-14'], rating:4.4 },
-  { id:'G-104', name:'Michael Wilson', status:'Active', dept:'Retail Security', cross:['Industrial Security'], quals:['Armed Guard'], rate:22, extraHours:22, otAt:40, avail:'AAAAAAA', shiftTypes:['Day','Evening','Overnight'], prefShifts:['Overnight'], prefSites:['HLW'], avoidSites:[], home:'Southport', hx:8, hy:-3, cleared:['ABC','XYZ','HLW'], siteHist:{HLW:9, ABC:4}, postHist:['HLW|Gatehouse','ABC|Main Entrance'], att:92, onTime:88, timeOff:[], rating:4.2 },
+  { id:'G-104', name:'Michael Wilson', status:'Active', dept:'Retail Security', cross:['Industrial Security'], quals:['Armed Guard'], rate:26, extraHours:22, otAt:40, avail:'AAAAAAA', shiftTypes:['Day','Evening','Overnight'], prefShifts:['Overnight'], prefSites:['HLW'], avoidSites:[], home:'Southport', hx:8, hy:-3, cleared:['ABC','XYZ','HLW'], siteHist:{HLW:9, ABC:4}, postHist:['HLW|Gatehouse','ABC|Main Entrance'], att:92, onTime:88, timeOff:[], rating:4.2 },
   { id:'G-105', name:'Mckell Berry', status:'Active', dept:'Healthcare Security', cross:[], quals:['Unarmed Guard','CPR/First Aid','Healthcare Security'], rate:25, extraHours:0, otAt:40, avail:'-AAAAA-', shiftTypes:['Day','Evening'], prefShifts:['Day'], prefSites:['RMP'], avoidSites:[], home:'Riverside', hx:-4, hy:5, cleared:['RMP','MCT'], siteHist:{RMP:22}, postHist:['RMP|ER Entrance','RMP|Main Lobby'], att:99, onTime:98, timeOff:[], rating:4.9 },
   { id:'G-106', name:'Marcus Lee', status:'Active', dept:'Healthcare Security', cross:['Corporate Security'], quals:['Armed Guard','CPR/First Aid','Healthcare Security'], rate:27, extraHours:30, otAt:40, avail:'AAAAAAA', shiftTypes:['Day','Evening','Overnight'], prefShifts:['Overnight','Evening'], prefSites:['RMP'], avoidSites:[], home:'West Bend', hx:-9, hy:9, cleared:['RMP','MCT'], siteHist:{RMP:15, MCT:2}, postHist:['RMP|ER Entrance'], att:96, onTime:93, timeOff:[], rating:4.6 },
   { id:'G-107', name:'Emily Davis', status:'Active', dept:'Corporate Security', cross:[], quals:['Unarmed Guard','CPR/First Aid'], rate:21, extraHours:24, otAt:32, avail:'-AAAAAC', shiftTypes:['Day'], prefShifts:['Day'], prefSites:['MCT'], avoidSites:[], home:'Midtown', hx:4, hy:12, cleared:['MCT','ABC'], siteHist:{MCT:20}, postHist:['MCT|Lobby Desk'], att:97, onTime:97, timeOff:[], rating:4.7 },
@@ -965,6 +1220,20 @@ const GUARDS = [
   { id:'G-112', name:'Rachel Green', status:'Inactive', statusNote:'On leave until Nov 2', dept:'Corporate Security', cross:[], quals:['Unarmed Guard','CPR/First Aid'], rate:21, extraHours:0, otAt:40, avail:'-AAAAA-', shiftTypes:['Day'], prefShifts:['Day'], prefSites:['MCT'], avoidSites:[], home:'Midtown', hx:2, hy:11, cleared:['MCT'], siteHist:{MCT:12}, postHist:['MCT|Lobby Desk'], att:96, onTime:95, timeOff:[], rating:4.6 },
   { id:'G-113', name:'Tom Becker', status:'Active', dept:'Industrial Security', cross:['Retail Security'], quals:['Armed Guard','TWIC Card'], rate:22, extraHours:30, otAt:40, avail:'AAAAAAA', shiftTypes:['Day','Evening'], prefShifts:['Day'], prefSites:['HLW'], avoidSites:[], home:'Bayview', hx:20, hy:-4, cleared:['HLW','ABC'], siteHist:{HLW:10, ABC:1}, postHist:['HLW|Yard Patrol'], att:91, onTime:92, timeOff:['2026-10-08','2026-10-09','2026-10-10','2026-10-13'], rating:4.3 },
   { id:'G-114', name:'Linda Okafor', status:'Active', dept:'Healthcare Security', cross:[], quals:['Unarmed Guard','CPR/First Aid','Healthcare Security'], rate:24, extraHours:8, otAt:40, avail:'A-----A', shiftTypes:['Day','Evening'], prefShifts:['Day'], prefSites:['RMP'], avoidSites:[], home:'Riverside', hx:-5, hy:4, cleared:['RMP'], siteHist:{RMP:9}, postHist:['RMP|ER Entrance'], att:98, onTime:97, timeOff:[], rating:4.8 },
+  // ---- added so every open/vacant shift has 3-5 eligible guards ----
+  { id:'G-115', name:'Priya Nair', status:'Active', dept:'Retail Security', cross:[], quals:['Armed Guard','CPR/First Aid','Fire Watch'], rate:23, extraHours:8, otAt:40, avail:'AAAAAAA', shiftTypes:['Day','Evening','Overnight'], prefShifts:['Overnight'], prefSites:['ABC'], avoidSites:[], home:'Eastgate', hx:3, hy:2, cleared:['ABC','XYZ'], siteHist:{ABC:7, XYZ:2}, postHist:['ABC|Parking Garage'], att:96, onTime:95, timeOff:[], rating:4.6 },
+  { id:'G-116', name:'Daniel Ortiz', status:'Active', dept:'Retail Security', cross:[], quals:['Armed Guard','Fire Watch'], rate:22, extraHours:12, otAt:40, avail:'AAAAAAA', shiftTypes:['Day','Evening','Overnight'], prefShifts:['Evening'], prefSites:['XYZ'], avoidSites:[], home:'Lakeview', hx:8, hy:5, cleared:['ABC','XYZ'], siteHist:{XYZ:9}, postHist:['XYZ|North Gate'], att:94, onTime:92, timeOff:[], rating:4.4 },
+  { id:'G-117', name:'Grace Kim', status:'Active', dept:'Retail Security', cross:[], quals:['Armed Guard','CPR/First Aid'], rate:21, extraHours:16, otAt:40, avail:'AAAAAAA', shiftTypes:['Day','Evening','Overnight'], prefShifts:['Day'], prefSites:[], avoidSites:[], home:'Central', hx:2, hy:-1, cleared:['ABC','XYZ'], siteHist:{ABC:3}, postHist:['ABC|Loading Dock'], att:92, onTime:90, timeOff:[], rating:4.2 },
+  { id:'G-118', name:'Omar Haddad', status:'Active', dept:'Retail Security', cross:[], quals:['Armed Guard','Fire Watch'], rate:22, extraHours:4, otAt:40, avail:'AAAAAAA', shiftTypes:['Day','Evening','Overnight'], prefShifts:['Overnight','Day'], prefSites:['ABC','XYZ'], avoidSites:[], home:'North Hills', hx:10, hy:3, cleared:['ABC','XYZ'], siteHist:{XYZ:4, ABC:2}, postHist:['XYZ|North Gate'], att:90, onTime:88, timeOff:[], rating:4.1 },
+  { id:'G-119', name:'Hannah Price', status:'Active', dept:'Healthcare Security', cross:[], quals:['Armed Guard','CPR/First Aid','Healthcare Security'], rate:26, extraHours:8, otAt:40, avail:'AAAAAAA', shiftTypes:['Day','Evening','Overnight'], prefShifts:['Overnight'], prefSites:['RMP'], avoidSites:[], home:'Riverside', hx:-5, hy:6, cleared:['RMP','MCT'], siteHist:{RMP:12}, postHist:['RMP|ER Entrance'], att:97, onTime:96, timeOff:[], rating:4.7 },
+  { id:'G-120', name:'Victor Alvarez', status:'Active', dept:'Healthcare Security', cross:[], quals:['Unarmed Guard','CPR/First Aid','Healthcare Security'], rate:23, extraHours:12, otAt:40, avail:'AAAAAAA', shiftTypes:['Day','Evening'], prefShifts:['Day'], prefSites:['RMP'], avoidSites:[], home:'West Bend', hx:-8, hy:8, cleared:['RMP'], siteHist:{RMP:6}, postHist:['RMP|Main Lobby'], att:93, onTime:91, timeOff:[], rating:4.3 },
+  { id:'G-121', name:'Nora Schmidt', status:'Active', dept:'Healthcare Security', cross:[], quals:['Armed Guard','CPR/First Aid','Healthcare Security'], rate:24, extraHours:16, otAt:40, avail:'AAAAAAA', shiftTypes:['Day','Evening','Overnight'], prefShifts:['Evening'], prefSites:[], avoidSites:[], home:'Old Town', hx:-2, hy:3, cleared:['RMP'], siteHist:{RMP:3}, postHist:[], att:91, onTime:89, timeOff:[], rating:4.1 },
+  { id:'G-122', name:'Ben Carter', status:'Active', dept:'Industrial Security', cross:[], quals:['Armed Guard','TWIC Card'], rate:23, extraHours:8, otAt:40, avail:'AAAAAAA', shiftTypes:['Day','Evening','Overnight'], prefShifts:['Day'], prefSites:['HLW'], avoidSites:[], home:'Portside', hx:15, hy:-9, cleared:['HLW'], siteHist:{HLW:14}, postHist:['HLW|Yard Patrol'], att:96, onTime:94, timeOff:[], rating:4.6 },
+  { id:'G-123', name:'Lucia Romero', status:'Active', dept:'Industrial Security', cross:[], quals:['Armed Guard','TWIC Card','Fire Watch'], rate:24, extraHours:12, otAt:40, avail:'AAAAAAA', shiftTypes:['Day','Evening','Overnight'], prefShifts:['Evening'], prefSites:['HLW'], avoidSites:[], home:'Bayview', hx:18, hy:-6, cleared:['HLW'], siteHist:{HLW:8}, postHist:['HLW|Gatehouse'], att:94, onTime:93, timeOff:[], rating:4.4 },
+  { id:'G-124', name:'Sam Patel', status:'Active', dept:'Industrial Security', cross:[], quals:['Armed Guard','TWIC Card'], rate:22, extraHours:20, otAt:40, avail:'AAAAAAA', shiftTypes:['Day','Evening','Overnight'], prefShifts:['Overnight'], prefSites:[], avoidSites:[], home:'Southport', hx:9, hy:-4, cleared:['HLW'], siteHist:{HLW:3}, postHist:[], att:90, onTime:87, timeOff:[], rating:4.0 },
+  { id:'G-125', name:'Olivia Chen', status:'Active', dept:'Corporate Security', cross:[], quals:['Armed Guard','CPR/First Aid'], rate:25, extraHours:8, otAt:40, avail:'AAAAAAA', shiftTypes:['Day','Evening'], prefShifts:['Day'], prefSites:['MCT'], avoidSites:[], home:'Midtown', hx:3, hy:11, cleared:['MCT'], siteHist:{MCT:10}, postHist:['MCT|Executive Floor'], att:98, onTime:97, timeOff:[], rating:4.8 },
+  { id:'G-126', name:'Ethan Brooks', status:'Active', dept:'Corporate Security', cross:[], quals:['Unarmed Guard','CPR/First Aid'], rate:20, extraHours:12, otAt:40, avail:'AAAAAAA', shiftTypes:['Day','Evening'], prefShifts:['Day'], prefSites:[], avoidSites:[], home:'Uptown', hx:6, hy:13, cleared:['MCT'], siteHist:{MCT:4}, postHist:['MCT|Lobby Desk'], att:93, onTime:92, timeOff:[], rating:4.3 },
+  { id:'G-127', name:'James Walker', status:'Active', dept:'Corporate Security', cross:[], quals:['Armed Guard'], rate:22, extraHours:16, otAt:40, avail:'AAAAAAA', shiftTypes:['Day','Evening'], prefShifts:['Evening'], prefSites:[], avoidSites:[], home:'Central', hx:1, hy:8, cleared:['MCT','ABC'], siteHist:{MCT:2}, postHist:[], att:91, onTime:90, timeOff:[], rating:4.1 },
 ];
 
 /* ---------- recurring assigned (published) shifts ---------- */
@@ -1045,6 +1314,13 @@ const GUARD_SKILLS = {
   'G-109':[['Customer Service','Access Control'],2], 'G-110':[['Access Control','Mobile Patrol'],4],
   'G-111':[['Mobile Patrol'],1], 'G-112':[['Customer Service','Access Control'],5],
   'G-113':[['Vehicle Inspection','Mobile Patrol'],6], 'G-114':[['Emergency Response','Customer Service'],3],
+  'G-115':[['Mobile Patrol','Vehicle Inspection','Access Control'],5], 'G-116':[['Access Control','Mobile Patrol'],4],
+  'G-117':[['Access Control','Customer Service','Vehicle Inspection'],3], 'G-118':[['Mobile Patrol','Access Control'],2],
+  'G-119':[['De-escalation','Emergency Response','Customer Service'],6], 'G-120':[['Customer Service','Emergency Response'],4],
+  'G-121':[['De-escalation','Emergency Response'],2], 'G-122':[['Mobile Patrol','Vehicle Inspection','Access Control'],7],
+  'G-123':[['Access Control','Vehicle Inspection','Mobile Patrol'],5], 'G-124':[['Mobile Patrol','Vehicle Inspection'],2],
+  'G-125':[['Executive Protection','Customer Service','Access Control'],8], 'G-126':[['Customer Service','Access Control'],3],
+  'G-127':[['Executive Protection','Access Control'],3],
 };
 GUARDS.forEach(g=>{ const x=GUARD_SKILLS[g.id]||[[],1]; g.skills=x[0]; g.years=x[1]; });
 function shiftSkills(sh){ return sh.skills || POST_SKILLS[sh.site+'|'+sh.post] || []; }
@@ -1060,6 +1336,103 @@ const CUSTOM_SOURCES = {
 };
 
 const ALL_SKILLS = [...new Set(Object.values(POST_SKILLS).flat())].sort();
+
+/* ======================================================================
+   POST SITE REQUIREMENTS
+   Stored per post site (SITE_REQ[siteId]). Shape:
+   { skills:[{name, level:'required'|'preferred'}], licenses:[name], certifications:[name],
+     noOverride:[key]   // keys a scheduler may NOT override: 'skill:<name>','license:<name>','cert:<name>','pay','exp','dist'
+                        // anything not listed here can be overridden with a reason (audit-logged on the shift)
+     payMin:number|null, payMax:number|null,   // USD per hour, inclusive
+     minExp:number|null,                        // years of service
+     maxDist:number|null,                       // miles from guard's home to the site
+     updatedAt, updatedBy }
+   Consumed by evaluate():
+   - required skills, licenses, certifications, experience, distance, pay range -> hard (blocking) checks
+   - preferred skills -> folded into the Skills Match scoring factor, never blocking
+   AI Scheduling Rules (Scheduler > AI Scheduling > Rules) stay separate: they decide how
+   qualified guards are ranked; post site requirements decide who qualifies for a site.
+   ====================================================================== */
+const SKILL_CATALOG = [...new Set(ALL_SKILLS.concat(['CCTV Monitoring','Patrol']))].sort();
+const LICENSE_CATALOG = ['Security Guard License','Armed Guard License','Driver License','TWIC Card','Firearms Permit','Baton Permit','Commercial Driver License (CDL)','Fire Safety Director License'];
+const CERT_CATALOG = ['First Aid','CPR','AED','Fire Safety','OSHA 10','Crowd Management','Hazmat Awareness'];
+const EXP_OPTIONS = [[null,'No minimum'],[1,'1 year'],[2,'2 years'],[3,'3 years'],[5,'5+ years']];
+(function enrichGuards(){
+  const noSecLicense = new Set(['G-111','G-118']);            // license lapsed / pending renewal
+  const driver = new Set(['G-101','G-104','G-108','G-113','G-115','G-122','G-123','G-124','G-110','G-117']);
+  const aed = new Set(['G-105','G-106','G-114','G-119','G-120','G-102','G-125']);
+  const cctv = new Set(['G-101','G-102','G-109','G-110','G-115','G-117','G-125','G-126','G-107']);
+  GUARDS.forEach(g=>{
+    g.licenses = [];
+    if(!noSecLicense.has(g.id)) g.licenses.push('Security Guard License');
+    if(g.quals.includes('Armed Guard')) g.licenses.push('Armed Guard License');
+    if(driver.has(g.id)) g.licenses.push('Driver License');
+    if(g.quals.includes('TWIC Card')) g.licenses.push('TWIC Card');
+    if(['G-101','G-104','G-106','G-115','G-119','G-125'].includes(g.id)) g.licenses.push('Firearms Permit');
+    if(['G-102','G-110','G-116','G-127'].includes(g.id)) g.licenses.push('Baton Permit');
+    if(['G-108','G-122','G-123'].includes(g.id)) g.licenses.push('Commercial Driver License (CDL)');
+    g.certs = [];
+    if(g.quals.includes('CPR/First Aid')) g.certs.push(g.id==='G-120' ? 'CPR' : 'First Aid', ...(g.id==='G-120'?[]:['CPR']));  // G-120: First Aid certificate lapsed
+    if(aed.has(g.id)) g.certs.push('AED');
+    if(g.quals.includes('Fire Watch')) g.certs.push('Fire Safety');
+    if(cctv.has(g.id) && !g.skills.includes('CCTV Monitoring')) g.skills = g.skills.concat('CCTV Monitoring');
+    if(g.skills.includes('Mobile Patrol') && !g.skills.includes('Patrol')) g.skills = g.skills.concat('Patrol');
+  });
+})();
+function emptyReq(){ return {skills:[], licenses:[], certifications:[], payMin:null, payMax:null, minExp:null, maxDist:null, noOverride:[]}; }
+const SITE_REQ = {
+  ABC: { skills:[{name:'Access Control',level:'required'},{name:'CCTV Monitoring',level:'preferred'}], licenses:['Security Guard License'], certifications:[], payMin:18, payMax:25, minExp:1, maxDist:15, noOverride:['license:Security Guard License'], updatedAt:'2026-09-30', updatedBy:'Kapil' },
+  RMP: { skills:[{name:'Emergency Response',level:'required'},{name:'De-escalation',level:'preferred'}], licenses:['Security Guard License'], certifications:['First Aid','CPR'], payMin:20, payMax:30, minExp:2, maxDist:20, noOverride:['license:Security Guard License','cert:CPR'], updatedAt:'2026-09-30', updatedBy:'Kapil' },
+  HLW: { skills:[{name:'Vehicle Inspection',level:'required'}], licenses:['Security Guard License','Driver License'], certifications:[], payMin:null, payMax:null, minExp:1, maxDist:25, noOverride:['license:Security Guard License'], updatedAt:'2026-09-30', updatedBy:'Kapil' },
+  // XYZ (Vegas Mall) and MCT (Metro Corporate Tower) have no requirements configured
+};
+function siteReq(siteId){ return SITE_REQ[siteId] || null; }
+function hasReq(r){ return !!r && (r.skills.length||r.licenses.length||r.certifications.length||r.payMin!=null||r.payMax!=null||r.minExp!=null||r.maxDist!=null); }
+function payText(r){ return r.payMin!=null&&r.payMax!=null ? '$'+r.payMin+'–$'+r.payMax+'/hr' : r.payMin!=null ? 'at least $'+r.payMin+'/hr' : 'up to $'+r.payMax+'/hr'; }
+/* Check one guard against a site's requirements. Independent of any shift, so the
+   Post Site screen can preview impact and the engine can reuse it. */
+function canOverride(r, key){ return !(r.noOverride||[]).includes(key); }
+function checkReq(g, siteId, r){
+  r = r || siteReq(siteId); const items=[], fails=[];
+  if(!hasReq(r)) return {configured:false, items, fails, met:0, total:0, partial:false, hard:[], soft:[]};
+  const fail = (key, cat, blockLabel, detail, req, status) => fails.push({key:'psr:'+key, cat, label:'Post site: '+req, blockLabel, detail, req, status, overridable:canOverride(r,key)});
+  const req = r.skills.filter(x=>x.level==='required').map(x=>x.name), pref = r.skills.filter(x=>x.level==='preferred').map(x=>x.name);
+  if(req.length||pref.length){
+    const mr = req.filter(k=>!g.skills.includes(k)), mp = pref.filter(k=>!g.skills.includes(k));
+    items.push({cat:'Skills', status: mr.length?'fail':mp.length?'partial':'ok',
+      detail: mr.length ? 'Missing required: '+mr.join(', ') : mp.length ? 'Has required'+(req.length?' ('+req.join(', ')+')':'')+'; missing preferred: '+mp.join(', ') : 'Has '+req.concat(pref).join(', ')});
+    mr.forEach(k=>fail('skill:'+k, 'Skills', 'Missing required skill', k, k+' skill', 'Missing'));
+  }
+  if(r.licenses.length){ const m = r.licenses.filter(x=>!g.licenses.includes(x));
+    items.push({cat:'License', status:m.length?'fail':'ok', detail: m.length ? 'Missing: '+m.join(', ') : 'Holds '+r.licenses.join(', ')});
+    m.forEach(x=>fail('license:'+x, 'License', 'Missing license', x, x, 'Missing')); }
+  if(r.certifications.length){ const m = r.certifications.filter(x=>!g.certs.includes(x));
+    items.push({cat:'Certification', status:m.length?'fail':'ok', detail: m.length ? 'Missing: '+m.join(', ') : 'Holds '+r.certifications.join(', ')});
+    m.forEach(x=>fail('cert:'+x, 'Certification', 'Missing certification', x, x+' certification', 'Missing')); }
+  if(r.minExp!=null){ const ok = g.years>=r.minExp, yrs = g.years+' year'+(g.years===1?'':'s');
+    items.push({cat:'Experience', status:ok?'ok':'fail', detail: yrs+' (min '+r.minExp+')'});
+    if(!ok) fail('exp', 'Experience', 'Experience below minimum', yrs+' (min '+r.minExp+')', 'Minimum '+r.minExp+' year'+(r.minExp===1?'':'s')+' experience', 'Has '+yrs); }
+  if(r.maxDist!=null){ const d = distTo(g, siteId), ok = d<=r.maxDist;
+    items.push({cat:'Distance', status:ok?'ok':'fail', detail: d+' mi (max '+r.maxDist+')'});
+    if(!ok) fail('dist', 'Distance', 'Outside travel distance', d+' mi (max '+r.maxDist+')', 'Within '+r.maxDist+' miles of the site', d+' miles away'); }
+  if(r.payMin!=null || r.payMax!=null){ const ok = (r.payMin==null||g.rate>=r.payMin) && (r.payMax==null||g.rate<=r.payMax);
+    items.push({cat:'Pay rate', status:ok?'ok':'fail', detail: '$'+g.rate+'/hr ('+payText(r)+')'});
+    if(!ok) fail('pay', 'Pay rate', 'Pay rate outside range', '$'+g.rate+'/hr ('+payText(r)+')', 'Pay rate '+payText(r), '$'+g.rate+'/hr'); }
+  const met = items.filter(i=>i.status==='ok').length;
+  return {configured:true, items, fails, met, total:items.length, partial: !fails.length && items.some(i=>i.status==='partial'),
+    hard: fails.filter(f=>!f.overridable), soft: fails.filter(f=>f.overridable)};
+}
+/* Plain-language sentence for a guard's requirement conflicts, e.g.
+   "John Smith is missing the required First Aid certification for this post site." */
+function conflictSentence(name, fails){
+  const miss = fails.filter(f=>f.status==='Missing').map(f=>f.req), other = fails.filter(f=>f.status!=='Missing');
+  const parts = [];
+  if(miss.length) parts.push('is missing the required '+joinList(miss));
+  other.forEach(f=>parts.push(f.cat==='Experience' ? 'has '+f.status.replace('Has ','')+' of experience (needs '+f.req.replace('Minimum ','').replace(' experience','')+')'
+    : f.cat==='Distance' ? 'lives '+f.status+' (limit '+f.req.replace('Within ','').replace(' of the site','')+')'
+    : 'has a pay rate of '+f.status+' (site range '+f.req.replace('Pay rate ','')+')'));
+  return name+' '+joinList(parts)+' for this post site.';
+}
 /* Condition templates an admin can build a custom hard rule from (pass/fail) */
 const HARD_TEMPLATES = {
   minRating:     { label:'Minimum guard rating', kind:'num', unit:'out of 5', def:4.5, min:1, max:5, step:0.1, verb:'rating is below', test:(g,sh,v)=>g.rating>=v, detail:(g,sh,v)=>'Rating '+g.rating+' (min '+v+')' },
@@ -1177,8 +1550,11 @@ function evaluate(g, sh, list, rules){
     const T = HARD_TEMPLATES[c.cond]; if(!T) return;
     checks.push({key:c.key, label:c.label, pass:T.test(g,sh,c.value), detail:T.detail(g,sh,c.value), on:!!c.on, blockLabel:c.label, custom:true});
   });
+  // ---- post site requirements (mandatory parts block, always on) ----
+  const reqMatch = checkReq(g, sh.site);
+  reqMatch.fails.forEach(x=>checks.push({key:x.key, label:x.label, pass:false, detail:x.detail, on:true, blockLabel:x.blockLabel, psr:true, overridable:x.overridable, req:x.req, status:x.status}));
   const eligible = checks.every(c=>!c.on || c.pass);
-  const blocking = checks.filter(c=>c.on && !c.pass);
+  const blocking = checks.filter(c=>c.on && !c.pass).sort((a,b)=>(b.psr?1:0)-(a.psr?1:0));
 
   // ---- factor scores ----
   const d = distTo(g, sh.site);
@@ -1209,7 +1585,8 @@ function evaluate(g, sh, list, rules){
   det.shiftPref = g.prefShifts.includes(st) ? 'Prefers '+g.prefShifts.join(' / ') : 'Prefers '+g.prefShifts.join(' / ')+', not '+st;
   f.history = Math.round((g.att+g.onTime)/2);
   det.history = g.att+'% attendance, '+g.onTime+'% on time';
-  const needSk = shiftSkills(sh), missSk = needSk.filter(k=>!g.skills.includes(k));
+  const SR = siteReq(sh.site);
+  const needSk = [...new Set(shiftSkills(sh).concat(SR ? SR.skills.map(x=>x.name) : []))], missSk = needSk.filter(k=>!g.skills.includes(k));
   f.skills = needSk.length ? Math.round(100*(needSk.length-missSk.length)/needSk.length) : 100;
   det.skills = !needSk.length ? 'No skills required' : missSk.length ? 'Missing '+missSk.join(', ') : 'Holds '+needSk.join(', ');
   rules.factors.filter(x=>x.custom).forEach(x=>{ const src=CUSTOM_SOURCES[x.source]; f[x.key]=src?src.fn(g):0; det[x.key]=src?src.det(g):'No data source'; });
@@ -1243,8 +1620,11 @@ function evaluate(g, sh, list, rules){
   if(g.prefShifts.includes(st)) reasons.push('Preferred shift ('+st+')');
   if(prefSite) reasons.push('Preferred site');
   if(projected<=ot) reasons.push('Stays within '+ot+'h (no overtime)');
+  if(reqMatch.configured && !reqMatch.fails.length) reasons.push(reqMatch.partial ? 'Meets all mandatory post site requirements' : 'Meets all post site requirements');
 
-  return { guard:g, shift:sh, eligible, checks, blocking, factors:f, details:det, activeFactors:active.map(x=>({key:x.key,label:x.label,weight:x.weight,value:f[x.key]})), wsum, sum, raw, score, warnings, reasons, projected, distance:d, shiftType:st };
+  // eligible: passes everything. overrideOnly: the ONLY problems are post site requirements that allow a scheduler override.
+  const overrideOnly = !eligible && blocking.length>0 && blocking.every(c=>c.psr && c.overridable);
+  return { guard:g, shift:sh, eligible, overrideOnly, checks, blocking, reqMatch, factors:f, details:det, activeFactors:active.map(x=>({key:x.key,label:x.label,weight:x.weight,value:f[x.key]})), wsum, sum, raw, score, warnings, reasons, projected, distance:d, shiftType:st };
 }
 
 function rank(evals){ return evals.slice().sort((a,b)=> b.score-a.score || b.guard.rating-a.guard.rating || a.distance-b.distance); }
@@ -1316,7 +1696,7 @@ function rowEval(run, sid, rules, selection){
   const eligible = rank(all.filter(x=>x.base.eligible).map(x=>x.live)).map(ev=>({ ev, blockedLive: !ev.eligible }));
   // keep live-eligible first by score, blocked after
   eligible.sort((a,b)=> (a.blockedLive-b.blockedLive) || b.ev.score-a.ev.score);
-  const excluded = all.filter(x=>!x.base.eligible).map(x=>x.base);
+  const excluded = all.filter(x=>!x.base.eligible).map(x=>x.live);
   return { sh, eligible, excluded };
 }
 
@@ -1326,7 +1706,7 @@ function noEligibleSummary(excluded){
   return Object.entries(counts).sort((a,b)=>b[1]-a[1]);
 }
 
-if(typeof module!=='undefined') module.exports = { HARD_TEMPLATES, activeFactors, CUSTOM_SOURCES, SHIFTS, GUARDS, SITES, FACTORS, defaultRules, runBatch, rowEval, evaluate, baseAssignments, shiftById, explain, noEligibleSummary };
+if(typeof module!=='undefined') module.exports = { SITE_REQ, checkReq, HARD_TEMPLATES, activeFactors, CUSTOM_SOURCES, SHIFTS, GUARDS, SITES, FACTORS, defaultRules, runBatch, rowEval, evaluate, baseAssignments, shiftById, explain, noEligibleSummary };
 
 </script>
 <script>
@@ -1378,8 +1758,9 @@ const I = {
 const ic = (n, cls='') => `<svg class="ic ${cls}" viewBox="0 0 24 24" aria-hidden="true">${I[n]}</svg>`;
 
 const S = {
+  navOpen:{clients:false, scheduler:true}, ps:null, overrides:{}, ovr:null, reqVer:0, returnTo:null,
   view:'month', focus:TODAY, mode:null, selected:new Set(), menu:null, modal:null, drawer:null,
-  screen:'scheduler', rules:defaultRules(), run:null, sel:{}, manual:{}, expanded:new Set(), focusG:{}, showExcl:new Set(),
+  screen:'scheduler', rules:defaultRules(), run:null, sel:{}, manual:{}, expanded:new Set(), focusG:{}, showExcl:new Set(), showScore:new Set(),
   filters:{ sites:new Set(Object.keys(SITES)), status:new Set(['assigned','open','vacant']), pub:new Set(['published','unpublished']) },
   banner:null, aiOnly:false, flash:new Set(), lastApplied:[],
 };
@@ -1430,19 +1811,24 @@ function toast(msg, icon='check'){
 function unpubAI(){ return SHIFTS.filter(s=>s.ai && s.status==='assigned' && !s.published); }
 
 /* ---------- sidebar + topbar (static) ---------- */
+function navItem(icon,name,chev){ return `<a data-act="navtoast" data-name="${name}" tabindex="0">${ic(icon)}<span>${name}</span>${chev?ic('chevR','chev'):''}</a>`; }
 function renderShell(){
   const nav = [['pie','Dashboard'],['activity','Activity'],['clients','Clients',1],['team','Security Team',1],['analytics','Analytics',1],['gps','GPS Tracker',1],['msg','Messenger'],['clock','Time Clock',1],['reports','Reports']];
   document.getElementById('sidebar').innerHTML = `
     <div class="logo"><svg viewBox="0 0 38 42" aria-hidden="true"><path d="M19 1L3 7v12c0 10.5 6.8 18.8 16 22 9.2-3.2 16-11.5 16-22V7z" fill="#2f6fe0"/><path d="M19 5L7 9.6v9.6c0 8.2 5.1 14.8 12 17.6 6.9-2.8 12-9.4 12-17.6V9.6z" fill="#fff"/><circle cx="19" cy="16" r="4.5" fill="#1d3f8f"/><path d="M11.5 30c1.5-4.6 4.4-7 7.5-7s6 2.4 7.5 7c-2.2 2.2-4.7 3.8-7.5 4.9-2.8-1.1-5.3-2.7-7.5-4.9z" fill="#1d3f8f"/></svg><span>GuardsPro</span></div>
     <nav class="nav">
-      ${nav.map(n=>`<a data-act="navtoast" data-name="${n[1]}" tabindex="0">${ic(n[0])}<span>${n[1]}</span>${n[2]?ic('chevR','chev'):''}</a>`).join('')}
-      <a class="open" data-act="navtoast" data-name="Scheduler" tabindex="0">${ic('cal')}<span>Scheduler</span>${ic('chevD','chev')}</a>
-      <div class="sub">
-        <a class="on" tabindex="0" data-act="go-schedule">Schedule</a>
+      ${navItem('pie','Dashboard')}${navItem('activity','Activity')}
+      <a class="${S.navOpen.clients?'open':''}" data-act="nav-group" data-g="clients" tabindex="0" aria-expanded="${!!S.navOpen.clients}">${ic('clients')}<span>Clients</span>${ic(S.navOpen.clients?'chevD':'chevR','chev')}</a>
+      ${S.navOpen.clients?`<div class="sub">
+        <a tabindex="0" data-act="navtoast" data-name="Clients">Clients</a>
+        <a class="${S.screen==='postsites'||S.screen==='postsite'?'on':''}" tabindex="0" data-act="go-postsites">Post Sites</a></div>`:''}
+      ${navItem('team','Security Team',1)}${navItem('analytics','Analytics',1)}${navItem('gps','GPS Tracker',1)}${navItem('msg','Messenger')}${navItem('clock','Time Clock',1)}${navItem('reports','Reports')}
+      <a class="${S.navOpen.scheduler?'open':''}" data-act="nav-group" data-g="scheduler" tabindex="0" aria-expanded="${!!S.navOpen.scheduler}">${ic('cal')}<span>Scheduler</span>${ic(S.navOpen.scheduler?'chevD':'chevR','chev')}</a>
+      ${S.navOpen.scheduler?`<div class="sub">
+        <a class="${S.screen==='scheduler'||S.screen==='results'?'on':''}" tabindex="0" data-act="go-schedule">Schedule</a>
         <a tabindex="0" data-act="navtoast" data-name="Shift Templates">Shift Templates</a>
         <a tabindex="0" data-act="navtoast" data-name="Attendance">Attendance</a>
-        <a tabindex="0" data-act="navtoast" data-name="Shift Status">Shift Status</a>
-      </div>
+        <a tabindex="0" data-act="navtoast" data-name="Shift Status">Shift Status</a></div>`:''}
     </nav>`;
   document.getElementById('topbar').innerHTML = `
     <button class="tb" data-act="sidebar" aria-label="Toggle menu">${ic('menu')}</button>
@@ -1472,6 +1858,7 @@ function cardHTML(s, variant){
   const tags = [];
   if(s.status==='assigned' && !s.published) tags.push('<span class="tag unpub">Unpublished</span>');
   if(s.ai && s.status==='assigned' && !s.published) tags.push('<span class="tag ai">AI</span>');
+  if(s.override && s.status==='assigned') tags.push(`<span class="tag ovr" data-act="ovr-info" data-id="${s.id}" role="button" tabindex="0" title="Requirement override: view details">⚠ Override</span>`);
   const sub = variant==='wide' ? `<span class="sub">${esc(site.name)} · ${esc(s.post)}</span>` : '';
   const right = S.mode ? `<span class="pick"><i></i></span>` : `<button class="kebab" data-act="shiftmenu" data-id="${s.id}" aria-label="Shift actions">${ic('kebab','fill')}</button>`;
   const title = `${s.id} · ${site.name} · ${s.post} · ${s.status==='assigned'?(s.published?'Published':'Unpublished'):s.status==='open'?'Open':'Vacant'}`;
@@ -1529,72 +1916,104 @@ function listHTML(){
     let rc='click'; if(S.selected.has(s.id)) rc+=' selected'; if(S.mode==='ai-select' && !isOpen(s)) rc+=' locked';
     const st = s.status==='assigned' ? `<span class="st ok">Assigned</span>` : s.status==='open' ? `<span class="st bad">Open</span>` : `<span class="st warn">Vacant</span>`;
     const pb = s.status!=='assigned' ? '<span class="st muted">—</span>' : s.published ? `<span class="st ok">${ic('check')}Published</span>` : `<span class="st muted">Unpublished</span>`;
-    const ai = s.ai && !s.published ? ` <span class="mini-tag ai">AI${s.aiScore?' '+s.aiScore+'%':''}</span>` : '';
+    const ai = (s.ai && !s.published ? ` <span class="mini-tag ai">AI${s.aiScore?' '+s.aiScore+'%':''}</span>` : '') + (s.override && s.status==='assigned' ? `<button class="ovr-badge" data-act="ovr-info" data-id="${s.id}" title="View override details">${ic('alert')}Requirement Override</button>` : '');
     return `<tr class="${rc}" data-act="card" data-id="${s.id}"><td class="num">${fmtDay(s.date)}</td><td class="num">${timeRange(s)}</td><td><span class="dot" style="background:var(--c-${site.color})"></span>${esc(site.name)}</td><td>${esc(s.post)}</td><td>${g?esc(g.name):'<span style="color:var(--muted)">'+(s.status==='open'?'No Guard':'Vacant')+'</span>'}${ai}</td><td>${st}</td><td>${pb}</td><td>${S.mode?'':`<button class="iconbtn" data-act="shiftmenu" data-id="${s.id}" aria-label="Shift actions">${ic('kebab','fill')}</button>`}</td></tr>`;
   }).join('')}</tbody></table></div>`;
 }
 
 /* ---------- results ---------- */
 function selectedFor(sid){ return S.sel[sid] || null; }
-function rowData(sid){ return rowEval(S.run, sid, S.rules, S.sel); }
+const MAX_CHOICES = 5;
+function rowData(sid){
+  const rd = rowEval(S.run, sid, S.rules, S.sel), cur = S.sel[sid];
+  const blocked = rd.eligible.filter(x=>x.blockedLive);
+  const excluded = rd.excluded.concat(blocked.map(x=>x.ev));
+  // AI pick first, then the best alternatives: top 1 + up to 4 (the current selection is always kept)
+  const aiId = S.run.ai[sid];
+  const ranked = rd.eligible.filter(x=>!x.blockedLive).sort((a,b)=> (b.ev.guard.id===aiId)-(a.ev.guard.id===aiId) || b.ev.score-a.ev.score);
+  const eligible = ranked.slice(0, MAX_CHOICES);
+  const keep = ranked.slice(MAX_CHOICES).find(x=>x.ev.guard.id===cur); if(keep) eligible.push(keep);
+  const override = cur && !eligible.some(x=>x.ev.guard.id===cur) ? excluded.find(e=>e.guard.id===cur)||null : null;
+  const conflicts = excluded.filter(e=>e.overrideOnly).sort((a,b)=>b.score-a.score);
+  const notEligible = excluded.filter(e=>!e.overrideOnly);
+  return { ...rd, eligible, excluded, override, conflicts, notEligible };
+}
+function selEv(rd, gid){ if(!gid) return null; const x=rd.eligible.find(x=>x.ev.guard.id===gid); return x ? x.ev : (rd.override && rd.override.guard.id===gid ? rd.override : null); }
 function rowStatus(sid, rd){
   const gid = selectedFor(sid);
   if(!rd.eligible.length) return {key:'none', html:`<span class="st warn">${ic('alert')}No Eligible Guard</span>`};
   if(!gid) return S.manual[sid]==='skip' ? {key:'skip', html:`<span class="st muted">Left vacant</span>`} : {key:'unres', html:`<span class="st warn">${ic('alert')}Unresolved</span>`};
-  const ev = rd.eligible.find(x=>x.ev.guard.id===gid);
-  const w = ev ? ev.ev.warnings.length : 0;
+  const ev = selEv(rd, gid);
+  const w = ev ? ev.warnings.length : 0;
   return w ? {key:'warn', warn:w, html:`<span class="st warn">${ic('alert')}Ready · ${w} warning${w>1?'s':''}</span>`} : {key:'ready', html:`<span class="st ok">${ic('check')}Ready</span>`};
 }
 function resultStats(){
   let ready=0, unres=0, sum=0, hi=0, review=0, manual=0, cnt=0;
   S.run.shiftIds.forEach(sid=>{
     const rd=rowData(sid), gid=selectedFor(sid);
-    if(!gid){ unres++; return; }
-    const found=rd.eligible.find(x=>x.ev.guard.id===gid);
-    if(!found){ unres++; return; }
-    const ev=found.ev;
+    if(!gid || !S.pick.has(sid)){ unres++; return; }
+    const ev=selEv(rd, gid);
+    if(!ev){ unres++; return; }
     ready++; sum+=ev.score; cnt++;
     if(ev.score>=80 && !ev.warnings.length) hi++; else review++;
     if(gid!==S.run.ai[sid]) manual++;
   });
   return {total:S.run.shiftIds.length, ready, unres, avg: cnt?Math.round(sum/cnt):0, hi, review, manual};
 }
+function pickable(){ return S.run.shiftIds.filter(sid=>selectedFor(sid)); }
+function pickAllHTML(){
+  const all=pickable(), n=all.filter(id=>S.pick.has(id)).length;
+  return `<label class="rsel" title="Select all shifts"><input type="checkbox" data-ch="pick-all" ${n&&n===all.length?'checked':''} ${n&&n<all.length?'data-indet="1"':''} ${all.length?'':'disabled'} aria-label="Select all shifts"></label>`;
+}
+function pickBoxHTML(sid, sh, gid){
+  return `<label class="rsel" title="${gid?'Include this shift when you approve or publish':'Choose a guard first'}"><input type="checkbox" data-ch="pick-row" data-sid="${sid}" ${gid&&S.pick.has(sid)?'checked':''} ${gid?'':'disabled'} aria-label="Select ${fmtDay(sh.date)} ${sh.start} ${esc(SITES[sh.site].name)}"></label>`;
+}
 function resultsHTML(){
   const st = resultStats();
   const notes = Object.entries(S.run.notes).filter(([k,v])=>v.top && v.chosen);
   const sorted = S.run.shiftIds.slice().sort((a,b)=>{ const A=shiftById(a),B=shiftById(b); return range(A)[0]-range(B)[0]; });
-  return `<div class="res-head"><div><div class="eyebrow">${ic('spark')}AI Scheduling</div><h2>AI Scheduling Results</h2>
-      <p>Review each recommendation, compare alternatives and change any guard. Nothing is assigned until you apply, and nothing is published until you publish.</p>
-      <span class="principle">${ic('spark')}AI recommends. Scheduler decides.</span></div>
-      <div class="acts"><button class="btn outline" data-act="rules">${ic('sliders')} Rules</button><button class="btn outline" data-act="expand-all">${S.expanded.size===S.run.shiftIds.length?'Collapse all':'Expand all'}</button></div></div>
-    <div class="stats">
-      <div class="t"><b>${st.total}</b><span>Shifts analyzed</span></div>
-      <div class="t ok"><b>${st.ready}</b><span>Recommendations ready</span></div>
-      <div class="t ${st.unres?'warn':''}"><b>${st.unres}</b><span>Unresolved / left vacant</span></div>
-      <div class="t"><b>${st.avg}%</b><span>Average score</span></div>
-      <div class="t ok"><b>${st.hi}</b><span>High confidence</span></div>
-      <div class="t ${st.review?'warn':''}"><b>${st.review}</b><span>Needs review</span></div>
-    </div>
-    ${notes.length?`<div class="callout optnote">${ic('route')}<div><b>Optimized across all ${st.total} shifts.</b> ${notes.length} recommendation${notes.length>1?'s were':' was'} moved to the next-best guard to avoid double booking, impossible travel or extra overtime. Look for the route marker in the table.</div></div>`:''}
-    <div class="tablewrap"><table class="res"><thead><tr><th style="width:34px"></th><th>Shift</th><th>Site / Post</th><th>Requires</th><th>Recommended guard</th><th>Score</th><th>Status</th></tr></thead><tbody>
+  return `<div class="res-head"><div><h2>AI Scheduling Results</h2>
+      </div>
+      <div class="acts"><button class="btn outline" data-act="expand-all">${S.expanded.size===S.run.shiftIds.length?'Collapse all':'Expand all'}</button></div></div>
+    <div class="tablewrap"><table class="res"><thead><tr><th class="pickcol">${pickAllHTML()}</th><th style="width:28px"></th><th>Shift</th><th>Site / Post</th><th>Requires</th><th>Recommended guard</th><th>Score</th></tr></thead><tbody>
     ${sorted.map(sid=>{
       const sh=shiftById(sid), rd=rowData(sid), gid=selectedFor(sid), exp=S.expanded.has(sid), stt=rowStatus(sid,rd);
-      const ev = gid ? rd.eligible.find(x=>x.ev.guard.id===gid).ev : null;
+      const ev = selEv(rd, gid);
       const aiG = S.run.ai[sid] ? guardById(S.run.ai[sid]) : null;
-      let gcell = '<span style="color:var(--muted)">—</span>';
-      if(ev){
-        const isAI = gid===S.run.ai[sid];
-        gcell = `<div class="gcell">${avatar(ev.guard)}<div class="gt"><b>${esc(ev.guard.name)}</b><small>${tierBadge(scoreTier(ev.score))}</small>${S.run.notes[sid]&&S.run.notes[sid].top&&isAI?`<span class="rowflag">${ic('route')}Optimized</span>`:''}</div></div>`;
-      }
-      return `<tr class="row ${exp?'exp':''}" data-act="toggle-row" data-id="${sid}" tabindex="0">
-        <td>${ic('chevR','caret')}</td>
+      const gcell = guardSelectHTML(sid, sh, rd, gid, ev);
+      return `<tr class="row ${exp?'exp':''} ${gid&&S.pick.has(sid)?'picked':''}" data-act="toggle-row" data-id="${sid}" tabindex="0">
+        <td class="pickcol">${pickBoxHTML(sid, sh, gid)}</td><td>${ic('chevR','caret')}</td>
         <td class="cell-shift"><b>${fmtDay(sh.date)} · ${sh.start}–${sh.end}</b><span>${sid} · ${shiftType(sh)} · ${sh.status==='open'?'Open':'Vacant'}</span></td>
         <td class="cell-site"><b>${esc(SITES[sh.site].name)}</b><span>${esc(sh.post)} · ${esc(sh.dept)}</span></td>
         <td><div class="qchips">${sh.req.map(q=>`<span class="q">${esc(q)}</span>`).join('')}${sh.pref.map(q=>`<span class="q pref" title="Preferred">${esc(q)}</span>`).join('')}</div></td>
-        <td>${gcell}</td><td>${ev?scoreBar(ev.score):'<span style="color:var(--muted)">—</span>'}</td><td>${stt.html}</td></tr>
+        <td>${gcell}</td><td>${ev?scoreBar(ev.score):'<span style="color:var(--muted)">—</span>'}</td></tr>
         ${exp?`<tr class="detail"><td colspan="7">${detailHTML(sid, rd)}</td></tr>`:''}`;
     }).join('')}</tbody></table></div>`;
 }
+function guardSelectHTML(sid, sh, rd, gid, ev){
+  const aiId = S.run.ai[sid];
+  const elig = rd.eligible.slice().sort((a,b)=> (b.ev.guard.id===aiId)-(a.ev.guard.id===aiId) || b.ev.score-a.ev.score);
+  const o = (val, short, long, sel) => `<option value="${val}" ${sel?'selected':''} data-short="${esc(short)}" data-long="${esc(long)}">${esc(short)}</option>`;
+  const none = sh.status==='open' ? 'No Guard (Open)' : 'No Guard (Vacant)';
+  const isAI = gid && gid===aiId, isOv = !!(ev && rd.override && rd.override===ev);
+  let meta;
+  if(!ev) meta = rd.eligible.length ? `<span class="gs-none">No guard will be assigned</span>` : `<span class="tbadge t-attn">No eligible guard</span>`;
+  else if(isOv) meta = `<span class="tbadge t-ovr" title="${esc(conflictSentence(ev.guard.name, ev.blocking.filter(b=>b.psr)))}">${ic('alert')}Requirement override</span>${reqChip(ev)}`;
+  else meta = `${isAI?'':'<span class="tbadge t-man">Manual choice</span>'}${tierBadge(scoreTier(ev.score))}${reqChip(ev)}${S.run.notes[sid]&&S.run.notes[sid].top&&isAI?`<span class="rowflag">${ic('route')}Optimized</span>`:''}`;
+  return `<div class="gsel">${ev?avatar(ev.guard):'<span class="av av-empty">—</span>'}<div class="gs-body">
+    <select class="field gs-select ${isAI?'is-ai':''} ${isOv?'is-ov':''}" id="gs-${sid}" data-ch="row-guard" data-sid="${sid}" aria-label="Guard for ${fmtDay(sh.date)} ${sh.start} ${esc(SITES[sh.site].name)}">
+      ${elig.length?`<optgroup label="Eligible guards (ranked by AI)">${elig.map(x=>{ const g=x.ev.guard, top=g.id===aiId;
+        return o(g.id, (top?'★ ':'')+g.name+' · '+x.ev.score+'%', g.name+' ('+x.ev.score+'% match · '+(top?'AI Recommended':TIERS[tierOf(x)].label)+')', g.id===gid); }).join('')}</optgroup>`:''}
+      ${rd.conflicts.length?`<optgroup label="Requirement conflict · override needed">${rd.conflicts.map(e=>{ const n=e.blocking.length;
+        return o('ovr:'+e.guard.id, '⚠ '+e.guard.name+' · '+e.score+'%', e.guard.name+' ('+e.score+'% · '+n+' requirement'+(n===1?'':'s')+' not met)', e.guard.id===gid); }).join('')}</optgroup>`:''}
+      ${o('', none, none, !gid)}
+    </select><div class="gs-meta">${meta}</div></div></div>`;
+}
+/* show the detailed option text only while the list is open */
+function gsLong(sel, on){ [...sel.options].forEach(op=>{ const t=on?op.dataset.long:op.dataset.short; if(t!=null && op.textContent!==t) op.textContent=t; }); }
+document.addEventListener('mousedown', e=>{ const sel=e.target.closest && e.target.closest('select.gs-select'); if(sel) gsLong(sel,true); }, true);
+document.addEventListener('keydown', e=>{ const sel=e.target.closest && e.target.closest('select.gs-select'); if(sel && (e.key===' '||e.key==='Enter'||(e.altKey&&e.key==='ArrowDown'))) gsLong(sel,true); }, true);
+document.addEventListener('focusout', e=>{ if(e.target.matches && e.target.matches('select.gs-select')) gsLong(e.target,false); });
 const BLOCK_TEXT = {
   'Qualification mismatch': (n,sh)=>`${n} guard${n>1?'s':''} lack the required qualification (${sh.req.join(' + ')})`,
   'Department mismatch': (n,sh)=>`${n} guard${n>1?'s are':' is'} outside ${sh.dept}`,
@@ -1604,8 +2023,39 @@ const BLOCK_TEXT = {
   'Not cleared for site': (n,sh)=>`${n} guard${n>1?'s are':' is'} not cleared for ${SITES[sh.site].name}`,
   'Weekly hour limit exceeded': n=>`${n} guard${n>1?'s':''} would exceed ${S.rules.maxHoursCap}h this week`,
   'Guard inactive': n=>`${n} guard${n>1?'s are':' is'} inactive`,
+  'Missing required skill': n=>`${n} guard${n>1?'s lack':' lacks'} a required post site skill`,
+  'Missing license': n=>`${n} guard${n>1?'s lack':' lacks'} a required license`,
+  'Missing certification': n=>`${n} guard${n>1?'s lack':' lacks'} a required certification`,
+  'Experience below minimum': n=>`${n} guard${n>1?'s are':' is'} below the minimum experience`,
+  'Outside travel distance': n=>`${n} guard${n>1?'s live':' lives'} beyond the maximum travel distance`,
+  'Pay rate outside range': n=>`${n} guard${n>1?"s' pay rates are":"'s pay rate is"} outside the site's range`,
 };
+const REQ_ICON = {ok:'check', partial:'alert', fail:'xcirc'};
+function reqChip(ev){ const m=ev.reqMatch; if(!m||!m.configured) return '';
+  const strict=m.hard&&m.hard.length, soft=m.fails.length&&!strict;
+  return `<span class="rqc ${strict?'fail':soft||m.partial?'part':'ok'}" title="Post site requirements met: ${m.met} of ${m.total}${soft?' (override available)':strict?' (cannot be overridden)':m.partial?' (missing a preferred skill)':''}">${ic(strict?'xcirc':soft||m.partial?'alert':'check')}Req ${m.met}/${m.total}</span>`; }
+function reqBlockHTML(ev, sh){
+  const m=ev.reqMatch, site=SITES[sh.site];
+  const edit = `<button class="link rq-edit" data-act="ps-from-results" data-site="${sh.site}">${ic('edit')}${m.configured?'Edit':'Set'} requirements</button>`;
+  if(!m.configured) return `<div class="rqb none">${ic('sliders')}<span>No post site requirements set for ${esc(site.name)}.</span>${edit}</div>`;
+  if(m.fails.length){
+    const hard = m.hard.length, n = m.fails.length;
+    const head = hard ? `<b class="bc">${ic('xcirc')}Not Eligible</b><span class="muted"> · ${n} requirement${n===1?'':'s'} not met, ${hard} can't be overridden</span>`
+                      : `<b class="wc">${ic('alert')}Requirement Conflict</b><span class="muted"> · ${n} requirement${n===1?'':'s'} not met · override available</span>`;
+    return `<div class="rqb ${hard?'fail':'part'}"><div class="rqb-h">${head}${edit}</div>
+      <ul class="rq-list in">${m.items.map(i=>{ const f=m.fails.filter(x=>x.cat===i.cat);
+        return `<li class="${i.status==='fail'?'fail':i.status}">${ic(REQ_ICON[i.status])}<b>${esc(i.cat)}</b><span>${esc(i.detail)}${f.some(x=>!x.overridable)?' <em class="ovt no">No override</em>':''}</span></li>`; }).join('')}</ul></div>`;
+  }
+  return `<div class="rqb ${m.partial?'part':'ok'}"><div class="rqb-h"><b>${m.partial?'':ic('check')}Requirements Match: ${m.met}/${m.total}</b>${m.partial?'<span class="wc"> · partial (preferred skill missing)</span>':'<span class="okc"> · all post site requirements met</span>'}${edit}</div>
+    <div class="rqb-items">${m.items.map(i=>`<span class="rqi ${i.status}" title="${esc(i.detail)}">${ic(REQ_ICON[i.status])}${esc(i.cat)}</span>`).join('')}</div></div>`;
+}
+function reqDetailHTML(ev){ const m=ev.reqMatch; if(!m||!m.configured) return '';
+  return `<h5 class="sd-sub">Post site requirements</h5><ul class="rq-list">${m.items.map(i=>`<li class="${i.status}">${ic(REQ_ICON[i.status])}<b>${esc(i.cat)}</b><span>${esc(i.detail)}</span></li>`).join('')}</ul>`; }
 function excludedTable(rd){
+  return `<div class="ne-list">${rd.excluded.map(ev=>`<div class="ne-row"><div class="ne-h"><b>${esc(ev.guard.name)}</b><span class="tbadge t-attn">Not Eligible</span></div>
+    <ul>${ev.blocking.map(c=>`<li>${ic('xcirc','bc')}<span>${c.psr?(c.blockLabel.startsWith('Missing')?'Missing: '+esc(c.detail):esc(c.blockLabel)+' — '+esc(c.detail)):esc(c.blockLabel)+' — '+esc(c.detail)}</span>${c.psr?(c.overridable?'<em>Post site</em>':'<em class="strict">Post site · no override</em>'):''}</li>`).join('')}</ul></div>`).join('')}</div>`;
+}
+function excludedTableOld(rd){
   return `<div class="excl"><table>${rd.excluded.map(ev=>`<tr><td>${esc(ev.guard.name)}</td><td>${ev.blocking.map(c=>`<span class="x-reason">✕ ${esc(c.blockLabel)} — ${esc(c.detail)}</span>`).join('')}</td></tr>`).join('')}</table></div>`;
 }
 const TIERS = {
@@ -1626,38 +2076,47 @@ function detailHTML(sid, rd){
       <div class="when"><b>${fmtShort(sh.date)}</b> · ${sh.start} – ${sh.end} · ${esc(SITES[sh.site].name)}, ${esc(sh.post)}</div>
       <div>No guard satisfies all required rules.${sh.note?' <span style="color:var(--muted)">('+esc(sh.note)+')</span>':''}</div>
       <ul>${reasons.map(([k,n])=>`<li>${esc((BLOCK_TEXT[k]||(x=>x+' guard'+(x>1?'s fail':' fails')+' “'+k+'”'))(n,sh))}</li>`).join('')}</ul>
-      <button class="link" data-act="toggle-excl" data-id="${sid}">${S.showExcl.has(sid)?'Hide details':'View Details'} ${ic('chevD')}</button>
-      ${S.showExcl.has(sid)?excludedTable(rd):''}</div>
+</div>
       <div class="side"><h5 style="margin:0 0 10px;font-size:11.5px;letter-spacing:.9px;text-transform:uppercase;color:var(--muted)">What you can do</h5>
         <div class="confirm-list" style="margin-top:0">
           <div>${ic('clock')}<span>Leave the shift ${sh.status==='open'?'open':'vacant'} and fill it manually later from the Scheduler.</span></div>
-          <div>${ic('sliders')}<span>Adjust a hard rule (for example, Required Qualification) and recalculate.${relaxed?` ${relaxed} rule${relaxed>1?'s are':' is'} already off.`:''}</span></div>
         </div>
-        <button class="btn outline" data-act="rules" data-open="hard">${ic('sliders')} Adjust Rules</button></div></div>`;
+</div></div>`;
   }
   const gid = selectedFor(sid), aiId = S.run.ai[sid];
   const focusId = S.focusG[sid] || gid || aiId || rd.eligible[0].ev.guard.id;
-  const fx = rd.eligible.find(x=>x.ev.guard.id===focusId) || rd.eligible[0];
+  let fx = rd.eligible.find(x=>x.ev.guard.id===focusId);
+  if(!fx){ const c = rd.conflicts.find(e=>e.guard.id===focusId); if(c) fx = {ev:c, blockedLive:false, conflict:true, override: gid===c.guard.id}; }
+  if(!fx && rd.override && rd.override.guard.id===focusId) fx = {ev:rd.override, blockedLive:false, override:true};
+  if(!fx) fx = rd.eligible[0];
   const ev = fx.ev;
   const optRow = (x)=>{
     const g=x.ev.guard, on = gid===g.id, isAI = g.id===aiId, dis = x.blockedLive && !on, foc = focusId===g.id, t = tierOf(x);
     const blk = x.ev.blocking[0];
     return `<div class="opt ${on?'on':''} ${foc?'focus':''} ${dis?'dis':''}" data-act="inspect-guard" data-sid="${sid}" data-gid="${g.id}" ${dis?'role="button" aria-label="View '+esc(g.name)+' (cannot be assigned)"':`role="radio" aria-checked="${on}"`} tabindex="0" title="${dis?'View details. This guard cannot be assigned to this shift.':'View details and select this guard'}">
       <span class="radio"></span>${avatar(g)}
-      <div class="ot"><b><span class="gname">${esc(g.name)}</span>${tierBadge(t)}</b>
+      <div class="ot"><b><span class="gname">${esc(g.name)}</span>${tierBadge(t)}${reqChip(x.ev)}</b>
       ${dis?`<small class="bad">✕ ${esc(blk?blk.blockLabel+': '+blk.detail:'Conflicts with another selection')}</small>`:`<small>${x.ev.distance} mi · ${x.ev.projected}h projected · $${g.rate}/hr${x.ev.warnings.length?` · <span class="wi">${ic('alert')}${x.ev.warnings.length}</span>`:''}</small>`}</div>
       <span class="os">${x.ev.score}%</span>${foc?`<span class="viewing" aria-hidden="true">${ic('chevR')}</span>`:''}</div>`;
   };
+  const ovRec = S.overrides && S.overrides[sid] && S.overrides[sid].gid===gid ? S.overrides[sid] : null;
+  const confRow = (e)=>{ const g=e.guard, on=gid===g.id, foc=focusId===g.id, f=e.blocking.filter(b=>b.psr);
+    return `<div class="opt conf ${on?'on':''} ${foc?'focus':''}" data-act="inspect-guard" data-sid="${sid}" data-gid="${g.id}" role="button" tabindex="0" aria-label="View ${esc(g.name)} (requirement conflict)">
+      <span class="radio"></span>${avatar(g)}
+      <div class="ot"><b><span class="gname">${esc(g.name)}</span>${reqChip(e)}</b>
+        <small class="wc">${ic('alert')} ${esc(f.map(x=>x.status==='Missing'?'Missing '+x.req:x.req+': '+x.status).join(' · '))}</small></div>
+      <span class="os">${e.score}%</span>
+      ${on?`<span class="tbadge t-ovr">Selected · override</span>`:`<button class="btn sm ovr-btn" data-act="ovr-open" data-sid="${sid}" data-gid="${g.id}">${ic('alert')} Override &amp; Assign</button>`}</div>`; };
   const aiRow = rd.eligible.find(x=>x.ev.guard.id===aiId);
   const others = rd.eligible.filter(x=>x.ev.guard.id!==aiId);
   const note = S.run.notes[sid];
   const factorRows = S.rules.factors.map(f=>{ const on=f.on; const v=ev.factors[f.key]||0;
     return `<tr class="${on?'':'off'}"><td class="fl"><b>${esc(f.label)}</b><small>${esc(ev.details[f.key]||'')}</small></td><td class="fw">${on?'×'+f.weight+'<small>'+factorPct(S.rules,f.key).toFixed(1)+'%</small>':'Off'}</td><td class="fb"><div class="bar"><span class="${scoreCls(v)}" style="width:${v}%"></span></div></td><td class="fv">${on?v:'—'}</td></tr>`; }).join('');
   const act = ev.activeFactors;
-  const calc = `${act.map(x=>x.value+'×'+(x.weight/ev.wsum*100).toFixed(1)+'%').join(' + ')} = ${(Math.round(ev.raw*10)/10)} → ${ev.score}%  (weights total 100%)`;
   const isAIfocus = ev.guard.id===aiId;
   let explanation;
-  if(isAIfocus) explanation = explain(ev);
+  if(fx.conflict) explanation = conflictSentence(ev.guard.name, ev.blocking.filter(b=>b.psr)) + ' ' + explain(ev, 'Otherwise they');
+  else if(isAIfocus) explanation = explain(ev);
   else if(aiRow){ const d = ev.score - aiRow.ev.score; explanation = `${ev.guard.name} scores ${Math.abs(d)} point${Math.abs(d)===1?'':'s'} ${d<=0?'below':'above'} the top-ranked guard (${aiRow.ev.guard.name}, ${aiRow.ev.score}%). ` + explain(ev, 'They'); }
   else explanation = explain(ev, ev.guard.name+' is eligible: they');
   return `<div class="detail-grid"><div class="dpane">
@@ -1665,20 +2124,24 @@ function detailHTML(sid, rd){
       ${['high','rec','low'].map(t=>{ const list=rd.eligible.filter(x=>tierOf(x)===t).sort((a,b)=>b.ev.score-a.ev.score); if(!list.length) return '';
         return `<div class="tier-h">${tierBadge(t)}<span>${list.length} guard${list.length===1?'':'s'} · ${TIERS[t].range}</span></div>${list.map(optRow).join('')}`; }).join('')}
       <div class="opt ${!gid?'on':''}" data-act="pick-guard" data-sid="${sid}" data-gid="" role="radio" aria-checked="${!gid}" tabindex="0"><span class="radio"></span><div class="ot"><b>Leave shift ${sh.status==='open'?'open':'vacant'}</b><small>Ignore the recommendation for now</small></div></div>
-      <button class="link" style="margin-top:6px" data-act="toggle-excl" data-id="${sid}">${ic('xcirc')}${rd.excluded.length} guard${rd.excluded.length===1?'':'s'} excluded by hard rules · ${S.showExcl.has(sid)?'Hide':'Show'}</button>
-      ${S.showExcl.has(sid)?excludedTable(rd):''}
+      ${rd.conflicts.length?`<div class="tier-h conf-h"><span class="tbadge t-ovr">${ic('alert')}Requirement conflict</span><span>${rd.conflicts.length} guard${rd.conflicts.length===1?'':'s'} · can be assigned with an override</span></div>${rd.conflicts.map(confRow).join('')}`:''}
+      ${rd.notEligible.length?`<button class="link ne-toggle" data-act="toggle-excl" data-id="${sid}" aria-expanded="${S.showExcl.has(sid)}">${ic('xcirc')}${rd.notEligible.length} guard${rd.notEligible.length===1?'':'s'} not eligible · ${S.showExcl.has(sid)?'Hide':'Show'} reasons</button>${S.showExcl.has(sid)?excludedTable({excluded:rd.notEligible}):''}`:''}
     </div>
     <div class="dpane why-pane ${S.fadeKey===sid?'fade':''}">
       <h5>${ic('info')}Why is this guard ${isAIfocus?'recommended':'ranked here'}?</h5>
       <div class="why-head">${avatar(ev.guard)}<div><div class="nm">${esc(ev.guard.name)}</div><div style="color:var(--muted);font-size:12.5px">${ev.guard.id} · ${esc(ev.guard.dept)} · ${esc(ev.guard.quals.join(', '))}</div></div>
-        <span class="big ${''}">${ev.score}%</span>${tierBadge(tierOf(fx))}
+        <span class="big ${''}">${ev.score}%</span>${fx.conflict?`<span class="tbadge t-ovr">${ic('alert')}Requirement conflict</span>`:fx.override?'<span class="tbadge t-attn">Fails a hard rule</span>':tierBadge(tierOf(fx))}
         <div class="actions"><button class="btn outline" data-act="history" data-gid="${ev.guard.id}" data-sid="${sid}">${ic('clock')} View Guard History</button></div></div>
-      <div class="selstate ${fx.blockedLive?'bad':gid===ev.guard.id?'ok':''}">${fx.blockedLive?ic('xcirc')+' Cannot be assigned: '+esc((ev.blocking[0]||{}).blockLabel||'conflict')+'. Viewing for comparison only.':gid===ev.guard.id?ic('check')+' Selected for this shift':ic('info')+' Viewing only. Click the guard again to select them.'}</div>
-      <table class="factors">${factorRows}<tr class="total"><td class="fl"><b>Final Score</b><small>Weighted average of ${act.length} factors</small></td><td></td><td></td><td class="fv">${ev.score}%</td></tr></table>
-      <div class="calc">${calc}</div>
-      <p class="explain">${esc(explanation)}</p>
-      <div class="lists"><div><h5>Reasons</h5><ul>${ev.reasons.map(r=>`<li>${ic('check','okc')}${esc(r)}</li>`).join('')}</ul></div>
+      ${fx.conflict ? (fx.override
+        ? `<div class="selstate warn">${ic('alert')}<span>Selected with a requirement override${ovRec?' · Reason: <b>'+esc(ovRec.reason)+'</b>'+(ovRec.note?' ('+esc(ovRec.note)+')':''):''}. The override is saved with the shift when you approve or publish.</span></div>`
+        : `<div class="selstate warn">${ic('alert')}<span>Assigning ${esc(ev.guard.name)} needs a scheduler override.</span><button class="btn sm ovr-btn" data-act="ovr-open" data-sid="${sid}" data-gid="${ev.guard.id}">${ic('alert')} Override &amp; Assign</button></div>`)
+      : `<div class="selstate ${fx.blockedLive||fx.override?'bad':gid===ev.guard.id?'ok':''}">${fx.override?ic('alert')+' Selected as a manual override. Fails '+esc(ev.blocking.map(b=>b.blockLabel+' ('+b.detail+')').join('; '))+'.':fx.blockedLive?ic('xcirc')+' Cannot be assigned: '+esc((ev.blocking[0]||{}).blockLabel||'conflict')+'. Viewing for comparison only.':gid===ev.guard.id?ic('check')+' Selected for this shift':ic('info')+' Viewing only. Click the guard again to select them.'}</div>`}
+      ${reqBlockHTML(ev, sh)}
+      <p class="explain" style="margin-top:0">${esc(explanation)}</p>
+      <button class="btn sm outline sd-toggle" data-act="toggle-score" data-id="${sid}" aria-expanded="${S.showScore.has(sid)}" aria-controls="sd-${sid}">${ic(S.showScore.has(sid)?'chevU':'chevD')} ${S.showScore.has(sid)?'Hide Details':'View Details'}<span class="sd-hint">Reasons · ${ev.warnings.length} warning${ev.warnings.length===1?'':'s'} · ${act.length} scoring factors</span></button>
+      ${S.showScore.has(sid)?`<div class="sd-panel" id="sd-${sid}"><div class="lists"><div><h5>Reasons</h5><ul>${ev.reasons.map(r=>`<li>${ic('check','okc')}${esc(r)}</li>`).join('')}</ul></div>
         <div><h5>Warnings</h5><ul>${ev.warnings.length?ev.warnings.map(w=>`<li>${ic('alert','wc')}${esc(w.text)}</li>`).join(''):`<li style="color:var(--muted)">${ic('check','okc')}No warnings</li>`}${fx.blockedLive?`<li>${ic('xcirc','bc')}${esc(ev.blocking.map(b=>b.blockLabel+': '+b.detail).join('; '))}</li>`:''}</ul></div></div>
+      ${reqDetailHTML(ev)}<h5 class="sd-sub">Score breakdown</h5><table class="factors">${factorRows}<tr class="total"><td class="fl"><b>Final Score</b><small>Weighted average of ${act.length} factors</small></td><td></td><td></td><td class="fv">${ev.score}%</td></tr></table></div>`:''}
       ${note&&note.top&&note.chosen?`<div class="optimiz">${ic('route')}<span><b>Optimized:</b> ${esc(guardById(note.top).name)} had the highest individual score (${note.topScore}%) but ${esc(note.reason.charAt(0).toLowerCase()+note.reason.slice(1))}${note.other&&note.other!==sid?' — see '+note.other:''}. The next-best eligible guard was selected.</span></div>`:''}
     </div></div>`;
 }
@@ -1687,8 +2150,9 @@ function detailHTML(sid, rd){
 function barHTML(){
   if(S.screen==='results'){
     const st = resultStats();
-    return `<div class="bbar ai"><div class="count">${st.ready} assignment${st.ready===1?'':'s'} ready<small>${st.unres} will stay open/vacant · created as Unpublished</small></div>
-      <div class="right"><button class="btn ghost" data-act="discard">Discard</button><button class="btn primary" data-act="apply-open" ${st.ready?'':'disabled'}>${ic('check')} Apply AI Recommendations</button></div></div>`;
+    const left = st.total - st.ready;
+    return `<div class="bbar ai"><div class="count">${st.ready} of ${st.total} shift${st.total===1?'':'s'} selected<small>${st.ready?`${left?left+' not selected will stay as they are · ':''}Approve saves as Unpublished, Publish notifies guards`:'Tick the shifts you want to approve or publish'}</small></div>
+      <div class="right"><button class="btn outline" data-act="apply-open" data-pub="0" ${st.ready?'':'disabled'}>${ic('check')} Approve${st.ready?' ('+st.ready+')':''}</button><button class="btn ok" data-act="apply-open" data-pub="1" ${st.ready?'':'disabled'}>${ic('up')} Publish${st.ready?' ('+st.ready+')':''}</button></div></div>`;
   }
   if(S.mode==='ai-select'){
     const n=S.selected.size;
@@ -1712,7 +2176,7 @@ function menuHTML(){
   if(m.type==='ai'){
     const [a,b]=viewRange(); const n = SHIFTS.filter(s=>s.date>=a&&s.date<=b&&isOpen(s)&&visible(s)).length;
     return `<div class="menu ai-menu" style="${pos}" role="menu"><div class="mh"><span>AI Scheduling</span><span>${esc(rangeLabel())}</span></div>
-      <button class="mi" data-act="ai-all" role="menuitem">${ic('bot')}<span class="t">All Open/Vacant Shifts<small>${n} shift${n===1?'':'s'} in the current view</small></span></button>
+      <button class="mi" data-act="ai-all" role="menuitem">${ic('bot')}<span class="t">All Open/Vacant Shifts<small>${n} in the current view, or pick a date range</small></span></button>
       <button class="mi" data-act="ai-select" role="menuitem">${ic('select')}<span class="t">Select Open/Vacant Shifts<small>Pick specific shifts on the calendar</small></span></button>
       <button class="mi" data-act="rules" role="menuitem">${ic('sliders')}<span class="t">Rules<small>Hard rules and scoring factors</small></span></button></div>`;
   }
@@ -1761,6 +2225,19 @@ function openMenu(type, el, opts={}){
 }
 
 /* ---------- modals ---------- */
+function aiScopeRange(){ const m=S.modal; if(m && m.scope==='range') return [m.from, m.to]; return viewRange(); }
+function aiScopeList(){ const [a,b]=aiScopeRange(); if(!a||!b||a>b) return []; return SHIFTS.filter(s=>s.date>=a&&s.date<=b&&isOpen(s)&&visible(s)).sort((x,y)=>range(x)[0]-range(y)[0]); }
+function aiScopeTitle(){ const n=aiScopeList().length; return n ? `${n} open/vacant shift${n===1?'':'s'} found.` : 'No open or vacant shifts found.'; }
+function aiScopeSub(){ const n=aiScopeList().length, [a,b]=aiScopeRange();
+  if(S.modal.scope==='range' && (!a||!b)) return 'Choose a start and end date.';
+  if(S.modal.scope==='range' && a>b) return 'The end date must be on or after the start date.';
+  return n ? 'Do you want to proceed with AI Scheduling?' : (S.modal.scope==='range' ? 'Try a different date range.' : 'Try a custom date range instead.'); }
+function syncAiScope(){
+  const t=document.getElementById('cf-title'), sub=document.getElementById('cf-sub'), go=document.getElementById('cf-go');
+  if(t) t.textContent=aiScopeTitle(); if(sub) sub.textContent=aiScopeSub(); if(go) go.disabled=!aiScopeList().length;
+  const custom=S.modal.scope==='range'; const r=document.getElementById('cf-range'); if(r) r.classList.toggle('hide',!custom);
+  document.querySelectorAll('.scope-opt').forEach(l=>l.classList.toggle('on', l.querySelector('input').checked));
+}
 function openShiftsInView(){ const [a,b]=viewRange(); return SHIFTS.filter(s=>s.date>=a&&s.date<=b&&isOpen(s)&&visible(s)).sort((x,y)=>range(x)[0]-range(y)[0]); }
 function quickEligible(s){ const base=baseAssignments([s.id]); return GUARDS.filter(g=>evaluate(g,s,base,S.rules).eligible).length; }
 function rulesSummary(){
@@ -1772,47 +2249,51 @@ function modalHTML(){
   const wrap = (inner, cls='') => `<div class="scrim" data-act="scrim"><div class="modal ${cls}" role="dialog" aria-modal="true">${inner}</div></div>`;
   const head = (t, sub, eyebrow, closable=true) => `<div class="mhd"><div>${eyebrow?`<div class="eyebrow">${ic('spark')}${eyebrow}</div>`:''}<h3>${t}</h3>${sub?`<p>${sub}</p>`:''}</div>${closable?`<button class="x" data-act="modal-close" aria-label="Close">${ic('x')}</button>`:''}</div>`;
   if(m.type==='all'){
-    const list = openShiftsInView(); const counts = list.map(s=>[s,quickEligible(s)]);
-    const ready = counts.filter(c=>c[1]>0).length, att = counts.length-ready, f = m.filter||null;
-    return wrap(head('All Open/Vacant Shifts', esc(rangeLabel())+' · current filters applied', 'AI Scheduling')+`<div class="mbd">
-      <div class="bigcount" id="all-count">${allCountHTML(f, list.length, ready, att)}</div>
-      <div class="splits" role="group" aria-label="Filter shifts">
-        <button class="split ok fcard ${f==='ready'?'active':''}" data-act="all-filter" data-f="ready" aria-pressed="${f==='ready'}">${ic('check')}<b>${ready}</b> Ready for AI recommendation<span class="fhint">${f==='ready'?'Showing · click to clear':'Click to filter'}</span></button>
-        <button class="split warn fcard ${f==='attn'?'active':''}" data-act="all-filter" data-f="attn" aria-pressed="${f==='attn'}">${ic('alert')}<b>${att}</b> Need attention<span class="fhint">${f==='attn'?'Showing · click to clear':'Click to filter'}</span></button></div>
-      <div class="listbar"><span id="all-listlabel">${f==='ready'?'Ready shifts':f==='attn'?'Shifts needing attention':'All shifts'}</span><button class="link ${f?'':'hide'}" id="all-clear" data-act="all-filter" data-f="">Show all ${list.length}</button></div>
-      <div class="minilist fixed" id="all-list">${counts.map(([s,n])=>`<div class="r click ${f&&((f==='ready')!==(n>0))?'fhide':''}" data-state="${n?'ready':'attn'}" data-act="shift-review" data-id="${s.id}" tabindex="0" role="button" aria-label="Review ${fmtDay(s.date)} ${s.start} ${esc(SITES[s.site].name)}"><span class="num">${fmtDay(s.date)}</span><span class="num m2">${s.start}–${s.end}</span><span class="m">${esc(SITES[s.site].name)} · ${esc(s.post)}</span>${n?`<span class="st ok">${n} eligible</span>`:`<span class="st warn">${ic('alert')}No eligible guard</span>`}${ic('chevR','rchev')}</div>`).join('') || '<div class="r"><span class="m">No open or vacant shifts in this view.</span></div>'}
-        <div class="r fempty ${f&&!(f==='ready'?ready:att)?'':'fhide'}"><span class="m">No shifts in this group.</span></div></div>
-      ${rulesSummary()}
-      <div class="note">${ic('info')}<span>Click any shift to see why it is ready or needs attention. Nothing is assigned until you review the recommendations.</span></div></div>
-      <div class="mft"><button class="btn ghost" data-act="modal-close">Cancel</button><button class="btn primary" id="all-run" data-act="run-all" ${list.length?'':'disabled'}>${ic('spark')} ${allRunLabel(f, list.length, ready)}</button></div>`, 'wide');
+    const [va,vb]=viewRange(), custom=m.scope==='range';
+    return wrap(`<div class="mbd confirm-ai"><span class="cf-badge">${ic('spark')}</span><div class="cf-main"><div class="eyebrow">AI Scheduling</div>
+      <h3 id="cf-title">${aiScopeTitle()}</h3><p id="cf-sub">${aiScopeSub()}</p>
+      <div class="scope" role="radiogroup" aria-label="Which shifts">
+        <label class="scope-opt ${custom?'':'on'}"><input type="radio" name="ai-scope" value="view" data-ch="ai-scope" ${custom?'':'checked'}><span><b>Current view</b><small>${esc(rangeLabel())} · ${fmtShort(va)} – ${fmtShort(vb)}</small></span></label>
+        <label class="scope-opt ${custom?'on':''}"><input type="radio" name="ai-scope" value="range" data-ch="ai-scope" ${custom?'checked':''}><span><b>Custom date range</b><small>Pick any start and end date</small></span></label>
+      </div>
+      <div class="scope-range ${custom?'':'hide'}" id="cf-range">
+        <label>From<input class="field" type="date" id="cf-from" value="${m.from}" data-in="ai-range" data-k="from"></label>
+        <label>To<input class="field" type="date" id="cf-to" value="${m.to}" data-in="ai-range" data-k="to"></label>
+      </div><div class="scope-err" id="cf-err"></div></div></div>
+      <div class="mft"><button class="btn ghost" data-act="modal-close">Cancel</button><button class="btn primary" id="cf-go" data-act="run-all" ${aiScopeList().length?'':'disabled'}>${ic('spark')} Continue</button></div>`, 'sm scope-modal');
+  }
+  if(m.type==='ovr-info'){ const sh=shiftById(m.id);
+    return wrap(head(ic('alert')+' Requirement Override', 'This guard was assigned even though they don\'t meet a post site requirement.')+`<div class="mbd">${ovrInfoHTML(sh)}</div>
+      <div class="mft"><button class="btn primary" data-act="modal-close">Close</button></div>`, 'sm ovr-info');
+  }
+  if(m.type==='leave'){
+    const site=S.ps?SITES[S.ps.siteId]:null;
+    return wrap(`<div class="mbd confirm-ai"><span class="cf-badge warnb">${ic('alert')}</span><div><h3>Discard unsaved changes?</h3><p>Your changes to the ${site?esc(site.name)+' ':''}post site requirements haven't been saved.</p></div></div>
+      <div class="mft"><button class="btn ghost" data-act="leave-go">Discard Changes</button><button class="btn primary" data-act="leave-stay">Keep Editing</button></div>`, 'sm');
   }
   if(m.type==='processing'){
     const steps=['Checking guard availability','Applying hard rules','Checking qualifications','Checking schedule conflicts','Calculating guard scores','Ranking eligible guards','Optimizing assignments'];
     return wrap(head('Analyzing '+m.n+' selected shift'+(m.n===1?'':'s')+'…', `Evaluating ${GUARDS.length} guards against ${Object.values(S.rules.hard).filter(Boolean).length+(S.rules.customHard||[]).filter(c=>c.on).length} hard rules and ${activeFactors(S.rules).length} weighted scoring factors`, 'AI Scheduling', false)+`<div class="mbd"><div class="steps">${steps.map((t,i)=>`<div class="step ${i<m.step?'done':i===m.step?'now':''}"><i>${i<m.step?ic('check'):''}</i>${t}</div>`).join('')}</div><div class="progress"><span style="width:${Math.round(m.step/steps.length*100)}%"></span></div></div>`);
   }
-  if(m.type==='complete'){
-    const st = resultStats();
-    return wrap(head('AI Scheduling Complete', 'Recommendations are ready for your review. Nothing has been assigned yet.', 'AI Scheduling')+`<div class="mbd">
-      <div class="sumgrid"><div class="t"><b>${st.total}</b><span>Shifts analyzed</span></div><div class="t ok"><b>${st.ready}</b><span>Guards recommended</span></div><div class="t ${st.unres?'bad':''}"><b>${st.unres}</b><span>Unresolved</span></div>
-      <div class="t"><b>${st.avg}%</b><span>Average recommendation score</span></div><div class="t ok"><b>${st.hi}</b><span>High confidence</span></div><div class="t ${st.review?'warn':''}"><b>${st.review}</b><span>Needs review</span></div></div>
-      ${Object.values(S.run.notes).some(n=>n.top&&n.chosen)?`<div class="optimiz">${ic('route')}<span>Shifts were optimized together: ${Object.values(S.run.notes).filter(n=>n.top&&n.chosen).length} recommendation(s) moved to the next-best guard to avoid conflicts or overtime.</span></div>`:''}</div>
-      <div class="mft"><button class="btn primary" data-act="review-recs">Review Recommendations</button></div>`);
-  }
   if(m.type==='confirm'){
-    const st = resultStats(); let warnN=0;
-    S.run.shiftIds.forEach(sid=>{ const gid=selectedFor(sid); if(!gid) return; const ev=rowData(sid).eligible.find(x=>x.ev.guard.id===gid).ev; if(ev.warnings.length) warnN++; });
-    return wrap(head('Apply AI Recommendations?', '', '')+`<div class="mbd">
-      <div class="bigcount"><b>${st.ready}</b><span>assignment${st.ready===1?'':'s'} will be created</span></div>
+    const st = resultStats(); let warnN=0, ovN=0;
+    S.run.shiftIds.forEach(sid=>{ const gid=selectedFor(sid); if(!gid || !S.pick.has(sid)) return; const rdx=rowData(sid), ev=selEv(rdx,gid); if(!ev) return; if(rdx.override&&rdx.override===ev) ovN++; if(ev.warnings.length) warnN++; });
+    const P = !!m.publish;
+    return wrap(head(P?'Publish AI Recommendations?':'Approve AI Recommendations?', '', '')+`<div class="mbd">
+      <div class="bigcount"><b>${st.ready}</b><span>selected shift${st.ready===1?'':'s'} will be ${P?'assigned and published':'assigned'}</span></div>
       <div class="confirm-list">
         <div>${ic('check','okc')}<span>${st.hi} high-confidence recommendation${st.hi===1?'':'s'}</span></div>
         <div>${ic('alert','wc')}<span>${warnN} recommendation${warnN===1?'':'s'} with warnings</span></div>
-        <div>${ic('clock')}<span>${st.unres} shift${st.unres===1?'':'s'} will remain open/vacant</span></div></div>
-      <div class="callout">${ic('info')}<div>All assignments will remain <b>UNPUBLISHED</b>. The schedule will <b>not</b> be published automatically and guards will not be notified until you publish.</div></div></div>
-      <div class="mft"><button class="btn ghost" data-act="modal-close">Cancel</button><button class="btn primary" data-act="apply-confirm">Apply Recommendations</button></div>`);
+        ${ovN?`<div>${ic('alert','wc')}<span>${ovN} assignment${ovN===1?' uses':'s use'} a post site requirement override (reason recorded)</span></div>`:''}
+        ${st.unres?`<div>${ic('clock')}<span>${st.unres} other shift${st.unres===1?'':'s'} not included. ${st.unres===1?'It stays':'They stay'} on this page for later.</span></div>`:''}</div>
+      ${P?`<div class="callout warn">${ic('alert')}<div>Assignments will be created as <b>PUBLISHED</b> and the assigned guards will be <b>notified immediately</b>.</div></div>`
+         :`<div class="callout">${ic('info')}<div>All assignments will remain <b>UNPUBLISHED</b>. Guards will not be notified until you publish from the Scheduler.</div></div>`}</div>
+      <div class="mft"><button class="btn ghost" data-act="modal-close">Cancel</button>${P?`<button class="btn ok" data-act="apply-confirm">${ic('up')} Publish</button>`:`<button class="btn primary" data-act="apply-confirm">${ic('check')} Approve</button>`}</div>`);
   }
-  if(m.type==='applying') return wrap(`<div class="mbd center" style="padding:36px 24px"><div class="spinner"></div><h3 style="margin:0 0 6px">Applying AI recommendations…</h3><p style="color:var(--muted);margin:0">Creating ${m.n} unpublished assignment${m.n===1?'':'s'}</p></div>`);
-  if(m.type==='applied') return wrap(`<div class="mbd center" style="padding:32px 24px 20px"><div class="success-ic">${ic('check')}</div><h3 style="margin:0 0 6px">${m.n} assignment${m.n===1?'':'s'} created successfully.</h3><p style="color:var(--muted);margin:0 auto;max-width:42ch">Every AI assignment has status <b style="color:var(--text)">Unpublished</b>. Review the schedule and publish when you're ready.</p></div>
-      <div class="mft" style="justify-content:center"><button class="btn primary" data-act="applied-done">Return to Scheduler</button></div>`);
+  if(m.type==='applying') return wrap(`<div class="mbd center" style="padding:36px 24px"><div class="spinner"></div><h3 style="margin:0 0 6px">${m.publish?'Publishing':'Approving'} AI recommendations…</h3><p style="color:var(--muted);margin:0">Creating ${m.n} ${m.publish?'published':'unpublished'} assignment${m.n===1?'':'s'}</p></div>`);
+  if(m.type==='applied') return wrap(`<div class="mbd center" style="padding:32px 24px 20px"><div class="success-ic">${ic('check')}</div><h3 style="margin:0 0 6px">${m.n} assignment${m.n===1?'':'s'} created successfully.</h3><p style="color:var(--muted);margin:0 auto;max-width:42ch">${m.publish?`${m.n===1?'It is':'They are'} <b style="color:var(--text)">Published</b> and the assigned guard${m.n===1?' has':'s have'} been notified.`:`${m.n===1?'It is':'They are'} saved as <b style="color:var(--text)">Unpublished</b>. Publish from the Scheduler when you\'re ready.`}</p></div>
+      ${m.left?`<p style="color:var(--muted);margin:12px auto 0;max-width:42ch">${m.left} shift${m.left===1?' is':'s are'} still waiting on the results page.</p>`:''}</div>
+      <div class="mft" style="justify-content:center">${m.left?`<button class="btn ghost" data-act="applied-done">Go to Scheduler</button><button class="btn primary" data-act="applied-back">Back to Results (${m.left} left)</button>`:`<button class="btn primary" data-act="applied-done">Return to Scheduler</button>`}</div>`);
   if(m.type==='publish'){
     const list = m.ids.map(shiftById);
     return wrap(head('Publish '+list.length+' assignment'+(list.length===1?'':'s')+'?', 'Status changes from Unpublished to Published and assigned guards are notified.')+`<div class="mbd"><div class="minilist">${list.map(s=>`<div class="r"><span class="num">${fmtDay(s.date)}</span><span class="num m2">${s.start}–${s.end}</span><span class="m">${esc(guardById(s.guardId).name)} · ${esc(SITES[s.site].name)}</span>${s.ai?'<span class="mini-tag ai">AI</span>':'<span></span>'}</div>`).join('')}</div></div>
@@ -1843,8 +2324,10 @@ function modalHTML(){
     let elig = '';
     if(selEv && !selEv.eligible){
       elig = `<div class="elig"><b><span class="bc">✕ ${esc(g.name)} fails ${selEv.blocking.length} hard rule${selEv.blocking.length>1?'s':''}</span></b> <span style="color:var(--muted)">· score ${selEv.score}%</span>
-      <ul>${selEv.blocking.map(c=>`<li>${ic('xcirc','bc')}<span>${esc(c.label)}: ${esc(c.detail)}</span></li>`).join('')}</ul>
-      <div class="note">${ic('info')}<span>You can still save. The assignment will be saved as Unpublished.</span></div></div>`; }
+      <ul>${selEv.blocking.map(c=>`<li>${ic('xcirc','bc')}<span>${esc(c.label)}: ${esc(c.detail)}${c.psr&&!c.overridable?' · <b>no override</b>':''}</span></li>`).join('')}</ul>
+      <div class="note ${selEv.blocking.some(c=>c.psr&&!c.overridable)?'warn':''}">${ic(selEv.blocking.some(c=>c.psr&&!c.overridable)?'alert':'info')}<span>${selEv.blocking.some(c=>c.psr&&!c.overridable)
+        ? 'This guard can\'t be assigned: a post site requirement is set to no override.'
+        : selEv.blocking.some(c=>c.psr) ? 'Saving asks you to confirm a post site requirement override and give a reason.' : 'You can still save. The assignment will be saved as Unpublished.'}</span></div></div>`; }
     return wrap(head('Edit Shift', `${s.id} · ${esc(SITES[s.site].name)}`)+`<div class="mbd"><div class="form">
       <label>Date<span class="ro">${longDay(s.date)}</span></label><label>Site / Post<span class="ro">${esc(SITES[s.site].name)} · ${esc(s.post)}</span></label>
       <label>Start time<input class="field" type="time" id="ed-start" value="${d.start}" data-ch="ed-start"></label>
@@ -1852,7 +2335,8 @@ function modalHTML(){
       <label class="full">Guard<span class="selwrap">${top && d.guardId===top.guard.id?`<span class="tbadge t-ai sel-tag">AI Recommended</span>`:''}<select class="field" id="ed-guard" data-ch="ed-guard">
         <option value="" ${!d.guardId?'selected':''}>${openLabel}</option>
         ${rk.elig.length?`<optgroup label="Eligible guards (ranked by AI)">${rk.elig.map(e=>`<option value="${e.guard.id}" ${e.guard.id===d.guardId?'selected':''}>${esc(optLabel(e))}</option>`).join('')}</optgroup>`:''}
-        <optgroup label="Other guards (fail a hard rule)">${rk.inel.map(e=>`<option value="${e.guard.id}" ${e.guard.id===d.guardId?'selected':''}>${esc(e.guard.name)} · ${esc((e.blocking[0]||{}).blockLabel||'')}</option>`).join('')}</optgroup>
+        ${rk.inel.filter(e=>e.overrideOnly).length?`<optgroup label="Requirement conflict · override needed">${rk.inel.filter(e=>e.overrideOnly).map(e=>`<option value="${e.guard.id}" ${e.guard.id===d.guardId?'selected':''}>⚠ ${esc(e.guard.name)} · ${e.blocking.length} requirement${e.blocking.length===1?'':'s'} not met</option>`).join('')}</optgroup>`:''}
+        <optgroup label="Other guards (fail a hard rule)">${rk.inel.filter(e=>!e.overrideOnly).map(e=>{ const strict=e.blocking.some(b=>b.psr&&!b.overridable); return `<option value="${e.guard.id}" ${e.guard.id===d.guardId?'selected':''}>${esc(e.guard.name)} · ${esc((e.blocking[0]||{}).blockLabel||'')}${strict?' (no override)':''}</option>`; }).join('')}</optgroup>
       </select></span></label>
       <label class="full">Requires<span class="ro"><span class="qchips">${s.req.map(q=>`<span class="q">${esc(q)}</span>`).join('')}${s.pref.map(q=>`<span class="q pref">${esc(q)}</span>`).join('')}</span></span></label></div>
       <div class="egbox">
@@ -1929,7 +2413,7 @@ function drawerHTML(){
     const rshell = (h, body, foot) => `<div class="drawer-scrim" data-act="drawer-close"></div><div class="rm-wrap"><section class="rmodal" role="dialog" aria-modal="true" aria-labelledby="rm-title">${h}<div class="dbd">${body}</div><div class="dft">${foot}</div></section></div>`;
     return rshell(`<div class="dhd"><div><div class="eyebrow">${ic('spark')}AI Scheduling</div><h3 id="rm-title">AI Scheduling Rules</h3><p>Rules apply to every AI run. Saving recalculates recommendations.</p></div><button class="x" data-act="drawer-close" aria-label="Close">${ic('x')}</button></div>`,
       accHTML('hard', 'Hard Rules', 'Eligibility filters. A guard who fails any active rule is never recommended.', accBadge('hard', r),
-        `<div class="hr-grid">${HARD_RULES.map(([k,l,dsc])=>hardRowHTML(r,k,l,dsc)).join('')}${(r.customHard||[]).map(c=>customHardRowHTML(c)).join('')}</div>`)
+        `<div class="psr-pointer">${ic('sliders')}<div><b>Post Site Requirements</b> <span class="rtag">Always on</span><small>Skills, licenses, certifications, experience, travel distance and pay range are set per post site in Clients › Post Sites › Settings. They are applied before these rules and are not edited here.</small></div></div><div class="hr-grid">${HARD_RULES.map(([k,l,dsc])=>hardRowHTML(r,k,l,dsc)).join('')}${(r.customHard||[]).map(c=>customHardRowHTML(c)).join('')}</div>`)
       + accHTML('factors', 'Scoring Factors', 'Rank the eligible guards by weighted score.', accBadge('factors', r),
         `<div class="acc-tools"><p>Distribute up to ${BUDGET} points across active factors. Drag a point or use the steppers; + stops when the budget is used. Percentages are calculated for you.</p>
            <div class="sf-acts"><button class="btn sm outline" data-act="w-equalize">${ic('refresh')} Equalize All Weights</button></div></div>
@@ -1956,7 +2440,7 @@ function drawerHTML(){
     const hist = guardHistory(g);
     return shell(`<div class="dhd"><div class="gp-head">${avatar(g)}<div><h3>${esc(g.name)}</h3><p>${g.id} · ${esc(g.dept)}${g.cross.length?' (cross-trained: '+esc(g.cross.join(', '))+')':''} · <span class="${g.status==='Active'?'okc':'bc'}">${g.status}</span></p></div></div><button class="x" data-act="drawer-close" aria-label="Close">${ic('x')}</button></div>`,
       `<div class="kpis"><div><b>$${g.rate}/hr</b><span>Pay rate</span></div><div><b>${hrs}h</b><span>Hours this week</span></div><div><b>${g.otAt}h</b><span>Overtime after</span></div><div><b>${sh?distTo(g,sh.site)+' mi':g.home}</b><span>${sh?'To '+esc(SITES[sh.site].name):'Home area'}</span></div></div>
-      <div class="sec"><h4>Profile</h4><div class="kv2"><span>Qualifications</span><span>${esc(g.quals.join(', '))}</span><span>Preferred shifts</span><span>${esc(g.prefShifts.join(', '))}</span><span>Preferred sites</span><span>${esc(g.prefSites.map(x=>SITES[x].name).join(', ')||'None stated')}</span><span>Site clearance</span><span>${esc(g.cleared.map(x=>SITES[x].name).join(', '))}</span><span>Home area</span><span>${esc(g.home)}</span><span>Attendance / on time</span><span>${g.att}% / ${g.onTime}% · rating ${g.rating}</span>${g.timeOff.length?`<span>Time off</span><span>${g.timeOff.map(fmtShort).join(', ')}</span>`:''}</div>
+      <div class="sec"><h4>Profile</h4><div class="kv2"><span>Qualifications</span><span>${esc(g.quals.join(', '))}</span><span>Licenses</span><span>${esc(g.licenses.join(', ')||'None on file')}</span><span>Certifications</span><span>${esc(g.certs.join(', ')||'None on file')}</span><span>Skills</span><span>${esc(g.skills.join(', '))}</span><span>Experience</span><span>${g.years} year${g.years===1?'':'s'}</span><span>Preferred shifts</span><span>${esc(g.prefShifts.join(', '))}</span><span>Preferred sites</span><span>${esc(g.prefSites.map(x=>SITES[x].name).join(', ')||'None stated')}</span><span>Site clearance</span><span>${esc(g.cleared.map(x=>SITES[x].name).join(', '))}</span><span>Home area</span><span>${esc(g.home)}</span><span>Attendance / on time</span><span>${g.att}% / ${g.onTime}% · rating ${g.rating}</span>${g.timeOff.length?`<span>Time off</span><span>${g.timeOff.map(fmtShort).join(', ')}</span>`:''}</div>
         <div class="availrow" aria-label="Weekly availability">${['S','M','T','W','T','F','S'].map((x,i)=>`<span class="${g.avail[i]==='-'?'':g.avail[i]}" title="${DOWN[i]}: ${g.avail[i]==='A'?'Available':g.avail[i]==='C'?'On-call':'Unavailable'}">${x}</span>`).join('')}</div></div>
       <div class="sec"><h4>Shift history</h4><div style="overflow-x:auto"><table class="hist"><thead><tr><th>Date / Time</th><th>Site</th><th>Post</th><th>Department</th><th>Type</th><th>Hours</th><th>Distance</th><th>Status</th></tr></thead><tbody>
         ${hist.map(h=>`<tr><td class="num">${fmtShort(h.date)}, ${h.start}–${h.end}</td><td>${esc(SITES[h.site].name)}</td><td>${esc(h.post)}</td><td>${esc(SITES[h.site].dept.replace(' Security',''))}</td><td>${h.type}</td><td class="num">${h.hours}</td><td class="num">${distTo(g,h.site)} mi</td><td>${h.status==='Assigned'?'<span class="st info">Assigned</span>':h.flag?'<span class="st warn">'+esc(h.flag)+'</span>':'<span class="st ok">Completed</span>'}</td></tr>`).join('')}</tbody></table></div></div>`, '');
@@ -1992,7 +2476,15 @@ function render(){
   const content = document.getElementById('content');
   const app = document.getElementById('app');
   app.classList.toggle('mode-ai', S.mode==='ai-select');
-  if(S.screen==='results'){
+  renderShell();
+  if(S.screen==='postsites'){
+    document.getElementById('pagehead').innerHTML = `<h1>Post Sites</h1>`;
+    content.innerHTML = postSitesHTML();
+  } else if(S.screen==='postsite'){
+    const site=SITES[S.ps.siteId];
+    document.getElementById('pagehead').innerHTML = `<button class="link" data-act="go-postsites">${ic('back')}Post Sites</button><span class="crumb">${ic('chevR')}${esc(site.name)}</span><span class="ps-addr">${SITE_CODE[site.id]} · ${esc(site.addr)}</span>`;
+    content.innerHTML = postSiteHTML();
+  } else if(S.screen==='results'){
     document.getElementById('pagehead').innerHTML = `<button class="link" data-act="discard">${ic('back')}Schedule</button><span class="crumb">${ic('chevR')}AI Scheduling Results</span>`;
     content.innerHTML = resultsHTML();
   } else {
@@ -2000,8 +2492,9 @@ function render(){
     const v = S.view==='month'?monthHTML():S.view==='week'?weekHTML():S.view==='day'?dayHTML():listHTML();
     content.innerHTML = toolbarHTML() + bannerHTML() + v;
   }
-  document.getElementById('bars').innerHTML = barHTML();
+  document.getElementById('bars').innerHTML = S.screen==='postsite'||S.screen==='postsites' ? '' : barHTML();
   renderOverlays();
+  document.querySelectorAll('input[data-indet]').forEach(i=>{ i.indeterminate=true; });
 }
 function renderOverlays(){
   const keep = sel => { const el=document.querySelector(sel); return el?el.scrollTop:0; };
@@ -2019,14 +2512,15 @@ function renderOverlays(){
 function startRun(ids){
   S.menu=null; S.mode=null; S.selected.clear();
   S.run = runBatch(ids, S.rules);
-  S.sel = {...S.run.ai}; S.manual = {}; S.expanded = new Set(); S.focusG = {}; S.showExcl = new Set();
+  S.sel = {...S.run.ai}; S.manual = {}; S.expanded = new Set(); S.focusG = {}; S.showExcl = new Set(); S.showScore = new Set();
+  S.pick = new Set(ids.filter(id=>S.sel[id])); S.doneN = 0;
   // expand the first row with a recommendation for a guided review
   S.modal = {type:'processing', step:0, n:ids.length};
   render();
   const tick = () => {
     if(!S.modal || S.modal.type!=='processing') return;
     S.modal.step++;
-    if(S.modal.step>=7){ setTimeout(()=>{ S.modal={type:'complete'}; renderOverlays(); }, reduceMotion?50:350); renderOverlays(); return; }
+    if(S.modal.step>=7){ setTimeout(()=>{ A['review-recs'](); }, reduceMotion?50:350); renderOverlays(); return; }
     renderOverlays(); setTimeout(tick, reduceMotion?60:340);
   };
   setTimeout(tick, reduceMotion?60:340);
@@ -2040,19 +2534,26 @@ function recalc(msg){
 function applyRun(){
   const created = [];
   S.run.shiftIds.forEach(sid=>{
-    const gid = selectedFor(sid); if(!gid) return;
-    const sh = shiftById(sid); const rd = rowData(sid); const ev = rd.eligible.find(x=>x.ev.guard.id===gid).ev;
+    const gid = selectedFor(sid); if(!gid || !S.pick.has(sid)) return;
+    const sh = shiftById(sid); const rd = rowData(sid); const ev = selEv(rd, gid); if(!ev) return;
     created.push({sh, gid, score:ev.score, manual: gid!==S.run.ai[sid], ai:S.run.ai[sid]});
   });
-  created.forEach(c=>{ Object.assign(c.sh, {status:'assigned', guardId:c.gid, published:false, ai:true, aiScore:c.score, aiRec:c.ai}); });
+  created.forEach(c=>{ const rec=S.overrides[c.sh.id]; if(rec && rec.gid===c.gid) c.sh.override=rec; else delete c.sh.override; Object.assign(c.sh, {status:'assigned', guardId:c.gid, published:false, ai:true, aiScore:c.score, aiRec:c.ai}); });
   S.lastApplied = created.map(c=>c.sh.id);
+  S.applied = (S.applied||[]).concat(S.lastApplied);
+  const done = new Set(S.lastApplied);
+  S.run.shiftIds = S.run.shiftIds.filter(id=>!done.has(id));
+  done.forEach(id=>{ S.pick.delete(id); delete S.sel[id]; S.expanded.delete(id); });
+  // guards just assigned may now clash with a remaining row: move those rows to their best remaining guard
+  S.run.shiftIds.forEach(sid=>{ const rd=rowData(sid); if(S.sel[sid] && rd.override){ const nx=rd.eligible[0]; S.sel[sid]=nx?nx.ev.guard.id:null; S.run.ai[sid]=S.sel[sid]; if(!nx) S.pick.delete(sid); } });
   return created.length;
 }
 
 /* ---------- actions ---------- */
 const A = {
   'navtoast': t => { S.menu=null; renderOverlays(); toast(t.dataset.name+' is outside this prototype. Use Scheduler › Schedule.', 'info'); },
-  'go-schedule': () => { if(S.screen==='results'){ A['discard'](); } document.getElementById('app').classList.remove('side-open'); },
+  'go-schedule': () => guardLeave(()=>{ document.getElementById('app').classList.remove('side-open'); if(S.screen==='results'){ A['discard'](); return; } if(S.screen!=='scheduler'){ S.screen='scheduler'; S.run=null; S.returnTo=null; S.ps=null; render(); window.scrollTo({top:0}); } }),
+  'nav-group': t => { const g=t.dataset.g; S.navOpen[g]=!S.navOpen[g]; renderShell(); },
   'sidebar': () => document.getElementById('app').classList.toggle('side-open'),
   'fullscreen': () => { try{ if(!document.fullscreenElement) document.documentElement.requestFullscreen().catch(()=>toast('Full screen is not available here.','info')); else document.exitFullscreen(); }catch(e){ toast('Full screen is not available here.','info'); } },
   'view': t => { S.view=t.dataset.v; S.menu=null; render(); },
@@ -2062,7 +2563,7 @@ const A = {
   'monthmenu': t => openMenu('month', t),
   'pick-month': t => { S.focus=t.dataset.m+'-01'; S.menu=null; render(); },
   'aimenu': t => { if(S.menu && S.menu.type==='ai'){ S.menu=null; renderOverlays(); return; } openMenu('ai', t, {alignRight:true}); },
-  'ai-all': () => { S.menu=null; if(S.mode) { S.mode=null; S.selected.clear(); render(); } S.modal={type:'all'}; renderOverlays(); },
+  'ai-all': () => { S.menu=null; if(S.mode) { S.mode=null; S.selected.clear(); render(); } const [a,b]=viewRange(); S.modal={type:'all', scope:'view', from:a, to:b}; renderOverlays(); },
   'ai-select': () => { S.menu=null; S.mode='ai-select'; S.selected.clear(); if(S.view==='day') S.view='month'; render(); toast('Selection mode: click Open or Vacant shifts.', 'spark'); },
   'rules': t => { S.menu=null; S.drawer={type:'rules', draft: JSON.parse(JSON.stringify(S.rules)), open:{hard: !!(t && t.dataset && t.dataset.open==='hard'), factors:false, warn:false}}; renderOverlays(); },
   'card': t => {
@@ -2078,7 +2579,7 @@ const A = {
   'm-edit': () => { const id=S.menu.id; S.menu=null; openEdit(id); },
   'm-ai': () => { const id=S.menu.id; startRun([id]); },
   'm-delete': () => { const id=S.menu.id; S.menu=null; S.modal={type:'delete', ids:[id]}; renderOverlays(); },
-  'm-unassign': () => { const s=shiftById(S.menu.id); S.menu=null; s.status='vacant'; s.guardId=null; s.ai=false; s.published=true; render(); toast('Guard unassigned. Shift is now Vacant.'); },
+  'm-unassign': () => { const s=shiftById(S.menu.id); S.menu=null; delete s.override; s.status='vacant'; s.guardId=null; s.ai=false; s.published=true; render(); toast('Guard unassigned. Shift is now Vacant.'); },
   'm-multi': () => { const id=S.menu.id; S.menu=null; S.mode='multi'; S.selected=new Set([id]); render(); },
   'm-multi-any': () => { S.menu=null; S.mode='multi'; S.selected=new Set(); render(); },
   'm-publish': () => { const id=S.menu.id; S.menu=null; S.modal={type:'publish', ids:[id]}; renderOverlays(); },
@@ -2100,7 +2601,7 @@ const A = {
     let n=0;
     ids.forEach(id=>{ const s=shiftById(id);
       if(op==='unpublish' && s.status==='assigned' && s.published){ s.published=false; n++; }
-      if(op==='unassign' && s.status==='assigned'){ s.status='vacant'; s.guardId=null; s.ai=false; s.published=true; n++; }
+      if(op==='unassign' && s.status==='assigned'){ delete s.override; s.status='vacant'; s.guardId=null; s.ai=false; s.published=true; n++; }
       if(op==='confirm' && s.status==='assigned'){ s.confirmed=true; n++; } });
     S.mode=null; S.selected.clear(); render();
     toast(n+' shift'+(n===1?'':'s')+' '+({unpublish:'unpublished',unassign:'unassigned',confirm:'confirmed'})[op]+'.');
@@ -2115,31 +2616,33 @@ const A = {
   'review-assign': () => { const id=S.review.sid; S.review=null; renderReview(); S.modal=null; openEdit(id); },
   'review-ai': () => { const id=S.review.sid; S.review=null; renderReview(); S.modal=null; startRun([id]); },
   'scrim': (t,e) => { if(e.target===t && S.modal && !['processing','applying'].includes(S.modal.type)){ S.modal=null; renderOverlays(); } },
-  'run-all': () => { let list=openShiftsInView(); if(S.modal && S.modal.filter==='ready') list=list.filter(x=>quickEligible(x)>0); S.modal=null; startRun(list.map(x=>x.id)); },
+  'run-all': () => { const list=aiScopeList(); if(!list.length) return; S.modal=null; startRun(list.map(x=>x.id)); },
   'review-recs': () => {
     S.modal=null; S.screen='results';
-    const first = S.run.shiftIds.slice().sort((a,b)=>range(shiftById(a))[0]-range(shiftById(b))[0]).find(sid=>S.run.ai[sid]);
-    if(first) S.expanded.add(first);
+    S.expanded = new Set();
     render(); window.scrollTo({top:0});
   },
-  'toggle-row': t => { const id=t.dataset.id; S.expanded.has(id)?S.expanded.delete(id):S.expanded.add(id); render(); },
+  'toggle-row': (t,e) => { if(e && e.target.closest('.gsel, .rsel')) return; const id=t.dataset.id; S.expanded.has(id)?S.expanded.delete(id):S.expanded.add(id); render(); },
   'expand-all': () => { if(S.expanded.size===S.run.shiftIds.length) S.expanded.clear(); else S.run.shiftIds.forEach(id=>S.expanded.add(id)); render(); },
-  'pick-guard': t => { const sid=t.dataset.sid, gid=t.dataset.gid||null; S.sel[sid]=gid; S.manual[sid]= gid? null : 'skip'; if(gid) S.focusG[sid]=gid; render();
-    if(gid && gid!==S.run.ai[sid]) toast('Manual override: '+guardById(gid).name+' selected. AI recommendation stays visible for comparison.','edit'); },
+  'pick-guard': t => { const sid=t.dataset.sid, gid=t.dataset.gid||null; S.sel[sid]=gid; S.manual[sid]= gid? null : 'skip'; if(gid) S.pick.add(sid); else S.pick.delete(sid); if(gid) S.focusG[sid]=gid; render();
+    if(gid && gid!==S.run.ai[sid]) toast(guardById(gid).name+' selected.'); },
   'inspect-guard': t => { const sid=t.dataset.sid, gid=t.dataset.gid; const x=rowData(sid).eligible.find(y=>y.ev.guard.id===gid);
     S.focusG[sid]=gid; S.fadeKey=sid;
     if(x && !x.blockedLive){ S.sel[sid]=gid; S.manual[sid]=null; render(); S.fadeKey=null; }
     else { render(); S.fadeKey=null; } },
   'focus-guard': (t,e) => { e.stopPropagation(); S.focusG[t.dataset.sid]=t.dataset.gid; render(); },
+  'toggle-score': t => { const id=t.dataset.id; S.showScore.has(id)?S.showScore.delete(id):S.showScore.add(id); render(); },
   'toggle-excl': t => { const id=t.dataset.id; S.showExcl.has(id)?S.showExcl.delete(id):S.showExcl.add(id); render(); },
   'history': t => { S.drawer={type:'history', gid:t.dataset.gid, sid:t.dataset.sid}; renderOverlays(); },
-  'apply-open': () => { S.modal={type:'confirm'}; renderOverlays(); },
-  'apply-confirm': () => { const n=resultStats().ready; S.modal={type:'applying', n}; renderOverlays();
-    setTimeout(()=>{ const c=applyRun(); S.modal={type:'applied', n:c}; renderOverlays(); }, reduceMotion?100:1300); },
-  'applied-done': () => { S.modal=null; S.screen='scheduler'; S.run=null; S.banner={type:'unpub'}; S.view='month';
+  'apply-open': t => { S.modal={type:'confirm', publish:t.dataset.pub==='1'}; renderOverlays(); },
+  'apply-confirm': () => { const n=resultStats().ready, publish=!!S.modal.publish; S.modal={type:'applying', n, publish}; renderOverlays();
+    setTimeout(()=>{ const c=applyRun(); if(publish) S.lastApplied.forEach(id=>{ shiftById(id).published=true; }); S.doneN=(S.doneN||0)+c; S.donePub=(S.donePub||0)+(publish?c:0); S.modal={type:'applied', n:c, publish, left:S.run.shiftIds.length}; render(); }, reduceMotion?100:1300); },
+  'applied-back': () => { S.modal=null; render(); window.scrollTo({top:0}); },
+  'applied-done': () => { const all=(S.applied||[]).filter(shiftById), unpub=all.filter(id=>!shiftById(id).published).length; S.modal=null; S.screen='scheduler'; S.run=null; S.banner= unpub?{type:'unpub'}:{type:'published', n:all.length}; S.view='month';
+    S.lastApplied = all; S.applied = [];
     const firstDate = S.lastApplied.map(shiftById).sort((a,b)=>range(a)[0]-range(b)[0])[0]; if(firstDate) S.focus=firstDate.date;
     S.flash=new Set(S.lastApplied); render(); window.scrollTo({top:0}); setTimeout(()=>S.flash.clear(),1700); },
-  'discard': () => { if(S.screen==='results'){ S.screen='scheduler'; S.run=null; render(); toast('AI recommendations discarded. No changes were made.','info'); } },
+  'discard': () => { if(S.screen==='results'){ const n=(S.applied||[]).length; S.screen='scheduler'; S.run=null; S.applied=[]; render(); toast(n?'Remaining recommendations discarded. The '+n+' shift'+(n===1?'':'s')+' you already approved or published are kept.':'AI recommendations discarded. No changes were made.','info'); } },
   'banner-review': () => { S.aiOnly=true; S.view='list'; render(); toast('Showing AI-created assignments. Use ⋮ on any row to edit, change guard, unassign, delete or publish.','info'); },
   'banner-publish': () => { S.modal={type:'publish', ids:unpubAI().map(s=>s.id)}; renderOverlays(); },
   'publish-all': () => { S.menu=null; const ids=SHIFTS.filter(s=>s.status==='assigned'&&!s.published).map(s=>s.id); if(!ids.length){ renderOverlays(); toast('Everything is already published.','info'); return; } S.modal={type:'publish', ids}; renderOverlays(); },
@@ -2161,6 +2664,11 @@ const A = {
   'delete-confirm': () => { const ids=S.modal.ids; ids.forEach(id=>{ const i=SHIFTS.findIndex(s=>s.id===id); if(i>=0) SHIFTS.splice(i,1); }); S.modal=null; S.mode=null; S.selected.clear(); render(); toast(ids.length+' shift'+(ids.length===1?'':'s')+' deleted.'); },
   'edit-save': () => { const s=shiftById(S.modal.id), d=S.modal.draft; const changed = d.guardId!==s.guardId || d.start!==s.start || d.end!==s.end;
     const rk = d.guardId ? editRank(s, d) : null; const pick = rk ? rk.elig.find(e=>e.guard.id===d.guardId) : null;
+    if(d.guardId && changed && !pick){ const ev = rk.inel.find(e=>e.guard.id===d.guardId), f = ev ? ev.blocking.filter(b=>b.psr) : [];
+      if(f.some(b=>!b.overridable)){ toast(guardById(d.guardId).name+' can\'t be assigned: '+f.filter(b=>!b.overridable).map(b=>b.req).join(', ')+' is required and can\'t be overridden for this post site.','alert'); return; }
+      if(f.length && !(d.ovr && d.ovr.gid===d.guardId)){ openOverride({ctx:'edit', sid:s.id, gid:d.guardId}); return; } }
+    if(d.guardId!==s.guardId || !d.guardId) delete s.override;
+    if(d.ovr && d.ovr.gid===d.guardId) s.override = d.ovr;
     s.start=d.start; s.end=d.end;
     if(d.guardId){ if(d.guardId!==s.guardId){ s.guardId=d.guardId; s.status='assigned'; s.published=false; if(pick){ s.ai=true; s.aiScore=pick.score; } else s.ai=false; } else if(changed) s.published=false; }
     else if(s.status==='assigned'){ s.guardId=null; s.status='vacant'; s.ai=false; s.published=true; }
@@ -2183,6 +2691,14 @@ function openEdit(id){
 }
 
 const CH = {
+  'ai-scope': t => { S.modal.scope=t.value; syncAiScope(); if(t.value==='range'){ const f=document.getElementById('cf-from'); if(f) f.focus(); } },
+  'pick-row': t => { t.checked ? S.pick.add(t.dataset.sid) : S.pick.delete(t.dataset.sid); render(); },
+  'pick-all': t => { if(t.checked) pickable().forEach(id=>S.pick.add(id)); else S.pick.clear(); render(); },
+  'row-guard': t => { const sid=t.dataset.sid;
+    if(t.value.startsWith('ovr:')){ const g=t.value.slice(4); if(S.sel[sid]!==g){ render(); openOverride({ctx:'results', sid, gid:g}); } return; }
+    const gid=t.value||null; S.sel[sid]=gid; S.manual[sid]= gid? null : 'skip'; if(gid){ S.focusG[sid]=gid; S.pick.add(sid); } else S.pick.delete(sid); render();
+    const el=document.getElementById('gs-'+sid); if(el) el.focus();
+    if(gid && gid!==S.run.ai[sid]) toast(guardById(gid).name+' selected.'); },
   'rv-req': t => { const r=S.review; const sh=shiftById(r.sid); r.req = r.req || sh.req.slice(); const q=t.dataset.q; if(t.checked){ if(!r.req.includes(q)) r.req.push(q); } else r.req=r.req.filter(x=>x!==q); r.req = sh.req.filter(x=>r.req.includes(x)); renderReview(); },
   'rule-factor': t => { const f=S.drawer.draft.factors; f[t.dataset.k]=t.checked; if(!Object.values(f).some(Boolean)){ f[t.dataset.k]=true; toast('At least one scoring factor must apply.','info'); } renderOverlays(); },
   'rule-num': t => { const v=parseFloat(t.value); if(!isNaN(v)) S.drawer.draft[t.dataset.k]=v; renderOverlays(); },
@@ -2204,6 +2720,7 @@ document.addEventListener('click', e => {
     if(!keep){ S.menu=null; renderOverlays(); }
   }
   if(!t) return;
+  if(e.target.closest('.rsel')) return; // row checkbox: let the browser tick it, the change handler does the rest
   const fn = A[t.dataset.act]; if(fn){ if(t.dataset.act!=='scrim') e.preventDefault(); fn(t, e); }
 });
 document.addEventListener('change', e => { const t=e.target.closest('[data-ch]'); if(t && CH[t.dataset.ch]) CH[t.dataset.ch](t, e); });
@@ -2286,7 +2803,7 @@ function exampleHTML(r){
   const ev = evaluate(exG, exSh, baseAssignments([exSh.id]), r);
   const a = ev.activeFactors;
   return `<b>Worked example</b> · ${esc(exG.name)}, ${fmtShort(exSh.date)} ${exSh.start}–${exSh.end}, ${esc(SITES[exSh.site].name)}<br>
-    <code>${a.map(x=>x.value+'×'+(x.weight/ev.wsum*100).toFixed(1)+'%').join(' + ')} = ${Math.round(ev.raw*10)/10} → ${ev.score}%</code>
+    <div style="margin-top:4px">Final score with these weights: <b>${ev.score}%</b></div>
     <div class="note" style="margin-top:6px">${ic('info')}<span>Each factor score is multiplied by its weight %. Active weights always total 100%.</span></div>${ev.eligible?'':'<span class="bc">Not eligible under these hard rules: '+esc(ev.blocking.map(b=>b.blockLabel).join(', '))+'.</span>'}`;
 }
 function factorRowHTML(r,f,i){
@@ -2401,6 +2918,7 @@ document.addEventListener('keydown', e=>{
 }, true);
 document.addEventListener('input', e=>{
   const t=e.target; if(!t.dataset) return;
+  if(t.dataset.in==='ai-range' && S.modal && S.modal.type==='all'){ S.modal[t.dataset.k]=t.value; syncAiScope(); return; }
   if(t.dataset.in==='weight'){ const v=parseInt(t.value,10); if(!isNaN(v)) setWeight(t.dataset.k, v); }
   if(t.dataset.cf && S.drawer && S.drawer.adding){ const a=S.drawer.adding; a[t.dataset.cf] = (t.dataset.cf==='weight') ? parseInt(t.value,10) : (t.dataset.cf==='value' && t.type==='number') ? parseFloat(t.value) : t.value; updatePreview(); }
 });
@@ -2457,10 +2975,8 @@ CH['rule-sel'] = t => { S.drawer.draft[t.dataset.k]=t.value; syncWeights(); };
 /* ---- accordion sections in the rules modal ---- */
 function accHTML(id, title, sub, badge, inner){
   const open = !!(S.drawer.open && S.drawer.open[id]);
-  const add = id==='hard' ? `<button class="btn sm add-btn" data-act="f-add" data-t="hard">${ic('plusc')} Add Hard Rule <span class="admin-tag">Admin</span></button>`
-            : id==='factors' ? `<button class="btn sm add-btn" data-act="f-add" data-t="factor">${ic('plusc')} Add Factor <span class="admin-tag">Admin</span></button>` : '';
   return `<section class="acc ${open?'open':''}" data-acc="${id}"><div class="acc-h" data-act="acc" data-s="${id}">
-      <button class="acc-toggle" aria-expanded="${open}" aria-controls="acc-${id}">${ic('chevR','acc-chev')}<span class="acc-t"><b>${title}</b><small>${sub}</small></span><span class="acc-badges" id="accb-${id}">${badge}</span></button>${add}</div>
+      <button class="acc-toggle" aria-expanded="${open}" aria-controls="acc-${id}">${ic('chevR','acc-chev')}<span class="acc-t"><b>${title}</b><small>${sub}</small></span><span class="acc-badges" id="accb-${id}">${badge}</span></button></div>
     <div class="acc-b" id="acc-${id}" ${open?'':'inert'}><div class="acc-in"><div class="acc-pad">${inner}</div></div></div></section>`;
 }
 function accBadge(id, r){
@@ -2526,6 +3042,7 @@ function qvHTML(){
         <button class="qv-ic save ${pending&&q.gid?'active':''}" data-act="qv-save" data-tip="Save &amp; Assign Guard" aria-label="Save and assign guard" ${pending&&q.gid?'':'aria-disabled="true"'}><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="10" fill="currentColor" stroke="none"/><path d="M7.5 12.5l3 3 6-6.5" stroke="#fff" stroke-width="2.4" fill="none"/></svg></button>
         <button class="qv-ic clear" data-act="qv-clear" data-tip="Unassign Guard" aria-label="Unassign guard"><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 7h12l-1 13H7z" fill="currentColor" stroke="none"/><path d="M4 7h16M9 7V4h6v3" /></svg></button>
       </div>${list}${hint}
+      ${s.override && s.status==='assigned' && s.guardId===s.override.gid ? `<button class="qv-ovr" data-act="ovr-info" data-id="${s.id}">${ic('alert')}Requirement override · View details</button>` : ''}
       <div class="qv-r"><b>Break :</b> ${brk}</div>
     </div>
     <div class="qv-f"><button class="qv-link" data-act="qv-full">Full details</button><span class="qv-id">${s.id}</span>
@@ -2549,7 +3066,8 @@ function qvCommit(){
   if(!s || (q.gid||null)===(s.guardId||null)) return;
   qvApply(s, q.gid);
 }
-function qvApply(s, gid, keepOpen){
+function qvApply(s, gid, keepOpen, rec){
+  if(rec && gid===rec.gid) s.override=rec; else if(!s.override || s.override.gid!==gid) delete s.override;
   let msg;
   if(gid){ const ev=qvRank(s).find(e=>e.guard.id===gid); s.guardId=gid; s.status='assigned'; s.published=false; s.ai=!!ev; if(ev) s.aiScore=ev.score;
     msg = guardById(gid).name+' assigned to '+fmtShort(s.date)+' '+s.start+'. Saved as Unpublished.'; }
@@ -2571,6 +3089,298 @@ Object.assign(A, {
   'qv-pub': () => { const s=shiftById(S.qv.id); s.published=true; render(); renderQV(); toast('Shift published. Guard notified.'); },
   'qv-full': () => { const id=S.qv.id; S.qv=null; renderQV(); openEdit(id); },
 });
+
+/* =====================================================================
+   POST SITES · Settings · Post Site Requirements
+   ===================================================================== */
+const GENERAL_SETTINGS = [
+  ['Enforce clock-in before check-in',1],['Notify when guard enters or exits the geofence',1],['Enable Check-In inside geofence',1],['Enable Check-Out inside geofence',1],
+  ['Enforce post order acknowledgement',0],['Enable Auto check-out guard after 24hrs',1],['Remind guard to submit at least one pass-down log before checking out of the post site',0],
+  ['Enforce guard to submit at least one pass-down log before checking out of the post site',0],['Allow guard to view security team details',1],['Automatically publish open shifts requested by the client',1]];
+const PS_NAV = [['Post Orders'],['Notes'],['Files'],['Assign Guards',20],['Tasks'],['Site Tours'],['Site Tour Tags'],['Geo-Fence'],['Assign Reports'],['Checklists'],['Email Reports'],['Settings']];
+const SITE_CLIENT = { ABC:'Pacific Retail Group', XYZ:'Vegas Mall LLC', RMP:'Riverside Health', HLW:'Harbor Logistics', MCT:'Metro Holdings' };
+const activeGuards = () => GUARDS.filter(g=>g.status==='Active');
+function cloneReq(r){ const e=emptyReq(); if(!r) return e; return { skills:r.skills.map(x=>({...x})), licenses:r.licenses.slice(), certifications:r.certifications.slice(), payMin:r.payMin, payMax:r.payMax, minExp:r.minExp, maxDist:r.maxDist, noOverride:(r.noOverride||[]).slice() }; }
+function normReq(r){ return JSON.stringify({s:r.skills.map(x=>x.name+':'+x.level).sort(), l:r.licenses.slice().sort(), c:r.certifications.slice().sort(), a:r.payMin, b:r.payMax, e:r.minExp, d:r.maxDist, o:liveNoOverride(r).sort()}); }
+/* only keys for requirements that are actually set count */
+function liveNoOverride(r){ const live=new Set(r.skills.filter(x=>x.level==='required').map(x=>'skill:'+x.name).concat(r.licenses.map(x=>'license:'+x), r.certifications.map(x=>'cert:'+x), (r.payMin!=null||r.payMax!=null)?['pay']:[], r.minExp!=null?['exp']:[], r.maxDist!=null?['dist']:[])); return (r.noOverride||[]).filter(k=>live.has(k)); }
+function psDirty(){ const p=S.ps; return !!p && p.mode==='edit' && normReq(p.draft)!==normReq(cloneReq(siteReq(p.siteId))); }
+function guardLeave(go){ if(psDirty()){ S.modal={type:'leave'}; S.pendingNav=go; renderOverlays(); } else go(); }
+function reqSummary(r){
+  if(!hasReq(r)) return '<span class="muted">Not configured</span>';
+  const parts=[];
+  if(r.skills.length) parts.push(r.skills.length+' skill'+(r.skills.length===1?'':'s'));
+  if(r.licenses.length) parts.push(r.licenses.length+' license'+(r.licenses.length===1?'':'s'));
+  if(r.certifications.length) parts.push(r.certifications.length+' cert'+(r.certifications.length===1?'':'s'));
+  if(r.payMin!=null||r.payMax!=null) parts.push(payText(r));
+  if(r.minExp!=null) parts.push(r.minExp+'+ yr');
+  if(r.maxDist!=null) parts.push('≤ '+r.maxDist+' mi');
+  return parts.map(x=>`<span class="q">${esc(x)}</span>`).join('');
+}
+function reqImpact(r, siteId){
+  const g=activeGuards(); if(!hasReq(r)) return {ok:g.length, total:g.length, reasons:[]};
+  let ok=0, ovr=0; const counts={};
+  g.forEach(x=>{ const m=checkReq(x, siteId, r); if(!m.fails.length) ok++; else if(!m.hard.length) ovr++; const seen=new Set(); m.fails.forEach(f=>{ if(seen.has(f.blockLabel)) return; seen.add(f.blockLabel); counts[f.blockLabel]=(counts[f.blockLabel]||0)+1; }); });
+  return {ok, ovr, total:g.length, reasons:Object.entries(counts).sort((a,b)=>b[1]-a[1])};
+}
+function impactHTML(r, siteId){
+  const m=reqImpact(r, siteId), none=!hasReq(r);
+  return `<div class="ps-impact ${m.ok<3&&!none?'low':''}">${ic('team')}<div><b>${none?'All '+m.total+' active guards can be considered':m.ok+' of '+m.total+' active guards meet these requirements'}</b>
+    <small>${none?'No guard is filtered out for this post site. Scheduling rules still apply.':(m.ovr?m.ovr+' more can be assigned with a scheduler override · ':'')+m.reasons.slice(0,3).map(([k,n])=>n+' '+k.toLowerCase()).join(' · ')}${m.ok<3&&!none?' · Few guards qualify, so AI may not find a match for every shift.':''}</small></div></div>`;
+}
+/* ---------- Post Sites list ---------- */
+function postSitesHTML(){
+  return `<div class="ps-list-head"><p>Scheduling requirements set here are applied by AI Scheduling when it recommends guards for each post site.</p></div>
+  <div class="tablewrap"><table class="grid ps-table"><thead><tr><th>Post Site</th><th>Client</th><th>Department</th><th>Scheduling Requirements</th><th>Open / Vacant</th><th></th></tr></thead><tbody>
+  ${Object.values(SITES).map(site=>{ const r=siteReq(site.id), open=SHIFTS.filter(x=>x.site===site.id&&isOpen(x)).length;
+    return `<tr class="click" data-act="open-postsite" data-site="${site.id}" tabindex="0"><td><b>${esc(site.name)}</b><div class="muted sm">${SITE_CODE[site.id]} · ${esc(site.addr)}${site.restricted?' · Restricted':''}</div></td>
+      <td>${esc(SITE_CLIENT[site.id])}</td><td>${esc(site.dept)}</td><td><div class="qchips">${reqSummary(r)}</div></td><td class="num">${open}</td>
+      <td><button class="btn sm outline" data-act="open-postsite" data-site="${site.id}" data-req="1">${ic('sliders')} Requirements</button></td></tr>`; }).join('')}
+  </tbody></table></div>`;
+}
+/* ---------- Post Site detail ---------- */
+function postSiteHTML(){
+  const p=S.ps, site=SITES[p.siteId];
+  const back = S.returnTo==='results' && S.run ? `<div class="banner unpub">${ic('spark')}<div class="msg"><b>You're editing requirements from AI Scheduling Results.</b><span>Save your changes, then go back. Recommendations will be recalculated with the new requirements.</span></div><button class="btn primary" data-act="ps-back-results">${ic('back')} Back to Results</button></div>` : '';
+  return back + `<div class="ps-wrap"><nav class="ps-nav" aria-label="Post site sections">${PS_NAV.map(([n,b])=>`<a class="${n==='Settings'?'on':''}" tabindex="0" data-act="${n==='Settings'?'noop':'navtoast'}" data-name="${n}">${n}${b?`<span class="ps-badge">${b}</span>`:''}</a>`).join('')}</nav>
+    <section class="ps-main"><div class="ps-main-h"><span>Settings</span>${ic('menu')}</div><div class="ps-body">
+      <div class="ps-general">${GENERAL_SETTINGS.map(([t],i)=>`<label class="ps-check"><input type="checkbox" data-ch="ps-general" data-i="${i}" ${p.general[i]?'checked':''}><span>${esc(t)}</span><span class="ps-i" title="${esc(t)}">i</span></label>`).join('')}</div>
+      ${requirementsHTML()}
+    </div></section></div>`;
+}
+function requirementsHTML(){
+  const p=S.ps, site=SITES[p.siteId], saved=siteReq(p.siteId);
+  const head = `<div class="psr-h"><div><h2>Post Site Requirements <span class="tbadge t-ai">Used by AI Scheduling</span></h2>
+    <p>What a guard must have to be scheduled at ${esc(site.name)}. Guards who miss a <b>required</b> item are not recommended. <b>Preferred</b> skills only raise a guard's score.</p></div>
+    ${p.mode==='view'&&hasReq(saved)?`<div class="psr-acts"><button class="btn sm outline" data-act="psr-edit">${ic('edit')} Edit Requirements</button><button class="btn sm ghost psr-del" data-act="psr-remove">${ic('trash')} Remove All</button></div>`:''}</div>`;
+  let body;
+  if(p.mode==='edit') body = reqFormHTML();
+  else if(!hasReq(saved)) body = `<div class="psr-empty">${ic('sliders')}<div><b>No requirements configured</b><p>AI Scheduling considers every guard who passes the scheduling rules for this post site.</p><button class="btn primary" data-act="psr-edit">${ic('plusc')} Add Requirements</button></div></div>`;
+  else body = reqViewHTML(saved);
+  const confirm = p.confirmRemove ? `<div class="psr-confirm">${ic('alert')}<div><b>Remove all requirements for ${esc(site.name)}?</b><span>AI Scheduling will stop filtering guards for this post site. Shifts already assigned are not changed.</span></div><button class="btn sm ghost" data-act="psr-remove-cancel">Keep</button><button class="btn sm danger" data-act="psr-remove-ok">${ic('trash')} Remove</button></div>` : '';
+  return `<div class="psr" id="psr">${head}${confirm}${p.notice&&p.mode==='view'?noticeHTML(p.notice):''}${body}
+    <div class="psr-note">${ic('info')}<span><b>Post Site Requirements</b> decide who qualifies for this site. <b>AI Scheduling Rules</b> (Scheduler › AI Scheduling › Rules) decide how qualified guards are ranked. Each setting lives in one place only.</span></div></div>`;
+}
+function ovTag(r, key){ return canOverride(r,key) ? `<span class="ovt yes" title="A scheduler can assign a guard who doesn't meet this, with a reason">Override allowed</span>` : `<span class="ovt no" title="Guards who don't meet this can't be assigned">${ic('xcirc')}No override</span>`; }
+function chipList(list, kind, r){
+  const pre = kind==='licenses'?'license:':'cert:';
+  return list.length ? list.map(x=>`<span class="rchip">${esc(x)}${r?ovTag(r, pre+x):''}</span>`).join('') : `<span class="muted">Not set</span>`;
+}
+function reqViewHTML(r){
+  const sk = r.skills.length ? r.skills.map(x=>`<span class="rchip ${x.level}">${esc(x.name)}<em>${x.level==='required'?'Required':'Preferred'}</em>${x.level==='required'?ovTag(r,'skill:'+x.name):''}</span>`).join('') : '<span class="muted">Not set</span>';
+  const row = (l,v) => `<div class="psr-row"><span>${l}</span><div>${v}</div></div>`;
+  return `<div class="psr-view">
+    ${row('Skills', sk)}${row('Licenses', chipList(r.licenses,'licenses',r))}${row('Certifications', chipList(r.certifications,'certifications',r))}
+    ${row('Pay rate', r.payMin!=null||r.payMax!=null ? `<b>${payText(r)}</b> <span class="muted">USD</span>${ovTag(r,'pay')}` : '<span class="muted">Not set</span>')}
+    ${row('Minimum experience', r.minExp!=null ? `<b>${r.minExp===5?'5+ years':r.minExp+' year'+(r.minExp===1?'':'s')}</b>${ovTag(r,'exp')}` : '<span class="muted">Not set</span>')}
+    ${row('Max travel distance', r.maxDist!=null ? `<b>${r.maxDist} miles</b> <span class="muted">from guard's home</span>${ovTag(r,'dist')}` : '<span class="muted">Not set</span>')}
+    ${impactHTML(r, S.ps.siteId)}
+    <div class="psr-meta">Last updated ${fmtShort(r.updatedAt||TODAY)}, 2026 by ${esc(r.updatedBy||'Kapil')}</div></div>`;
+}
+function reqFormHTML(){
+  const p=S.ps, d=p.draft, e=p.errors||{};
+  const CATS = {skills:SKILL_CATALOG, licenses:LICENSE_CATALOG, certifications:CERT_CATALOG};
+  const NOUN = {skills:'skill', licenses:'license', certifications:'certification'};
+  const addSel = (kind, cat, have, label) => {
+    if(p.adding===kind) return `<span class="psr-new"><input class="field" id="psr-new-${kind}" data-in="psr-new" data-k="${kind}" placeholder="New ${NOUN[kind]} name" maxlength="40" value="${esc(p.newName||'')}" aria-label="New ${NOUN[kind]} name"><button class="btn sm primary" data-act="psr-new-ok" data-k="${kind}">Add</button><button class="btn sm ghost" data-act="psr-new-cancel">Cancel</button>${p.newErr?`<span class="psr-err">${esc(p.newErr)}</span>`:''}</span>`;
+    const left=cat.filter(x=>!have.includes(x));
+    return `<select class="field psr-add" data-ch="psr-add" data-k="${kind}" aria-label="${label}"><option value="">+ ${label}</option>${left.map(x=>`<option>${esc(x)}</option>`).join('')}<option value="__new">＋ New ${NOUN[kind]}…</option></select>`; };
+  const ovBox = (key, on, dis, label) => `<label class="ovr-cb ${dis?'dis':''}" title="${dis?'Preferred skills never block a guard, so no override is needed':'When on, a scheduler can still assign a guard who misses this, after giving a reason'}"><input type="checkbox" data-ch="psr-ovr" data-key="${esc(key)}" ${on?'checked':''} ${dis?'disabled':''} aria-label="Allow scheduler override for ${esc(label)}"><span>Allow scheduler override</span></label>`;
+  const rowsOf = (html) => html ? `<div class="req-rows">${html}</div>` : '';
+  const skills = rowsOf(d.skills.map((x,i)=>`<div class="req-row"><b>${esc(x.name)}</b>
+      <span class="lvl" role="group" aria-label="${esc(x.name)} level"><button class="${x.level==='required'?'on':''}" data-act="psr-level" data-i="${i}" data-l="required" aria-pressed="${x.level==='required'}">Required</button><button class="${x.level==='preferred'?'on':''}" data-act="psr-level" data-i="${i}" data-l="preferred" aria-pressed="${x.level==='preferred'}">Preferred</button></span>
+      ${ovBox('skill:'+x.name, x.level==='required' && canOverride(d,'skill:'+x.name), x.level!=='required', x.name)}
+      <button class="rx" data-act="psr-del" data-k="skills" data-i="${i}" aria-label="Remove ${esc(x.name)}">${ic('x')}</button></div>`).join(''));
+  const simple = (kind) => { const pre=kind==='licenses'?'license:':'cert:'; return rowsOf(d[kind].map((x,i)=>`<div class="req-row"><b>${esc(x)}</b><span class="req-fixed">Required</span>
+      ${ovBox(pre+x, canOverride(d,pre+x), false, x)}
+      <button class="rx" data-act="psr-del" data-k="${kind}" data-i="${i}" aria-label="Remove ${esc(x)}">${ic('x')}</button></div>`).join('')); };
+  const num = (k, v, ph) => `<input class="field num ${e[k]?'bad':''}" type="number" id="psr-${k}" data-in="psr-num" data-k="${k}" value="${v==null?'':v}" placeholder="${ph}" min="0" step="${k==='maxDist'?1:0.5}" inputmode="decimal">`;
+  return `<div class="psr-form">
+    <div class="psr-f"><label>Skills <small>Required skills filter guards out. Preferred skills raise the score.</small></label>${skills}<div class="psr-chips">${addSel('skills', SKILL_CATALOG, d.skills.map(x=>x.name), 'Add skill')}</div></div>
+    <div class="psr-f"><label>Licenses <small>Every selected license is required. Turn off override to make it a strict restriction.</small></label>${simple('licenses')}<div class="psr-chips">${addSel('licenses', LICENSE_CATALOG, d.licenses, 'Add license')}</div></div>
+    <div class="psr-f"><label>Certifications <small>Every selected certification is required. Turn off override to make it a strict restriction.</small></label>${simple('certifications')}<div class="psr-chips">${addSel('certifications', CERT_CATALOG, d.certifications, 'Add certification')}</div></div>
+    <div class="psr-grid">
+      <div class="psr-f"><label for="psr-payMin">Minimum pay rate</label><div class="affix"><span>$</span>${num('payMin', d.payMin, 'No minimum')}<span>/hr</span></div><div class="psr-err" id="err-payMin">${e.payMin||''}</div></div>
+      <div class="psr-f"><label for="psr-payMax">Maximum pay rate</label><div class="affix"><span>$</span>${num('payMax', d.payMax, 'No maximum')}<span>/hr</span></div><div class="psr-err" id="err-payMax">${e.payMax||''}</div></div>
+      <div class="psr-f"><label for="psr-exp">Minimum experience</label><select class="field" id="psr-exp" data-ch="psr-exp">${EXP_OPTIONS.map(([v,l])=>`<option value="${v==null?'':v}" ${d.minExp===v?'selected':''}>${l}</option>`).join('')}</select><div class="psr-err"></div></div>
+      <div class="psr-f"><label for="psr-maxDist">Max travel distance</label><div class="affix">${num('maxDist', d.maxDist, 'No limit')}<span>miles</span></div><div class="psr-err" id="err-maxDist">${e.maxDist||''}</div></div>
+    </div>
+    <div class="ovr-line"><span>Allow scheduler override for</span>
+      ${[['pay','Pay rate', d.payMin!=null||d.payMax!=null],['exp','Experience', d.minExp!=null],['dist','Travel distance', d.maxDist!=null]].map(([k,l,set])=>`<label class="ovr-cb ${set?'':'dis'}" title="${set?'':'Set a value first'}"><input type="checkbox" data-ch="psr-ovr" data-key="${k}" ${set&&canOverride(d,k)?'checked':''} ${set?'':'disabled'}><span>${l}</span></label>`).join('')}</div>
+    <div class="psr-hint">${ic('info')}<span><b>Allow scheduler override</b> on: a guard who misses the requirement is shown as a conflict, and a scheduler can still assign them after confirming and giving a reason. Off: the requirement is strict and the guard can't be assigned. </span></div>
+    <div class="psr-hint">${ic('info')}<span>Pay rate is in USD per hour and compared with each guard's hourly rate. Distance is measured from the guard's home to this post site. Leave any field blank for no limit.</span></div>
+    <div id="psr-impact">${impactHTML(d, p.siteId)}</div>
+    <div class="psr-foot"><button class="link" data-act="psr-clear">Clear all fields</button><span class="psr-dirty" id="psr-dirty">${psDirty()?'Unsaved changes':''}</span>
+      <button class="btn ghost" data-act="psr-cancel">Cancel</button><button class="btn primary" id="psr-save" data-act="psr-save" ${psDirty()?'':'disabled'}>${ic('check')} Save Requirements</button></div>
+  </div>`;
+}
+function noticeHTML(n){
+  return `<div class="psr-notice">${ic('check')}<div><b>${esc(n.title)}</b>
+    <span>${n.open} open/vacant shift${n.open===1?'':'s'} at this site will use ${n.removed?'no requirements':'these requirements'} the next time you run AI Scheduling.</span>
+    ${n.conflicts.length?`<span class="wc">${n.conflicts.length} upcoming assigned shift${n.conflicts.length===1?' has a guard who doesn\'t':'s have guards who don\'t'} meet the new requirements. ${n.conflicts.length===1?'It is':'They are'} not changed automatically:</span>
+      <ul>${n.conflicts.slice(0,4).map(c=>`<li>${fmtDay(c.sh.date)} ${c.sh.start}–${c.sh.end} · ${esc(c.sh.post)} · ${esc(guardById(c.sh.guardId).name)} — ${esc(c.fails.map(f=>f.blockLabel).join(', '))}</li>`).join('')}${n.conflicts.length>4?`<li>and ${n.conflicts.length-4} more</li>`:''}</ul>`:''}</div>
+    <button class="x" data-act="psr-notice-x" aria-label="Dismiss">${ic('x')}</button></div>`;
+}
+function addCustomReq(kind){
+  const p=S.ps, name=(p.newName||'').trim().replace(/\s+/g,' ');
+  const cat={skills:SKILL_CATALOG, licenses:LICENSE_CATALOG, certifications:CERT_CATALOG}[kind];
+  const have = kind==='skills' ? p.draft.skills.map(x=>x.name) : p.draft[kind];
+  if(!name){ p.newErr='Enter a name.'; render(); const f=document.getElementById('psr-new-'+kind); if(f) f.focus(); return; }
+  if(name.length<2){ p.newErr='Use at least 2 characters.'; render(); const f=document.getElementById('psr-new-'+kind); if(f) f.focus(); return; }
+  if(have.some(x=>x.toLowerCase()===name.toLowerCase())){ p.newErr='"'+name+'" is already added.'; render(); const f=document.getElementById('psr-new-'+kind); if(f) f.focus(); return; }
+  const existing = cat.find(x=>x.toLowerCase()===name.toLowerCase()), final = existing || name;
+  if(!existing) cat.push(final);
+  if(kind==='skills') p.draft.skills.push({name:final, level:'required'}); else p.draft[kind].push(final);
+  p.adding=null; p.newName=''; p.newErr=null; render();
+  const holders = GUARDS.filter(g=>(kind==='skills'?g.skills:kind==='licenses'?g.licenses:g.certs).includes(final)).length;
+  toast(final+' added.'+(existing?'':' It is now in the list for every post site.')+(holders?'':' No guard has it on file yet, so it will filter everyone out until guard profiles are updated.'), holders?'check':'info');
+  const n=document.querySelector(`.psr-add[data-k="${kind}"]`); if(n) n.focus();
+}
+function validateReq(d){
+  const e={}, bad=v=>v!=null && (isNaN(v)||v<0);
+  if(bad(d.payMin)) e.payMin='Enter a pay rate of $0 or more.'; else if(d.payMin!=null && d.payMin>500) e.payMin='Enter a rate of $500/hr or less.';
+  if(bad(d.payMax)) e.payMax='Enter a pay rate of $0 or more.'; else if(d.payMax!=null && d.payMax>500) e.payMax='Enter a rate of $500/hr or less.';
+  if(!e.payMin && !e.payMax && d.payMin!=null && d.payMax!=null && d.payMax<d.payMin) e.payMax='Maximum can\'t be lower than the minimum ($'+d.payMin+').';
+  if(d.maxDist!=null && (isNaN(d.maxDist)||d.maxDist<=0)) e.maxDist='Enter a distance greater than 0.'; else if(d.maxDist!=null && d.maxDist>200) e.maxDist='Enter 200 miles or less.';
+  return e;
+}
+function showErrors(){
+  const e=S.ps.errors||{};
+  ['payMin','payMax','maxDist'].forEach(k=>{ const el=document.getElementById('err-'+k); if(el) el.textContent=e[k]||''; const f=document.getElementById('psr-'+k); if(f) f.classList.toggle('bad', !!e[k]); });
+}
+function syncPSLive(){
+  const im=document.getElementById('psr-impact'); if(im) im.innerHTML=impactHTML(S.ps.draft, S.ps.siteId);
+  const sv=document.getElementById('psr-save'); if(sv) sv.disabled=!psDirty();
+  const dt=document.getElementById('psr-dirty'); if(dt) dt.textContent=psDirty()?'Unsaved changes':'';
+}
+function openPostSite(siteId, scroll){
+  S.screen='postsite'; S.navOpen.clients=true; S.menu=null; S.qv=null;
+  S.ps={siteId, mode:'view', draft:null, errors:{}, general:GENERAL_SETTINGS.map(x=>!!x[1]), confirmRemove:false, notice:null};
+  render(); renderQV();
+  if(scroll){ const el=document.getElementById('psr'); if(el) el.scrollIntoView({block:'start'}); } else window.scrollTo({top:0});
+}
+function saveImpact(siteId, removed){
+  const open = SHIFTS.filter(x=>x.site===siteId && isOpen(x) && x.date>=TODAY).length;
+  const conflicts = SHIFTS.filter(x=>x.site===siteId && x.status==='assigned' && x.guardId && x.date>=TODAY)
+    .map(sh=>({sh, fails:checkReq(guardById(sh.guardId), siteId).fails})).filter(c=>c.fails.length)
+    .sort((a,b)=>range(a.sh)[0]-range(b.sh)[0]);
+  return {open, conflicts, removed};
+}
+Object.assign(A, {
+  'noop': () => {},
+  'go-postsites': () => guardLeave(()=>{ S.screen='postsites'; S.ps=null; S.navOpen.clients=true; render(); window.scrollTo({top:0}); }),
+  'open-postsite': (t,e) => { if(e && e.target.closest('button') && e.target.closest('button')!==t) return; openPostSite(t.dataset.site, !!t.dataset.req); },
+  'ps-from-results': t => { S.returnTo='results'; S.runReqVer = S.reqVer; openPostSite(t.dataset.site, true); },
+  'ps-back-results': () => guardLeave(()=>{ S.screen='results'; S.ps=null; S.returnTo=null;
+    if(S.reqVer!==S.runReqVer){ recalc('Recommendations recalculated with the updated post site requirements.'); S.pick=new Set(S.run.shiftIds.filter(id=>S.sel[id])); }
+    render(); window.scrollTo({top:0}); }),
+  'psr-edit': () => { const p=S.ps; p.adding=null; p.newErr=null; p.mode='edit'; p.draft=cloneReq(siteReq(p.siteId)); p.errors={}; p.confirmRemove=false; p.notice=null; render(); const el=document.getElementById('psr'); if(el) el.scrollIntoView({block:'start'}); },
+  'psr-cancel': () => { const p=S.ps; p.mode='view'; p.draft=null; p.errors={}; render(); toast('Changes discarded.','info'); },
+  'psr-new-ok': t => addCustomReq(t.dataset.k),
+  'psr-new-cancel': () => { S.ps.adding=null; S.ps.newErr=null; render(); },
+  'psr-clear': () => { S.ps.draft=emptyReq(); S.ps.errors={}; render(); },
+  'psr-level': t => { const x=S.ps.draft.skills[+t.dataset.i]; x.level=t.dataset.l; render(); },
+  'psr-del': t => { const d=S.ps.draft, k=t.dataset.k, it=d[k][+t.dataset.i]; d[k].splice(+t.dataset.i,1);
+    const key = k==='skills'?'skill:'+it.name : k==='licenses'?'license:'+it : 'cert:'+it; d.noOverride=(d.noOverride||[]).filter(x=>x!==key); render(); },
+  'psr-save': () => { const p=S.ps, d=p.draft; p.errors=validateReq(d);
+    if(Object.keys(p.errors).length){ showErrors(); toast('Fix the highlighted fields before saving.','alert'); const f=document.querySelector('.psr .field.bad'); if(f) f.focus(); return; }
+    const site=SITES[p.siteId];
+    d.noOverride = liveNoOverride(d);
+    if(hasReq(d)) SITE_REQ[p.siteId] = {...cloneReq(d), updatedAt:TODAY, updatedBy:'Kapil'}; else delete SITE_REQ[p.siteId];
+    S.reqVer++; p.mode='view'; p.draft=null;
+    p.notice = {title: hasReq(d)?'Requirements saved for '+site.name+'.':'Requirements cleared for '+site.name+'.', ...saveImpact(p.siteId, !hasReq(d))};
+    render(); toast(hasReq(d)?'Post site requirements saved.':'Requirements cleared. No guards are filtered for this post site.'); },
+  'psr-remove': () => { S.ps.confirmRemove=true; render(); },
+  'psr-remove-cancel': () => { S.ps.confirmRemove=false; render(); },
+  'psr-remove-ok': () => { const p=S.ps, site=SITES[p.siteId]; delete SITE_REQ[p.siteId]; S.reqVer++; p.confirmRemove=false;
+    p.notice={title:'Requirements removed for '+site.name+'.', ...saveImpact(p.siteId, true)}; render(); toast('Requirements removed. AI Scheduling no longer filters guards for '+site.name+'.'); },
+  'psr-notice-x': () => { S.ps.notice=null; render(); },
+  'leave-stay': () => { S.modal=null; S.pendingNav=null; renderOverlays(); },
+  'leave-go': () => { const go=S.pendingNav; S.modal=null; S.pendingNav=null; if(S.ps){ S.ps.mode='view'; S.ps.draft=null; } renderOverlays(); if(go) go(); },
+});
+Object.assign(CH, {
+  'ps-general': t => { S.ps.general[+t.dataset.i]=t.checked; toast('Setting updated.'); },
+  'psr-add': t => { const v=t.value; if(!v) return; const d=S.ps.draft, k=t.dataset.k;
+    if(v==='__new'){ S.ps.adding=k; S.ps.newName=''; S.ps.newErr=null; render(); const f=document.getElementById('psr-new-'+k); if(f) f.focus(); return; }
+    if(k==='skills') d.skills.push({name:v, level:'required'}); else d[k].push(v); render(); const n=document.querySelector(`.psr-add[data-k="${k}"]`); if(n) n.focus(); },
+  'psr-ovr': t => { const d=S.ps.draft, k=t.dataset.key; d.noOverride=(d.noOverride||[]).filter(x=>x!==k); if(!t.checked) d.noOverride.push(k); syncPSLive(); },
+  'psr-exp': t => { S.ps.draft.minExp = t.value===''?null:+t.value; render(); },
+});
+document.addEventListener('input', e=>{ const t=e.target; if(t.dataset && t.dataset.in==='psr-new' && S.ps){ S.ps.newName=t.value; return; } });
+document.addEventListener('keydown', e=>{ const t=e.target; if(!t.dataset || t.dataset.in!=='psr-new' || !S.ps) return; if(e.key==='Enter'){ e.preventDefault(); addCustomReq(t.dataset.k); } else if(e.key==='Escape'){ e.preventDefault(); e.stopPropagation(); S.ps.adding=null; S.ps.newErr=null; render(); } }, true);
+document.addEventListener('input', e=>{ const t=e.target; if(!t.dataset || t.dataset.in!=='psr-num' || !S.ps || !S.ps.draft) return;
+  S.ps.draft[t.dataset.k] = t.value.trim()==='' ? null : parseFloat(t.value);
+  if(S.ps.errors && S.ps.errors[t.dataset.k]){ S.ps.errors=validateReq(S.ps.draft); showErrors(); }
+  syncPSLive(); });
+document.addEventListener('change', e=>{ const t=e.target; if(!t.dataset || t.dataset.in!=='psr-num' || !S.ps || !S.ps.draft) return; S.ps.errors=validateReq(S.ps.draft); showErrors(); syncOvrLine(); });
+function syncOvrLine(){ const d=S.ps&&S.ps.draft; if(!d) return; [['pay', d.payMin!=null||d.payMax!=null],['exp', d.minExp!=null],['dist', d.maxDist!=null]].forEach(([k,set])=>{ const cb=document.querySelector(`.ovr-line input[data-key="${k}"]`); if(!cb) return; const was=cb.disabled; cb.disabled=!set; cb.closest('label').classList.toggle('dis',!set); if(was && set) cb.checked=canOverride(d,k); if(!set) cb.checked=false; }); }
+
+/* =====================================================================
+   REQUIREMENT OVERRIDE  (scheduler assigns a guard who misses an overridable post site requirement)
+   Audit record saved on the shift as shift.override:
+   { gid, guardName, conflicts:[{cat, req, status}], reason, note, by, at }
+   ===================================================================== */
+const OVR_REASONS = ['No qualified guard available','Emergency coverage','Client approved','Temporary assignment','Other'];
+function nowStamp(){ try{ return new Date().toLocaleString('en-US',{month:'short',day:'numeric',year:'numeric',hour:'numeric',minute:'2-digit'}); }catch(e){ return 'Oct 7, 2026'; } }
+function ovrEval(o){ const sh=shiftById(o.sid), g=guardById(o.gid);
+  const tmp = o.ctx==='edit' && S.modal && S.modal.draft ? {...sh, start:S.modal.draft.start, end:S.modal.draft.end} : sh;
+  const ctx = o.ctx==='results' && S.run ? baseAssignments(S.run.shiftIds).concat(Object.entries(S.sel).filter(([k,v])=>k!==o.sid && v).map(([k,v])=>({shift:shiftById(k), guardId:v, source:'batch'}))) : baseAssignments([sh.id]);
+  return {sh:tmp, g, ev:evaluate(g, tmp, ctx, S.rules)}; }
+function openOverride(o){
+  const {ev} = ovrEval(o), f = ev.blocking.filter(b=>b.psr);
+  if(f.some(b=>!b.overridable)){ toast(guardById(o.gid).name+' can\'t be assigned: '+f.filter(b=>!b.overridable).map(b=>b.req).join(', ')+' is required and can\'t be overridden for this post site.','alert'); return; }
+  S.ovr = {...o, reason:'', note:'', err:''}; S.qv=null; renderQV(); renderOvr();
+  const sel=document.getElementById('ovr-reason'); if(sel) sel.focus();
+}
+function ovrHTML(){
+  const o=S.ovr; if(!o) return '';
+  const {sh, g, ev} = ovrEval(o), site=SITES[sh.site], f=ev.blocking.filter(b=>b.psr), other=ev.blocking.filter(b=>!b.psr);
+  const ok = o.reason && (o.reason!=='Other' || (o.note||'').trim().length>=5);
+  return `<div class="drawer-scrim ovr-scrim" data-act="ovr-cancel"></div><div class="rm-wrap ovr-wrap"><section class="rmodal ovr-modal" role="dialog" aria-modal="true" aria-labelledby="ovr-title">
+    <div class="dhd"><div><h3 id="ovr-title">Override Post Site Requirement</h3><p>This guard does not meet one or more requirements configured for this post site.</p></div><button class="x" data-act="ovr-cancel" aria-label="Close">${ic('x')}</button></div>
+    <div class="dbd">
+      <div class="ovr-facts"><span>Guard</span><b>${esc(g.name)} <span class="muted">· ${g.id}</span></b><span>Shift</span><b>${fmtDay(sh.date)} · ${sh.start} – ${sh.end} <span class="muted">· ${shiftType(sh)}</span></b><span>Post Site</span><b>${esc(site.name)} · ${esc(sh.post)}</b></div>
+      <h5 class="rv-h">Requirement conflict</h5>
+      <table class="ovr-table"><thead><tr><th>Post site requirement</th><th>Guard status</th></tr></thead><tbody>
+        ${f.map(b=>`<tr><td>${ic('xcirc','bc')}${esc(b.req)}</td><td class="bc">${esc(b.status==='Missing'?'Missing '+b.req:b.status)}</td></tr>`).join('')}</tbody></table>
+      <div class="ovr-say">${ic('alert')}<span>${esc(conflictSentence(g.name, f))}</span></div>
+      ${other.length?`<div class="note warn">${ic('alert')}<span>Also fails: ${esc(other.map(b=>b.blockLabel).join(', '))}.</span></div>`:''}
+      <p class="ovr-p">You can override this requirement and assign the guard if you have a valid business reason. The reason, your name and the time are saved with the shift.</p>
+      <div class="ovr-form"><label for="ovr-reason">Override reason <span class="bc">*</span></label>
+        <select class="field ${o.err&&!o.reason?'bad':''}" id="ovr-reason" data-ch="ovr-reason"><option value="">Select reason</option>${OVR_REASONS.map(r=>`<option ${o.reason===r?'selected':''}>${r}</option>`).join('')}</select>
+        ${o.reason==='Other'?`<label for="ovr-note">Reason <span class="bc">*</span></label><textarea class="field" id="ovr-note" data-in="ovr-note" rows="3" maxlength="240" placeholder="Explain why this guard is being assigned">${esc(o.note||'')}</textarea>`:''}
+        <div class="psr-err" id="ovr-err">${esc(o.err||'')}</div></div>
+    </div>
+    <div class="dft"><div class="right"><button class="btn sm ghost" data-act="ovr-cancel">Cancel</button><button class="btn sm ovr-btn solid" id="ovr-go" data-act="ovr-confirm" ${ok?'':'aria-disabled="true"'}>${ic('alert')} Override &amp; Assign</button></div></div>
+  </section></div>`;
+}
+function renderOvr(){ const el=document.getElementById('ovr'); if(el) el.innerHTML=ovrHTML(); }
+function ovrInfoHTML(sh){
+  const o=sh.override, site=SITES[sh.site];
+  return `<div class="ovr-facts"><span>Guard</span><b>${esc(o.guardName)}</b><span>Shift</span><b>${fmtDay(sh.date)} · ${sh.start} – ${sh.end}</b><span>Post Site</span><b>${esc(site.name)} · ${esc(sh.post)}</b><span>Status</span><b>${sh.published?'Published':'Unpublished'}</b></div>
+    <h5 class="rv-h">Requirement not met</h5>
+    <table class="ovr-table"><thead><tr><th>Post site requirement</th><th>Guard's actual status</th></tr></thead><tbody>${o.conflicts.map(c=>`<tr><td>${esc(c.req)}</td><td class="bc">${esc(c.status==='Missing'?'Missing '+c.req:c.status)}</td></tr>`).join('')}</tbody></table>
+    <div class="ovr-facts" style="margin-top:14px"><span>Overridden by</span><b>${esc(o.by)}</b><span>Reason</span><b>${esc(o.reason)}${o.note?`<span class="ovr-note">“${esc(o.note)}”</span>`:''}</b><span>Date / time</span><b>${esc(o.at)}</b></div>`;
+}
+Object.assign(A, {
+  'ovr-open': (t,e) => { if(e) e.stopPropagation(); openOverride({ctx:'results', sid:t.dataset.sid, gid:t.dataset.gid}); },
+  'ovr-cancel': (t,e) => { if(t.classList.contains('drawer-scrim') && e.target!==t) return; const back = S.ovr && S.ovr.ctx; S.ovr=null; renderOvr(); if(back==='results') render(); },
+  'ovr-confirm': () => { const o=S.ovr;
+    if(!o.reason){ o.err='Select a reason for the override.'; renderOvr(); document.getElementById('ovr-reason').focus(); return; }
+    if(o.reason==='Other' && (o.note||'').trim().length<5){ o.err='Describe the reason (at least 5 characters).'; renderOvr(); const n=document.getElementById('ovr-note'); if(n) n.focus(); return; }
+    const {g, ev} = ovrEval(o);
+    const rec = {gid:o.gid, guardName:g.name, conflicts:ev.blocking.filter(b=>b.psr).map(b=>({cat:b.cat||'', req:b.req, status:b.status})), reason:o.reason, note:o.reason==='Other'?o.note.trim():'', by:'Kapil', at:nowStamp()};
+    S.ovr=null; renderOvr();
+    if(o.ctx==='results'){ S.overrides[o.sid]=rec; S.sel[o.sid]=o.gid; S.manual[o.sid]=null; S.focusG[o.sid]=o.gid; S.pick.add(o.sid); render();
+      toast(g.name+' selected with a requirement override. Approve or Publish to create the assignment.','alert'); }
+    else if(o.ctx==='edit'){ S.modal.draft.ovr = rec; A['edit-save'](); }
+    else if(o.ctx==='qv'){ const sh=shiftById(o.sid); qvApply(sh, o.gid, false, rec); }
+  },
+  'ovr-info': (t,e) => { if(e) e.stopPropagation(); const sh=shiftById(t.dataset.id); if(!sh||!sh.override) return; S.qv=null; renderQV(); S.menu=null; S.modal={type:'ovr-info', id:sh.id}; renderOverlays(); },
+});
+Object.assign(CH, { 'ovr-reason': t => { S.ovr.reason=t.value; S.ovr.err=''; renderOvr(); const n=document.getElementById(t.value==='Other'?'ovr-note':'ovr-reason'); if(n) n.focus(); } });
+document.addEventListener('input', e=>{ const t=e.target; if(t.dataset && t.dataset.in==='ovr-note' && S.ovr){ S.ovr.note=t.value; const ok=(t.value||'').trim().length>=5; const b=document.getElementById('ovr-go'); if(b){ if(ok) b.removeAttribute('aria-disabled'); else b.setAttribute('aria-disabled','true'); } } });
+document.addEventListener('keydown', e=>{ if(e.key==='Escape' && S.ovr){ e.stopImmediatePropagation(); S.ovr=null; renderOvr(); } }, true);
 
 renderShell();
 render();
