@@ -878,6 +878,46 @@ table.hist td{padding:8px 6px;border-bottom:1px solid var(--line);vertical-align
 .ps-impact b{font-weight:500;display:block}
 .ps-impact small{color:var(--muted);font-size:12px}
 .ps-impact.low{border-color:rgba(246,185,75,.45);background:var(--warn-soft)}
+.ps-impact{align-items:center}
+.ps-impact .pi-txt{flex:1;min-width:0}
+.pi-btn{flex:none}
+.ps-impact-wrap.open .ps-impact{border-bottom-left-radius:0;border-bottom-right-radius:0}
+.pi-list{border:1px solid var(--line);border-top:0;border-radius:0 0 6px 6px;background:var(--bg)}
+.pi-tabs{display:flex;gap:4px;padding:8px 10px 0;border-bottom:1px solid var(--line)}
+.pi-tabs button{display:inline-flex;align-items:center;gap:6px;padding:8px 12px;font-size:13px;color:var(--muted);border-bottom:2px solid transparent;margin-bottom:-1px}
+.pi-tabs button .ic{width:14px;height:14px}
+.pi-tabs button span{background:var(--pill);border-radius:9px;padding:0 7px;font-size:11.5px;font-weight:700;color:var(--text)}
+.pi-tabs button.on{color:var(--text);border-bottom-color:var(--accent)}
+.pi-help{display:flex;gap:8px;padding:10px 14px 0;font-size:12px;color:var(--muted)}
+.pi-help .ic{width:14px;height:14px;margin-top:1px;color:#b6bbff;flex:none}
+.pi-help b{color:var(--text);font-weight:500}
+.pi-rows{max-height:380px;overflow-y:auto;padding:6px 0}
+.pi-row{padding:9px 14px;border-bottom:1px solid var(--line)}
+.pi-row:last-child{border-bottom:0}
+.pi-h{display:flex;align-items:center;gap:10px}
+.pi-h .av{width:28px;height:28px;font-size:11px}
+.pi-n{flex:1;min-width:0}
+.pi-n b{font-weight:500;font-size:13.5px;display:block}
+.pi-n small{color:var(--muted);font-size:12px}
+.pi-tag{display:inline-flex;align-items:center;gap:4px;font-size:11px;font-weight:700;border-radius:4px;padding:2px 7px;white-space:nowrap}
+.pi-tag .ic{width:12px;height:12px}
+.pi-tag.ok{background:var(--ok-soft);color:var(--ok)} .pi-tag.part{background:var(--warn-soft);color:var(--warn)}
+.pi-tag.warn{background:var(--warn-soft);color:#f8c76a} .pi-tag.bad{background:var(--bad-soft);color:#f68b9a}
+.pi-prof{font-size:12px;font-weight:400}
+.pi-prof .ic{width:13px;height:13px}
+.pi-fails{list-style:none;margin:6px 0 0 38px;padding:0;display:flex;flex-direction:column;gap:4px;font-size:12.5px}
+.pi-fails li{display:flex;align-items:center;gap:6px;flex-wrap:wrap}
+.pi-fails li > .ic{width:13px;height:13px;flex:none}
+.pi-fix{font-size:12px;font-weight:400;margin-left:auto}
+.pi-fix .ic{width:13px;height:13px}
+.pi-empty{padding:16px 14px;color:var(--muted);font-size:13px}
+.pi-tag.ovr{background:var(--warn-soft);color:#f8c76a}
+.pi-ovr{height:28px;padding:0 10px;font-size:12px}
+.pi-ex{display:flex;align-items:flex-start;gap:6px;margin:6px 0 0 38px;font-size:12px;color:#f8c76a}
+.pi-ex .ic{width:13px;height:13px;margin-top:2px;flex:none}
+.pi-ex span{flex:1}
+.rqi.exempt .ic,.rq-list li.exempt .ic{color:#f8c76a}
+@media (max-width:640px){.pi-h{flex-wrap:wrap}.pi-fails{margin-left:0}}
 .ps-impact.low .ic{color:var(--warn)}
 .psr-form{margin-top:16px;border-top:1px solid var(--line);padding-top:6px}
 .psr-f{display:flex;flex-direction:column;gap:7px;padding:10px 0}
@@ -1392,34 +1432,44 @@ function payText(r){ return r.payMin!=null&&r.payMax!=null ? '$'+r.payMin+'–$'
 /* Check one guard against a site's requirements. Independent of any shift, so the
    Post Site screen can preview impact and the engine can reuse it. */
 function canOverride(r, key){ return !(r.noOverride||[]).includes(key); }
+/* Standing overrides approved on the Post Site screen: SITE_EXEMPT[siteId][guardId] =
+   { keys:['dist','skill:Access Control',...], conflicts:[{cat,req,status}], reason, note, by, at }
+   An approved key counts as met for that guard at that site (AI treats them as eligible).
+   Keys for no-override requirements are never honoured. */
+const SITE_EXEMPT = {};
+function exemptFor(siteId, gid){ return (SITE_EXEMPT[siteId]||{})[gid] || null; }
 function checkReq(g, siteId, r){
-  r = r || siteReq(siteId); const items=[], fails=[];
-  if(!hasReq(r)) return {configured:false, items, fails, met:0, total:0, partial:false, hard:[], soft:[]};
-  const fail = (key, cat, blockLabel, detail, req, status) => fails.push({key:'psr:'+key, cat, label:'Post site: '+req, blockLabel, detail, req, status, overridable:canOverride(r,key)});
+  r = r || siteReq(siteId); const items=[], fails=[], exempt=[];
+  if(!hasReq(r)) return {configured:false, items, fails, exempt, met:0, total:0, partial:false, hard:[], soft:[]};
+  const ex = exemptFor(siteId, g.id);
+  // returns true if this miss is covered by an approved standing override
+  const miss = (key, cat, blockLabel, detail, req, status) => {
+    const f = {key:'psr:'+key, cat, label:'Post site: '+req, blockLabel, detail, req, status, overridable:canOverride(r,key)};
+    if(ex && f.overridable && ex.keys.includes(key)){ exempt.push(f); return true; }
+    fails.push(f); return false; };
+  const item = (cat, real, waived, okDetail, failDetail) => items.push({cat, status: real ? 'fail' : waived ? 'exempt' : 'ok', detail: real||waived ? failDetail + (waived&&!real?' · override approved':'') : okDetail});
   const req = r.skills.filter(x=>x.level==='required').map(x=>x.name), pref = r.skills.filter(x=>x.level==='preferred').map(x=>x.name);
   if(req.length||pref.length){
     const mr = req.filter(k=>!g.skills.includes(k)), mp = pref.filter(k=>!g.skills.includes(k));
-    items.push({cat:'Skills', status: mr.length?'fail':mp.length?'partial':'ok',
-      detail: mr.length ? 'Missing required: '+mr.join(', ') : mp.length ? 'Has required'+(req.length?' ('+req.join(', ')+')':'')+'; missing preferred: '+mp.join(', ') : 'Has '+req.concat(pref).join(', ')});
-    mr.forEach(k=>fail('skill:'+k, 'Skills', 'Missing required skill', k, k+' skill', 'Missing'));
+    const real = mr.filter(k=>!miss('skill:'+k, 'Skills', 'Missing required skill', k, k+' skill', 'Missing'));
+    if(real.length || mr.length) item('Skills', real.length, mr.length-real.length, '', 'Missing required: '+mr.join(', '));
+    else items.push({cat:'Skills', status: mp.length?'partial':'ok', detail: mp.length ? 'Has required'+(req.length?' ('+req.join(', ')+')':'')+'; missing preferred: '+mp.join(', ') : 'Has '+req.concat(pref).join(', ')});
   }
-  if(r.licenses.length){ const m = r.licenses.filter(x=>!g.licenses.includes(x));
-    items.push({cat:'License', status:m.length?'fail':'ok', detail: m.length ? 'Missing: '+m.join(', ') : 'Holds '+r.licenses.join(', ')});
-    m.forEach(x=>fail('license:'+x, 'License', 'Missing license', x, x, 'Missing')); }
-  if(r.certifications.length){ const m = r.certifications.filter(x=>!g.certs.includes(x));
-    items.push({cat:'Certification', status:m.length?'fail':'ok', detail: m.length ? 'Missing: '+m.join(', ') : 'Holds '+r.certifications.join(', ')});
-    m.forEach(x=>fail('cert:'+x, 'Certification', 'Missing certification', x, x+' certification', 'Missing')); }
-  if(r.minExp!=null){ const ok = g.years>=r.minExp, yrs = g.years+' year'+(g.years===1?'':'s');
-    items.push({cat:'Experience', status:ok?'ok':'fail', detail: yrs+' (min '+r.minExp+')'});
-    if(!ok) fail('exp', 'Experience', 'Experience below minimum', yrs+' (min '+r.minExp+')', 'Minimum '+r.minExp+' year'+(r.minExp===1?'':'s')+' experience', 'Has '+yrs); }
-  if(r.maxDist!=null){ const d = distTo(g, siteId), ok = d<=r.maxDist;
-    items.push({cat:'Distance', status:ok?'ok':'fail', detail: d+' mi (max '+r.maxDist+')'});
-    if(!ok) fail('dist', 'Distance', 'Outside travel distance', d+' mi (max '+r.maxDist+')', 'Within '+r.maxDist+' miles of the site', d+' miles away'); }
-  if(r.payMin!=null || r.payMax!=null){ const ok = (r.payMin==null||g.rate>=r.payMin) && (r.payMax==null||g.rate<=r.payMax);
-    items.push({cat:'Pay rate', status:ok?'ok':'fail', detail: '$'+g.rate+'/hr ('+payText(r)+')'});
-    if(!ok) fail('pay', 'Pay rate', 'Pay rate outside range', '$'+g.rate+'/hr ('+payText(r)+')', 'Pay rate '+payText(r), '$'+g.rate+'/hr'); }
-  const met = items.filter(i=>i.status==='ok').length;
-  return {configured:true, items, fails, met, total:items.length, partial: !fails.length && items.some(i=>i.status==='partial'),
+  if(r.licenses.length){ const m = r.licenses.filter(x=>!g.licenses.includes(x)); const real = m.filter(x=>!miss('license:'+x, 'License', 'Missing license', x, x, 'Missing'));
+    item('License', real.length, m.length-real.length, 'Holds '+r.licenses.join(', '), 'Missing: '+m.join(', ')); }
+  if(r.certifications.length){ const m = r.certifications.filter(x=>!g.certs.includes(x)); const real = m.filter(x=>!miss('cert:'+x, 'Certification', 'Missing certification', x, x+' certification', 'Missing'));
+    item('Certification', real.length, m.length-real.length, 'Holds '+r.certifications.join(', '), 'Missing: '+m.join(', ')); }
+  if(r.minExp!=null){ const ok = g.years>=r.minExp, yrs = g.years+' year'+(g.years===1?'':'s'), d = yrs+' (min '+r.minExp+')';
+    const waived = !ok && miss('exp', 'Experience', 'Experience below minimum', d, 'Minimum '+r.minExp+' year'+(r.minExp===1?'':'s')+' experience', 'Has '+yrs);
+    item('Experience', !ok && !waived, waived, d, d); }
+  if(r.maxDist!=null){ const dd = distTo(g, siteId), ok = dd<=r.maxDist, d = dd+' mi (max '+r.maxDist+')';
+    const waived = !ok && miss('dist', 'Distance', 'Outside travel distance', d, 'Within '+r.maxDist+' miles of the site', dd+' miles away');
+    item('Distance', !ok && !waived, waived, d, d); }
+  if(r.payMin!=null || r.payMax!=null){ const ok = (r.payMin==null||g.rate>=r.payMin) && (r.payMax==null||g.rate<=r.payMax), d = '$'+g.rate+'/hr ('+payText(r)+')';
+    const waived = !ok && miss('pay', 'Pay rate', 'Pay rate outside range', d, 'Pay rate '+payText(r), '$'+g.rate+'/hr');
+    item('Pay rate', !ok && !waived, waived, d, d); }
+  const met = items.filter(i=>i.status==='ok'||i.status==='exempt').length;
+  return {configured:true, items, fails, exempt, met, total:items.length, partial: !fails.length && items.some(i=>i.status==='partial'),
     hard: fails.filter(f=>!f.overridable), soft: fails.filter(f=>f.overridable)};
 }
 /* Plain-language sentence for a guard's requirement conflicts, e.g.
@@ -1599,13 +1649,10 @@ function evaluate(g, sh, list, rules){
 
   // ---- warnings ----
   const warnings = [];
-  if(projected > ot) warnings.push({type:'Overtime risk', text:'Overtime risk: '+projected+'h projected this week (overtime after '+ot+'h)'});
-  else if(projected >= ot-4) warnings.push({type:'High weekly hours', text:'High weekly hours: '+projected+'h projected'});
   if(d > rules.travelWarn) warnings.push({type:'Long travel distance', text:'Long travel distance: '+d+' mi from home'});
   if(!g.prefShifts.includes(st)) warnings.push({type:'Preference mismatch', text:'Preference mismatch: prefers '+g.prefShifts.join(' / ')+' shifts'});
   if(avoid) warnings.push({type:'Preference mismatch', text:'Preference mismatch: asked not to work at '+site.name});
   if(minRest < rules.restWarn*60) warnings.push({type:'Short rest', text:'Short rest: '+hm(minRest)+' between this and the '+fmtShort(restWith.shift.date)+' '+restWith.shift.start+' shift'});
-  if(missSk.length) warnings.push({type:'Skills gap', text:'Skills gap: missing '+missSk.join(', ')});
   if(code==='C' && avPass) warnings.push({type:'On-call', text:'On-call only on '+DOWN[w]+'s — confirm with guard'});
 
   // ---- reasons ----
@@ -2030,7 +2077,7 @@ const BLOCK_TEXT = {
   'Outside travel distance': n=>`${n} guard${n>1?'s live':' lives'} beyond the maximum travel distance`,
   'Pay rate outside range': n=>`${n} guard${n>1?"s' pay rates are":"'s pay rate is"} outside the site's range`,
 };
-const REQ_ICON = {ok:'check', partial:'alert', fail:'xcirc'};
+const REQ_ICON = {ok:'check', partial:'alert', fail:'xcirc', exempt:'check'};
 function reqChip(ev){ const m=ev.reqMatch; if(!m||!m.configured) return '';
   const strict=m.hard&&m.hard.length, soft=m.fails.length&&!strict;
   return `<span class="rqc ${strict?'fail':soft||m.partial?'part':'ok'}" title="Post site requirements met: ${m.met} of ${m.total}${soft?' (override available)':strict?' (cannot be overridden)':m.partial?' (missing a preferred skill)':''}">${ic(strict?'xcirc':soft||m.partial?'alert':'check')}Req ${m.met}/${m.total}</span>`; }
@@ -2046,7 +2093,7 @@ function reqBlockHTML(ev, sh){
       <ul class="rq-list in">${m.items.map(i=>{ const f=m.fails.filter(x=>x.cat===i.cat);
         return `<li class="${i.status==='fail'?'fail':i.status}">${ic(REQ_ICON[i.status])}<b>${esc(i.cat)}</b><span>${esc(i.detail)}${f.some(x=>!x.overridable)?' <em class="ovt no">No override</em>':''}</span></li>`; }).join('')}</ul></div>`;
   }
-  return `<div class="rqb ${m.partial?'part':'ok'}"><div class="rqb-h"><b>${m.partial?'':ic('check')}Requirements Match: ${m.met}/${m.total}</b>${m.partial?'<span class="wc"> · partial (preferred skill missing)</span>':'<span class="okc"> · all post site requirements met</span>'}${edit}</div>
+  return `<div class="rqb ${m.partial?'part':'ok'}"><div class="rqb-h"><b>${m.partial?'':ic('check')}Requirements Match: ${m.met}/${m.total}</b>${m.exempt&&m.exempt.length?`<span class="wc"> · ${m.exempt.length} met by an approved override (${esc(m.exempt.map(f=>f.req).join(', '))})</span>`:m.partial?'<span class="wc"> · partial (preferred skill missing)</span>':'<span class="okc"> · all post site requirements met</span>'}${edit}</div>
     <div class="rqb-items">${m.items.map(i=>`<span class="rqi ${i.status}" title="${esc(i.detail)}">${ic(REQ_ICON[i.status])}${esc(i.cat)}</span>`).join('')}</div></div>`;
 }
 function reqDetailHTML(ev){ const m=ev.reqMatch; if(!m||!m.configured) return '';
@@ -2158,7 +2205,7 @@ function barHTML(){
     const n=S.selected.size;
     return `<div class="bbar ai"><div class="count">${n} shift${n===1?'':'s'} selected<small>Click Open or Vacant shifts to select them</small></div>
       <div class="acts"><button class="link" data-act="sel-all">Select all open/vacant</button><button class="link" data-act="rules">${ic('sliders')}Rules</button></div>
-      <div class="right"><button class="btn ghost" data-act="sel-cancel">Cancel</button><button class="btn primary" data-act="sel-find" ${n?'':'disabled'}>${ic('spark')} Find Guards with AI</button></div></div>`;
+      <div class="right"><button class="btn ghost" data-act="sel-cancel">Cancel</button><button class="btn primary" data-act="sel-find" ${n?'':'disabled'}>${ic('spark')} Continue</button></div></div>`;
   }
   if(S.mode==='multi'){
     const n=S.selected.size;
@@ -2428,8 +2475,8 @@ function drawerHTML(){
         `<div class="hr-grid">
           <div class="rule"><div class="rt"><b>Long travel distance</b><div class="ctl">Warn above <input class="field n num" type="number" min="1" max="60" id="w-travel" data-ch="rule-num" data-k="travelWarn" value="${r.travelWarn}"> miles from the site</div></div></div>
           <div class="rule"><div class="rt"><b>Short rest between shifts</b><div class="ctl">Warn when rest is under <input class="field n num" type="number" min="0" max="16" id="w-rest" data-ch="rule-num" data-k="restWarn" value="${r.restWarn}"> hours</div></div></div>
-          <div class="rule"><div class="rt"><b>Overtime risk and high weekly hours</b><small>Uses each guard’s contracted overtime threshold (40h full-time, 32h part-time).</small></div></div>
-          <div class="rule"><div class="rt"><b>Skills gap</b><small>Flags a recommended guard who is missing any skill the shift requires.</small></div></div></div>
+
+</div>
          <div class="guide">${ic('info')}<div><b>How the AI uses these rules</b><ol><li>Hard rules remove ineligible guards.</li><li>Scoring factors rank the remaining guards by weighted average.</li><li>Warnings flag risks but never block a recommendation.</li><li>The scheduler reviews, changes and publishes. AI never publishes.</li></ol></div></div>`),
       `<button class="btn sm outline" data-act="rules-reset">Reset to Default</button><div class="right"><button class="btn sm ghost" data-act="drawer-close">Cancel</button><button class="btn sm primary" data-act="rules-save">Save Rules</button></div>`);
   }
@@ -2538,7 +2585,8 @@ function applyRun(){
     const sh = shiftById(sid); const rd = rowData(sid); const ev = selEv(rd, gid); if(!ev) return;
     created.push({sh, gid, score:ev.score, manual: gid!==S.run.ai[sid], ai:S.run.ai[sid]});
   });
-  created.forEach(c=>{ const rec=S.overrides[c.sh.id]; if(rec && rec.gid===c.gid) c.sh.override=rec; else delete c.sh.override; Object.assign(c.sh, {status:'assigned', guardId:c.gid, published:false, ai:true, aiScore:c.score, aiRec:c.ai}); });
+  created.forEach(c=>{ const rec=S.overrides[c.sh.id]; const ex=exemptFor(c.sh.site, c.gid); const used=checkReq(guardById(c.gid), c.sh.site).exempt;
+    if(rec && rec.gid===c.gid) c.sh.override=rec; else if(ex && used.length) c.sh.override={gid:c.gid, guardName:guardById(c.gid).name, conflicts:used.map(f=>({cat:f.cat, req:f.req, status:f.status})), reason:ex.reason, note:ex.note, by:ex.by, at:ex.at, standing:true}; else delete c.sh.override; Object.assign(c.sh, {status:'assigned', guardId:c.gid, published:false, ai:true, aiScore:c.score, aiRec:c.ai}); });
   S.lastApplied = created.map(c=>c.sh.id);
   S.applied = (S.applied||[]).concat(S.lastApplied);
   const done = new Set(S.lastApplied);
@@ -2984,7 +3032,7 @@ function accBadge(id, r){
     return `<span class="rtag strong">${on} Active Rule${on===1?'':'s'}</span>${on<tot?`<span class="rtag warnb">${tot-on} off</span>`:''}${ch.length?`<span class="rtag">${ch.length} custom</span>`:''}`; }
   if(id==='factors'){ const act=activeFactors(r); const eq=act.every(f=>f.weight===act[0].weight);
     return `<span class="rtag strong">${act.length} Active Factor${act.length===1?'':'s'}</span>${act.length<r.factors.length?`<span class="rtag warnb">${r.factors.length-act.length} off</span>`:''}<span class="rtag ${eq?'ok':''}">${eq?'Equal weights':'Custom weights'}</span>`; }
-  return `<span class="rtag strong">4 Checks</span><span class="rtag">Travel &gt; ${r.travelWarn} mi · Rest &lt; ${r.restWarn}h</span>`;
+  return `<span class="rtag strong">2 Checks</span><span class="rtag">Travel &gt; ${r.travelWarn} mi · Rest &lt; ${r.restWarn}h</span>`;
 }
 function syncBadges(){ const r=S.drawer && S.drawer.draft; if(!r) return; ['hard','factors','warn'].forEach(id=>{ const el=document.getElementById('accb-'+id); if(el) el.innerHTML=accBadge(id,r); }); }
 A['acc'] = t => {
@@ -3125,9 +3173,37 @@ function reqImpact(r, siteId){
 }
 function impactHTML(r, siteId){
   const m=reqImpact(r, siteId), none=!hasReq(r);
-  return `<div class="ps-impact ${m.ok<3&&!none?'low':''}">${ic('team')}<div><b>${none?'All '+m.total+' active guards can be considered':m.ok+' of '+m.total+' active guards meet these requirements'}</b>
-    <small>${none?'No guard is filtered out for this post site. Scheduling rules still apply.':(m.ovr?m.ovr+' more can be assigned with a scheduler override · ':'')+m.reasons.slice(0,3).map(([k,n])=>n+' '+k.toLowerCase()).join(' · ')}${m.ok<3&&!none?' · Few guards qualify, so AI may not find a match for every shift.':''}</small></div></div>`;
+  const open = !none && S.ps && S.ps.impactOpen;
+  return `<div class="ps-impact-wrap ${open?'open':''}"><div class="ps-impact ${m.ok<3&&!none?'low':''}">${ic('team')}<div class="pi-txt"><b>${none?'All '+m.total+' active guards can be considered':m.ok+' of '+m.total+' active guards meet these requirements'}</b>
+    <small>${none?'No guard is filtered out for this post site. Scheduling rules still apply.':(m.ovr?m.ovr+' more can be assigned with a scheduler override · ':'')+m.reasons.slice(0,3).map(([k,n])=>n+' '+k.toLowerCase()).join(' · ')}${m.ok<3&&!none?' · Few guards qualify, so AI may not find a match for every shift.':''}</small></div>
+    ${none?'':`<button class="btn sm outline pi-btn" data-act="imp-toggle" aria-expanded="${!!open}">${ic(open?'chevU':'chevD')} ${open?'Hide guards':'View guards'}</button>`}</div>
+    ${open?impactListHTML(r, siteId):''}</div>`;
 }
+/* Guard-by-guard breakdown under the impact line: who passes, who needs attention and why */
+function impactListHTML(r, siteId){
+  const rows = activeGuards().map(g=>({g, m:checkReq(g, siteId, r)}));
+  const pass = rows.filter(x=>!x.m.fails.length).sort((a,b)=>a.g.name.localeCompare(b.g.name));
+  const attn = rows.filter(x=>x.m.fails.length).sort((a,b)=>(a.m.hard.length>0)-(b.m.hard.length>0) || a.m.fails.length-b.m.fails.length || a.g.name.localeCompare(b.g.name));
+  const tab = S.ps.impactTab || 'attn';
+  const fixable = f => /^psr:(skill|license|cert):/.test(f.key);
+  const row = x => { const g=x.g, m=x.m;
+    const ex = exemptFor(siteId, g.id);
+    const tag = !m.fails.length ? (m.exempt.length?`<span class="pi-tag ovr">${ic('check')}Passed · override approved</span>`:m.partial?`<span class="pi-tag part">${ic('alert')}Passed · preferred skill missing</span>`:`<span class="pi-tag ok">${ic('check')}Passed</span>`)
+      : m.hard.length ? `<span class="pi-tag bad">${ic('xcirc')}Not eligible</span>` : `<span class="pi-tag warn">${ic('alert')}Override needed</span>`;
+    return `<div class="pi-row"><div class="pi-h">${avatar(g)}<div class="pi-n"><b>${esc(g.name)}</b><small>${g.id} · ${esc(g.dept)} · ${distTo(g,siteId)} mi · $${g.rate}/hr · ${g.years} yr${g.years===1?'':'s'}</small></div>${tag}
+        <button class="link pi-prof" data-act="history" data-gid="${g.id}">${ic('team')}Profile</button>
+        ${m.fails.length && !m.hard.length && S.ps.mode!=='edit' ? `<button class="btn sm ovr-btn pi-ovr" data-act="site-ovr" data-gid="${g.id}">${ic('alert')} Override</button>` : ''}</div>
+      ${m.exempt.length?`<div class="pi-ex">${ic('check')}<span>Override approved for ${esc(m.exempt.map(f=>f.status==='Missing'?f.req:f.req.replace('Within ','within ').replace('Minimum ','minimum ')).join(', '))} · ${esc(ex.reason)}${ex.note?' (“'+esc(ex.note)+'”)':''} · ${esc(ex.by)}, ${esc(ex.at)}</span><button class="link pi-fix" data-act="site-ovr-remove" data-gid="${g.id}">Remove</button></div>`:''}
+      ${m.fails.length?`<ul class="pi-fails">${m.fails.map(f=>`<li>${ic('xcirc', f.overridable?'wc':'bc')}<span>${esc(f.status==='Missing'?'Missing '+f.req:f.req+': '+f.status)}${f.overridable?'':' <em class="ovt no">No override</em>'}</span>
+          ${!f.overridable&&m.fails.length?'':''}${fixable(f)?`<button class="link pi-fix" data-act="imp-fix" data-gid="${g.id}" data-key="${esc(f.key)}" title="Use this if the guard holds it but their profile is out of date">${ic('plusc')}Add to profile</button>`:''}</li>`).join('')}</ul>`:''}</div>`; };
+  const list = tab==='pass' ? pass : attn;
+  return `<div class="pi-list"><div class="pi-tabs" role="tablist">
+      <button role="tab" class="${tab==='pass'?'on':''}" aria-selected="${tab==='pass'}" data-act="imp-tab" data-t="pass">${ic('check')}Passed <span>${pass.length}</span></button>
+      <button role="tab" class="${tab==='attn'?'on':''}" aria-selected="${tab==='attn'}" data-act="imp-tab" data-t="attn">${ic('alert')}Needs attention <span>${attn.length}</span></button></div>
+    ${tab==='attn'&&attn.length?`<div class="pi-help">${ic('info')}<span>If a guard holds the missing skill, license or certification but it isn't on file, use <b>Add to profile</b>. If you're happy to use them here anyway, use <b>Override</b>: AI Scheduling will then treat them as eligible for this post site, and the approval is saved with every shift they get here. Guards marked <b>Not eligible</b> fail a requirement that can't be overridden.</span></div>`:''}
+    <div class="pi-rows">${list.length?list.map(row).join(''):`<div class="pi-empty">${tab==='pass'?'No guard meets every requirement yet.':'Every active guard meets these requirements.'}</div>`}</div></div>`;
+}
+function refreshImpact(){ const el=document.getElementById('psr-impact'); if(el && S.ps && S.ps.mode==='edit') el.innerHTML=impactHTML(S.ps.draft, S.ps.siteId); else render(); }
 /* ---------- Post Sites list ---------- */
 function postSitesHTML(){
   return `<div class="ps-list-head"><p>Scheduling requirements set here are applied by AI Scheduling when it recommends guards for each post site.</p></div>
@@ -3158,8 +3234,7 @@ function requirementsHTML(){
   else if(!hasReq(saved)) body = `<div class="psr-empty">${ic('sliders')}<div><b>No requirements configured</b><p>AI Scheduling considers every guard who passes the scheduling rules for this post site.</p><button class="btn primary" data-act="psr-edit">${ic('plusc')} Add Requirements</button></div></div>`;
   else body = reqViewHTML(saved);
   const confirm = p.confirmRemove ? `<div class="psr-confirm">${ic('alert')}<div><b>Remove all requirements for ${esc(site.name)}?</b><span>AI Scheduling will stop filtering guards for this post site. Shifts already assigned are not changed.</span></div><button class="btn sm ghost" data-act="psr-remove-cancel">Keep</button><button class="btn sm danger" data-act="psr-remove-ok">${ic('trash')} Remove</button></div>` : '';
-  return `<div class="psr" id="psr">${head}${confirm}${p.notice&&p.mode==='view'?noticeHTML(p.notice):''}${body}
-    <div class="psr-note">${ic('info')}<span><b>Post Site Requirements</b> decide who qualifies for this site. <b>AI Scheduling Rules</b> (Scheduler › AI Scheduling › Rules) decide how qualified guards are ranked. Each setting lives in one place only.</span></div></div>`;
+  return `<div class="psr" id="psr">${head}${confirm}${p.notice&&p.mode==='view'?noticeHTML(p.notice):''}${body}</div>`;
 }
 function ovTag(r, key){ return canOverride(r,key) ? `<span class="ovt yes" title="A scheduler can assign a guard who doesn't meet this, with a reason">Override allowed</span>` : `<span class="ovt no" title="Guards who don't meet this can't be assigned">${ic('xcirc')}No override</span>`; }
 function chipList(list, kind, r){
@@ -3175,7 +3250,7 @@ function reqViewHTML(r){
     ${row('Minimum experience', r.minExp!=null ? `<b>${r.minExp===5?'5+ years':r.minExp+' year'+(r.minExp===1?'':'s')}</b>${ovTag(r,'exp')}` : '<span class="muted">Not set</span>')}
     ${row('Max travel distance', r.maxDist!=null ? `<b>${r.maxDist} miles</b> <span class="muted">from guard's home</span>${ovTag(r,'dist')}` : '<span class="muted">Not set</span>')}
     ${impactHTML(r, S.ps.siteId)}
-    <div class="psr-meta">Last updated ${fmtShort(r.updatedAt||TODAY)}, 2026 by ${esc(r.updatedBy||'Kapil')}</div></div>`;
+</div>`;
 }
 function reqFormHTML(){
   const p=S.ps, d=p.draft, e=p.errors||{};
@@ -3268,6 +3343,12 @@ function saveImpact(siteId, removed){
 }
 Object.assign(A, {
   'noop': () => {},
+  'imp-toggle': () => { S.ps.impactOpen=!S.ps.impactOpen; refreshImpact(); },
+  'imp-tab': t => { S.ps.impactTab=t.dataset.t; refreshImpact(); },
+  'imp-fix': t => { const g=guardById(t.dataset.gid), m=t.dataset.key.match(/^psr:(skill|license|cert):(.+)$/); if(!g||!m) return;
+    const list = m[1]==='skill'?'skills':m[1]==='license'?'licenses':'certs', name=m[2];
+    if(!g[list].includes(name)) g[list] = g[list].concat(name);
+    S.reqVer++; refreshImpact(); toast(name+' added to '+g.name+'\'s profile.'); },
   'go-postsites': () => guardLeave(()=>{ S.screen='postsites'; S.ps=null; S.navOpen.clients=true; render(); window.scrollTo({top:0}); }),
   'open-postsite': (t,e) => { if(e && e.target.closest('button') && e.target.closest('button')!==t) return; openPostSite(t.dataset.site, !!t.dataset.req); },
   'ps-from-results': t => { S.returnTo='results'; S.runReqVer = S.reqVer; openPostSite(t.dataset.site, true); },
@@ -3334,6 +3415,7 @@ function openOverride(o){
 }
 function ovrHTML(){
   const o=S.ovr; if(!o) return '';
+  if(o.ctx==='site') return siteOvrHTML(o);
   const {sh, g, ev} = ovrEval(o), site=SITES[sh.site], f=ev.blocking.filter(b=>b.psr), other=ev.blocking.filter(b=>!b.psr);
   const ok = o.reason && (o.reason!=='Other' || (o.note||'').trim().length>=5);
   return `<div class="drawer-scrim ovr-scrim" data-act="ovr-cancel"></div><div class="rm-wrap ovr-wrap"><section class="rmodal ovr-modal" role="dialog" aria-modal="true" aria-labelledby="ovr-title">
@@ -3354,20 +3436,49 @@ function ovrHTML(){
     <div class="dft"><div class="right"><button class="btn sm ghost" data-act="ovr-cancel">Cancel</button><button class="btn sm ovr-btn solid" id="ovr-go" data-act="ovr-confirm" ${ok?'':'aria-disabled="true"'}>${ic('alert')} Override &amp; Assign</button></div></div>
   </section></div>`;
 }
+function siteOvrHTML(o){
+  const g=guardById(o.gid), site=SITES[o.siteId], m=checkReq(g, o.siteId), f=m.soft;
+  const ok = o.reason && (o.reason!=='Other' || (o.note||'').trim().length>=5);
+  return `<div class="drawer-scrim ovr-scrim" data-act="ovr-cancel"></div><div class="rm-wrap ovr-wrap"><section class="rmodal ovr-modal" role="dialog" aria-modal="true" aria-labelledby="ovr-title">
+    <div class="dhd"><div><h3 id="ovr-title">Override Post Site Requirement</h3><p>This guard does not meet one or more requirements configured for this post site.</p></div><button class="x" data-act="ovr-cancel" aria-label="Close">${ic('x')}</button></div>
+    <div class="dbd">
+      <div class="ovr-facts"><span>Guard</span><b>${esc(g.name)} <span class="muted">· ${g.id}</span></b><span>Post Site</span><b>${esc(site.name)}</b><span>Applies to</span><b>All shifts at this post site, until removed</b></div>
+      <h5 class="rv-h">Requirement conflict</h5>
+      <table class="ovr-table"><thead><tr><th>Post site requirement</th><th>Guard status</th></tr></thead><tbody>
+        ${f.map(b=>`<tr><td>${ic('xcirc','bc')}${esc(b.req)}</td><td class="bc">${esc(b.status==='Missing'?'Missing '+b.req:b.status)}</td></tr>`).join('')}</tbody></table>
+      <div class="ovr-say">${ic('alert')}<span>${esc(conflictSentence(g.name, f))}</span></div>
+      <p class="ovr-p">AI Scheduling will treat ${esc(g.name.split(' ')[0])} as eligible for ${esc(site.name)}. Each shift they're assigned here will show a requirement override with this reason. You can remove the override at any time.</p>
+      <div class="ovr-form"><label for="ovr-reason">Override reason <span class="bc">*</span></label>
+        <select class="field ${o.err&&!o.reason?'bad':''}" id="ovr-reason" data-ch="ovr-reason"><option value="">Select reason</option>${OVR_REASONS.map(r=>`<option ${o.reason===r?'selected':''}>${r}</option>`).join('')}</select>
+        ${o.reason==='Other'?`<label for="ovr-note">Reason <span class="bc">*</span></label><textarea class="field" id="ovr-note" data-in="ovr-note" rows="3" maxlength="240" placeholder="Explain why this guard can work here">${esc(o.note||'')}</textarea>`:''}
+        <div class="psr-err" id="ovr-err">${esc(o.err||'')}</div></div>
+    </div>
+    <div class="dft"><div class="right"><button class="btn sm ghost" data-act="ovr-cancel">Cancel</button><button class="btn sm ovr-btn solid" id="ovr-go" data-act="ovr-confirm" ${ok?'':'aria-disabled="true"'}>${ic('alert')} Approve Override</button></div></div>
+  </section></div>`;
+}
 function renderOvr(){ const el=document.getElementById('ovr'); if(el) el.innerHTML=ovrHTML(); }
 function ovrInfoHTML(sh){
   const o=sh.override, site=SITES[sh.site];
   return `<div class="ovr-facts"><span>Guard</span><b>${esc(o.guardName)}</b><span>Shift</span><b>${fmtDay(sh.date)} · ${sh.start} – ${sh.end}</b><span>Post Site</span><b>${esc(site.name)} · ${esc(sh.post)}</b><span>Status</span><b>${sh.published?'Published':'Unpublished'}</b></div>
     <h5 class="rv-h">Requirement not met</h5>
     <table class="ovr-table"><thead><tr><th>Post site requirement</th><th>Guard's actual status</th></tr></thead><tbody>${o.conflicts.map(c=>`<tr><td>${esc(c.req)}</td><td class="bc">${esc(c.status==='Missing'?'Missing '+c.req:c.status)}</td></tr>`).join('')}</tbody></table>
+    ${o.standing?`<div class="note">${ic('info')}<span>Standing override approved on the post site for this guard. It applies to all their shifts here until removed.</span></div>`:''}
     <div class="ovr-facts" style="margin-top:14px"><span>Overridden by</span><b>${esc(o.by)}</b><span>Reason</span><b>${esc(o.reason)}${o.note?`<span class="ovr-note">“${esc(o.note)}”</span>`:''}</b><span>Date / time</span><b>${esc(o.at)}</b></div>`;
 }
 Object.assign(A, {
   'ovr-open': (t,e) => { if(e) e.stopPropagation(); openOverride({ctx:'results', sid:t.dataset.sid, gid:t.dataset.gid}); },
+  'site-ovr': t => { S.ovr = {ctx:'site', siteId:S.ps.siteId, gid:t.dataset.gid, reason:'', note:'', err:''}; renderOvr(); const sel=document.getElementById('ovr-reason'); if(sel) sel.focus(); },
+  'site-ovr-remove': t => { const g=guardById(t.dataset.gid), site=SITES[S.ps.siteId]; if(SITE_EXEMPT[S.ps.siteId]) delete SITE_EXEMPT[S.ps.siteId][t.dataset.gid]; S.reqVer++; refreshImpact(); toast('Override removed. '+g.name+' needs attention again for '+site.name+'.','info'); },
   'ovr-cancel': (t,e) => { if(t.classList.contains('drawer-scrim') && e.target!==t) return; const back = S.ovr && S.ovr.ctx; S.ovr=null; renderOvr(); if(back==='results') render(); },
   'ovr-confirm': () => { const o=S.ovr;
     if(!o.reason){ o.err='Select a reason for the override.'; renderOvr(); document.getElementById('ovr-reason').focus(); return; }
     if(o.reason==='Other' && (o.note||'').trim().length<5){ o.err='Describe the reason (at least 5 characters).'; renderOvr(); const n=document.getElementById('ovr-note'); if(n) n.focus(); return; }
+    if(o.ctx==='site'){ const g=guardById(o.gid), m=checkReq(g, o.siteId), site=SITES[o.siteId];
+      SITE_EXEMPT[o.siteId] = SITE_EXEMPT[o.siteId] || {};
+      const prev = exemptFor(o.siteId, o.gid);
+      SITE_EXEMPT[o.siteId][o.gid] = {keys:(prev?prev.keys:[]).concat(m.soft.map(f=>f.key.replace(/^psr:/,''))), conflicts:(prev?prev.conflicts:[]).concat(m.soft.map(f=>({cat:f.cat, req:f.req, status:f.status}))),
+        reason:o.reason, note:o.reason==='Other'?o.note.trim():'', by:'Kapil', at:nowStamp(), standing:true};
+      S.ovr=null; renderOvr(); S.reqVer++; refreshImpact(); toast('Override approved: '+g.name+' can now be scheduled at '+site.name+'.','alert'); return; }
     const {g, ev} = ovrEval(o);
     const rec = {gid:o.gid, guardName:g.name, conflicts:ev.blocking.filter(b=>b.psr).map(b=>({cat:b.cat||'', req:b.req, status:b.status})), reason:o.reason, note:o.reason==='Other'?o.note.trim():'', by:'Kapil', at:nowStamp()};
     S.ovr=null; renderOvr();
