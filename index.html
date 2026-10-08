@@ -2244,7 +2244,6 @@ function detailHTML(sid, rd){
         return `<div class="tier-h">${tierBadge(t)}<span>${list.length} guard${list.length===1?'':'s'} · ${TIERS[t].range}</span></div>${list.map(optRow).join('')}`; }).join('')}
       <div class="opt ${!gid?'on':''}" data-act="pick-guard" data-sid="${sid}" data-gid="" role="radio" aria-checked="${!gid}" tabindex="0"><span class="radio"></span><div class="ot"><b>Leave shift ${sh.status==='open'?'open':'vacant'}</b><small>Ignore the recommendation for now</small></div></div>
       ${rd.conflicts.length?`<div class="tier-h conf-h"><span class="tbadge t-ovr">${ic('alert')}Requirement conflict</span><span>${rd.conflicts.length} guard${rd.conflicts.length===1?'':'s'} · can be assigned with an override</span></div>${rd.conflicts.map(confRow).join('')}`:''}
-      ${rd.notEligible.length?`<button class="link ne-toggle" data-act="toggle-excl" data-id="${sid}" aria-expanded="${S.showExcl.has(sid)}">${ic('xcirc')}${rd.notEligible.length} guard${rd.notEligible.length===1?'':'s'} not eligible · ${S.showExcl.has(sid)?'Hide':'Show'} reasons</button>${S.showExcl.has(sid)?excludedTable({excluded:rd.notEligible}):''}`:''}
     </div>
     <div class="dpane why-pane ${S.fadeKey===sid?'fade':''}">
       <h5>${ic('info')}Why is this guard ${isAIfocus?'recommended':'ranked here'}?</h5>
