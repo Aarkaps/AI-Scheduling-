@@ -110,6 +110,18 @@ input,select{font:inherit;color:var(--text)}
 .btn.ok{background:#1f9d6c;color:#fff}
 .btn.ok:hover{background:#25b27b}
 .btn.danger{background:#c6435a;color:#fff}
+/* Confirm Action dialog */
+.modal.cfa{width:min(700px,100%)}
+.cfa-body{display:flex;gap:22px;align-items:flex-start;padding:30px 32px 34px}
+.cfa-ic{width:54px;height:54px;border-radius:50%;background:#dc2626;color:#fff;display:grid;place-items:center;flex:none}
+.cfa-ic .ic{width:28px;height:28px;stroke-width:2.2}
+.cfa-body h3{margin:4px 0 8px;font-size:20px;font-weight:700}
+.cfa-body p{margin:0;color:var(--muted);font-size:15px}
+.cfa-ft{display:flex;justify-content:flex-end;gap:14px;padding:20px 28px;background:rgba(0,0,0,.12);border-top:1px solid var(--line)}
+.btn.cfa-cancel{background:transparent;color:#8b9cf4;box-shadow:inset 0 0 0 1px #5b6478;height:50px;padding:0 18px;font-weight:600;border-radius:5px}
+.btn.cfa-cancel:hover{background:var(--panel-2)}
+.btn.cfa-ok{background:#a9c7fb;color:#13203b;height:50px;padding:0 26px;font-size:16px;border-radius:5px}
+.btn.cfa-ok:hover{background:#bdd4fc}
 .link{color:var(--accent);font-weight:500;display:inline-flex;align-items:center;gap:6px}
 .link:hover{text-decoration:underline}
 .link .ic{width:16px;height:16px}
@@ -824,6 +836,45 @@ table.hist td{padding:8px 6px;border-bottom:1px solid var(--line);vertical-align
 .opt .ot b .tbadge{font-size:10px;padding:2px 6px}
 .opt .ot small{margin-top:3px}
 
+/* ---- Post Sites list (matches GuardsPro list pages) ---- */
+.psl-new{margin-left:auto;display:inline-flex;align-items:center;gap:10px;height:50px;padding:0 20px;border-radius:25px;background:#6f78ef;color:#fff;font-weight:700;font-size:15px}
+.psl-new:hover{background:#7f87f5}
+.psl-new .ic{width:20px;height:20px}
+.psl{margin:-24px -25px 0}
+.psl-bar{display:flex;align-items:center;gap:16px;padding:20px 32px;border-bottom:1px solid var(--line);flex-wrap:wrap}
+.psl-action{display:inline-flex;align-items:center;justify-content:space-between;gap:28px;height:50px;min-width:150px;padding:0 20px 0 26px;border-radius:25px;box-shadow:inset 0 0 0 1px #4b5468;font-weight:700;font-size:15px}
+.psl-action .ic{width:18px;height:18px;color:var(--muted)}
+.psl-right{margin-left:auto;display:flex;align-items:center;gap:20px}
+.psl-search{display:flex;align-items:center;gap:12px;height:50px;width:312px;max-width:100%;padding:0 16px;border-radius:25px;box-shadow:inset 0 0 0 1px #4b5468;cursor:text}
+.psl-search .ic{width:22px;height:22px;color:var(--muted)}
+.psl-search input{flex:1;min-width:0;background:transparent;border:0;outline:0;color:var(--text);font:inherit;font-size:15px}
+.psl-search input::placeholder{color:var(--muted)}
+.psl-search:focus-within{box-shadow:inset 0 0 0 2px var(--accent)}
+.psl-filters{display:inline-flex;align-items:center;gap:8px;height:50px;padding:0 20px;border-radius:25px;background:var(--pill);font-weight:700;font-size:15px}
+.psl-filters .ic{width:18px;height:18px}
+.psl-more .ic{width:22px;height:22px}
+.psl-table{overflow-x:auto}
+.psl-table table{width:100%;border-collapse:collapse;min-width:820px}
+.psl-table th{text-align:left;font-weight:700;font-size:17px;padding:22px 16px;background:#1b2537;border-bottom:1px solid var(--line)}
+.psl-table td{padding:22px 16px;font-size:16px;background:#1f2838;border-bottom:1px solid var(--line)}
+.psl-table tr.click:hover td{background:#253046}
+.psl-cb{width:76px;padding-left:24px !important}
+.psl-cb input{width:22px;height:22px;accent-color:#fff;margin:0;cursor:pointer}
+.psl-active{color:#22c55e;font-weight:600}
+.psl-kebab{width:80px;position:relative}
+.psl-kebab .kebab .ic{width:22px;height:22px}
+.psl-pop{position:absolute;right:24px;top:56px;z-index:20;min-width:240px;background:#fff;color:#1f2937;border-radius:6px;box-shadow:0 10px 30px rgba(0,0,0,.4);padding:6px 0;display:flex;flex-direction:column}
+.psl-pop button{display:flex;align-items:center;gap:10px;padding:10px 16px;text-align:left;font-size:14px;color:#1f2937}
+.psl-pop button:hover{background:#eef1f7}
+.psl-pop .ic{width:16px;height:16px;color:#4b5563}
+.psl-empty{text-align:center;color:var(--muted);padding:28px !important}
+.psl-foot{display:flex;align-items:center;justify-content:flex-end;gap:18px;padding:20px 28px;background:#1f2838;border-bottom:1px solid var(--line);font-size:17px}
+.psl-pp{height:50px;width:105px;font-size:17px}
+.psl-count{margin:0 14px}
+.psl-pg{width:40px;height:40px;display:grid;place-items:center;color:var(--muted)}
+.psl-pg:disabled{opacity:.5;cursor:default}
+.psl-pg .ic{width:22px;height:22px}
+@media (max-width:760px){.psl{margin:0}.psl-right{margin-left:0;width:100%;flex-wrap:wrap}.psl-search{flex:1}.psl-foot{flex-wrap:wrap}}
 /* ---- Post Sites ---- */
 .muted{color:var(--muted)} .sm{font-size:12.5px}
 .ps-addr{color:var(--dim);font-size:13px;margin-left:6px}
@@ -891,8 +942,28 @@ table.hist td{padding:8px 6px;border-bottom:1px solid var(--line);vertical-align
 .pi-help{display:flex;gap:8px;padding:10px 14px 0;font-size:12px;color:var(--muted)}
 .pi-help .ic{width:14px;height:14px;margin-top:1px;color:#b6bbff;flex:none}
 .pi-help b{color:var(--text);font-weight:500}
-.pi-rows{max-height:380px;overflow-y:auto;padding:6px 0}
-.pi-row{padding:9px 14px;border-bottom:1px solid var(--line)}
+.pi-rows{padding:2px 0}
+.pi-row{display:grid;grid-template-columns:32px minmax(0,1fr) auto;gap:4px 12px;align-items:center;padding:12px 16px;border-bottom:1px solid var(--line)}
+.pi-row > .av{width:32px;height:32px;font-size:11.5px;align-self:start;margin-top:2px}
+.pi-info{min-width:0}
+.pi-name{display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+.pi-name b{font-weight:500;font-size:14px}
+.pi-info > small{display:block;color:var(--muted);font-size:12px;margin-top:1px}
+.pi-info .pi-fails{margin:7px 0 0;display:grid;grid-template-columns:1fr;gap:4px}
+.pi-info .pi-fails li{display:flex;align-items:center;gap:7px}
+.pi-info .pi-fails li .ovt{margin-left:4px}
+.pi-info .pi-ex{margin:7px 0 0}
+.pi-act{position:relative;justify-self:end}
+.pi-btn2{min-width:108px;justify-content:space-between}
+.pi-btn2 .ic{width:14px;height:14px}
+.pi-pop{position:absolute;right:0;top:calc(100% + 6px);z-index:30;width:300px;background:#fff;color:#1f2937;border-radius:6px;box-shadow:0 10px 30px rgba(0,0,0,.45);padding:6px 0;display:flex;flex-direction:column}
+.pi-pop button{display:flex;align-items:flex-start;gap:10px;padding:9px 14px;text-align:left;color:#1f2937}
+.pi-pop button:hover{background:#eef1f7}
+.pi-pop button > .ic{width:16px;height:16px;margin-top:2px;color:#4b5563;flex:none}
+.pi-pop b{display:block;font-weight:600;font-size:13.5px}
+.pi-pop small{display:block;font-size:12px;color:#6b7280;margin-top:1px}
+.pi-rows{overflow:visible}
+@media (max-width:640px){.pi-row{grid-template-columns:32px 1fr}.pi-act{grid-column:2;justify-self:start}}
 .pi-row:last-child{border-bottom:0}
 .pi-h{display:flex;align-items:center;gap:10px}
 .pi-h .av{width:28px;height:28px;font-size:11px}
@@ -909,6 +980,7 @@ table.hist td{padding:8px 6px;border-bottom:1px solid var(--line);vertical-align
 .pi-fails li{display:flex;align-items:center;gap:6px;flex-wrap:wrap}
 .pi-fails li > .ic{width:13px;height:13px;flex:none}
 .pi-fix{font-size:12px;font-weight:400;margin-left:auto}
+.pi-fixrow{display:flex;justify-content:flex-end;margin-top:4px}
 .pi-fix .ic{width:13px;height:13px}
 .pi-empty{padding:16px 14px;color:var(--muted);font-size:13px}
 .pi-tag.ovr{background:var(--warn-soft);color:#f8c76a}
@@ -1934,7 +2006,7 @@ function bannerHTML(){
   const n = unpubAI().length;
   let h = '';
   if(n) h += `<div class="banner unpub">${ic('bot')}<div class="msg"><b>AI assignments have been created and are currently unpublished.</b><span>${n} unpublished AI assignment${n>1?'s':''}. Guards are not notified until you publish. Review, change or unassign anything first.</span></div>
-      <button class="btn ghost" data-act="banner-review">Review Schedule</button><button class="btn primary" data-act="banner-publish">${ic('up')} Publish</button></div>`;
+      <button class="btn ghost" data-act="banner-review">Review Schedule</button><button class="btn ghost" data-act="banner-publish">${ic('up')} Publish</button></div>`;
   else if(S.banner && S.banner.type==='published') h += `<div class="banner pub">${ic('check')}<div class="msg"><b>${S.banner.n} AI assignment${S.banner.n>1?'s':''} published.</b><span>Status changed from Unpublished to Published. Assigned guards have been notified.</span></div><button class="x" data-act="banner-dismiss" aria-label="Dismiss">${ic('x')}</button></div>`;
   if(S.aiOnly) h += `<div class="chipbar"><span class="chip">${ic('spark')} Showing AI assignments only <button class="x" style="width:22px;height:22px" data-act="aionly-off" aria-label="Show all">${ic('x')}</button></span></div>`;
   return h;
@@ -2199,7 +2271,7 @@ function barHTML(){
     const st = resultStats();
     const left = st.total - st.ready;
     return `<div class="bbar ai"><div class="count">${st.ready} of ${st.total} shift${st.total===1?'':'s'} selected<small>${st.ready?`${left?left+' not selected will stay as they are · ':''}Approve saves as Unpublished, Publish notifies guards`:'Tick the shifts you want to approve or publish'}</small></div>
-      <div class="right"><button class="btn outline" data-act="apply-open" data-pub="0" ${st.ready?'':'disabled'}>${ic('check')} Approve${st.ready?' ('+st.ready+')':''}</button><button class="btn ok" data-act="apply-open" data-pub="1" ${st.ready?'':'disabled'}>${ic('up')} Publish${st.ready?' ('+st.ready+')':''}</button></div></div>`;
+      <div class="right"><button class="btn outline" data-act="apply-open" data-pub="0" ${st.ready?'':'disabled'}>${ic('check')} Approve${st.ready?' ('+st.ready+')':''}</button><button class="btn outline" data-act="apply-open" data-pub="1" ${st.ready?'':'disabled'}>${ic('up')} Publish${st.ready?' ('+st.ready+')':''}</button></div></div>`;
   }
   if(S.mode==='ai-select'){
     const n=S.selected.size;
@@ -2294,6 +2366,8 @@ function rulesSummary(){
 function modalHTML(){
   const m = S.modal; if(!m) return '';
   const wrap = (inner, cls='') => `<div class="scrim" data-act="scrim"><div class="modal ${cls}" role="dialog" aria-modal="true">${inner}</div></div>`;
+  const confirmAction = (msg, act) => wrap(`<div class="cfa-body"><span class="cfa-ic">${ic('alert')}</span><div><h3 id="cfa-title">Confirm Action</h3><p>${msg}</p></div></div>
+      <div class="cfa-ft"><button class="btn cfa-cancel" data-act="modal-close">Cancel</button><button class="btn cfa-ok" data-act="${act}" autofocus>Confirm</button></div>`, 'cfa');
   const head = (t, sub, eyebrow, closable=true) => `<div class="mhd"><div>${eyebrow?`<div class="eyebrow">${ic('spark')}${eyebrow}</div>`:''}<h3>${t}</h3>${sub?`<p>${sub}</p>`:''}</div>${closable?`<button class="x" data-act="modal-close" aria-label="Close">${ic('x')}</button>`:''}</div>`;
   if(m.type==='all'){
     const [va,vb]=viewRange(), custom=m.scope==='range';
@@ -2326,6 +2400,7 @@ function modalHTML(){
     const st = resultStats(); let warnN=0, ovN=0;
     S.run.shiftIds.forEach(sid=>{ const gid=selectedFor(sid); if(!gid || !S.pick.has(sid)) return; const rdx=rowData(sid), ev=selEv(rdx,gid); if(!ev) return; if(rdx.override&&rdx.override===ev) ovN++; if(ev.warnings.length) warnN++; });
     const P = !!m.publish;
+    if(P) return confirmAction(`Are you sure you want to publish ${st.ready===1?'the shift':'the '+st.ready+' shifts'}?`, 'apply-confirm');
     return wrap(head(P?'Publish AI Recommendations?':'Approve AI Recommendations?', '', '')+`<div class="mbd">
       <div class="bigcount"><b>${st.ready}</b><span>selected shift${st.ready===1?'':'s'} will be ${P?'assigned and published':'assigned'}</span></div>
       <div class="confirm-list">
@@ -2342,9 +2417,8 @@ function modalHTML(){
       ${m.left?`<p style="color:var(--muted);margin:12px auto 0;max-width:42ch">${m.left} shift${m.left===1?' is':'s are'} still waiting on the results page.</p>`:''}</div>
       <div class="mft" style="justify-content:center">${m.left?`<button class="btn ghost" data-act="applied-done">Go to Scheduler</button><button class="btn primary" data-act="applied-back">Back to Results (${m.left} left)</button>`:`<button class="btn primary" data-act="applied-done">Return to Scheduler</button>`}</div>`);
   if(m.type==='publish'){
-    const list = m.ids.map(shiftById);
-    return wrap(head('Publish '+list.length+' assignment'+(list.length===1?'':'s')+'?', 'Status changes from Unpublished to Published and assigned guards are notified.')+`<div class="mbd"><div class="minilist">${list.map(s=>`<div class="r"><span class="num">${fmtDay(s.date)}</span><span class="num m2">${s.start}–${s.end}</span><span class="m">${esc(guardById(s.guardId).name)} · ${esc(SITES[s.site].name)}</span>${s.ai?'<span class="mini-tag ai">AI</span>':'<span></span>'}</div>`).join('')}</div></div>
-      <div class="mft"><button class="btn ghost" data-act="modal-close">Cancel</button><button class="btn ok" data-act="publish-confirm">${ic('up')} Publish</button></div>`);
+    const n=m.ids.length;
+    return confirmAction(`Are you sure you want to publish ${n===1?'the shift':'the '+n+' shifts'}?`, 'publish-confirm');
   }
   if(m.type==='delete'){
     return wrap(head('Delete '+m.ids.length+' shift'+(m.ids.length===1?'':'s')+'?', 'This removes the shift from the schedule. This cannot be undone.')+`<div class="mft"><button class="btn ghost" data-act="modal-close">Cancel</button><button class="btn danger" data-act="delete-confirm">${ic('trash')} Delete</button></div>`);
@@ -2525,7 +2599,7 @@ function render(){
   app.classList.toggle('mode-ai', S.mode==='ai-select');
   renderShell();
   if(S.screen==='postsites'){
-    document.getElementById('pagehead').innerHTML = `<h1>Post Sites</h1>`;
+    document.getElementById('pagehead').innerHTML = `<h1>Post Sites</h1><button class="psl-new" data-act="navtoast" data-name="New Post Site">${ic('plusc')} New Post Site</button>`;
     content.innerHTML = postSitesHTML();
   } else if(S.screen==='postsite'){
     const site=SITES[S.ps.siteId];
@@ -2768,7 +2842,7 @@ document.addEventListener('click', e => {
     if(!keep){ S.menu=null; renderOverlays(); }
   }
   if(!t) return;
-  if(e.target.closest('.rsel')) return; // row checkbox: let the browser tick it, the change handler does the rest
+  if(e.target.closest('.rsel') || e.target.closest('.psl-cb')) return; // row checkbox: let the browser tick it, the change handler does the rest
   const fn = A[t.dataset.act]; if(fn){ if(t.dataset.act!=='scrim') e.preventDefault(); fn(t, e); }
 });
 document.addEventListener('change', e => { const t=e.target.closest('[data-ch]'); if(t && CH[t.dataset.ch]) CH[t.dataset.ch](t, e); });
@@ -3188,31 +3262,67 @@ function impactListHTML(r, siteId){
   const fixable = f => /^psr:(skill|license|cert):/.test(f.key);
   const row = x => { const g=x.g, m=x.m;
     const ex = exemptFor(siteId, g.id);
-    const tag = !m.fails.length ? (m.exempt.length?`<span class="pi-tag ovr">${ic('check')}Passed · override approved</span>`:m.partial?`<span class="pi-tag part">${ic('alert')}Passed · preferred skill missing</span>`:`<span class="pi-tag ok">${ic('check')}Passed</span>`)
-      : m.hard.length ? `<span class="pi-tag bad">${ic('xcirc')}Not eligible</span>` : `<span class="pi-tag warn">${ic('alert')}Override needed</span>`;
-    return `<div class="pi-row"><div class="pi-h">${avatar(g)}<div class="pi-n"><b>${esc(g.name)}</b><small>${g.id} · ${esc(g.dept)} · ${distTo(g,siteId)} mi · $${g.rate}/hr · ${g.years} yr${g.years===1?'':'s'}</small></div>${tag}
-        <button class="link pi-prof" data-act="history" data-gid="${g.id}">${ic('team')}Profile</button>
-        ${m.fails.length && !m.hard.length && S.ps.mode!=='edit' ? `<button class="btn sm ovr-btn pi-ovr" data-act="site-ovr" data-gid="${g.id}">${ic('alert')} Override</button>` : ''}</div>
-      ${m.exempt.length?`<div class="pi-ex">${ic('check')}<span>Override approved for ${esc(m.exempt.map(f=>f.status==='Missing'?f.req:f.req.replace('Within ','within ').replace('Minimum ','minimum ')).join(', '))} · ${esc(ex.reason)}${ex.note?' (“'+esc(ex.note)+'”)':''} · ${esc(ex.by)}, ${esc(ex.at)}</span><button class="link pi-fix" data-act="site-ovr-remove" data-gid="${g.id}">Remove</button></div>`:''}
-      ${m.fails.length?`<ul class="pi-fails">${m.fails.map(f=>`<li>${ic('xcirc', f.overridable?'wc':'bc')}<span>${esc(f.status==='Missing'?'Missing '+f.req:f.req+': '+f.status)}${f.overridable?'':' <em class="ovt no">No override</em>'}</span>
-          ${!f.overridable&&m.fails.length?'':''}${fixable(f)?`<button class="link pi-fix" data-act="imp-fix" data-gid="${g.id}" data-key="${esc(f.key)}" title="Use this if the guard holds it but their profile is out of date">${ic('plusc')}Add to profile</button>`:''}</li>`).join('')}</ul>`:''}</div>`; };
+    const tag = !m.fails.length ? (m.exempt.length?`<span class="pi-tag ovr">${ic('check')}Override approved</span>`:m.partial?`<span class="pi-tag part">${ic('alert')}Preferred skill missing</span>`:'')
+      : m.hard.length ? `<span class="pi-tag bad">${ic('xcirc')}Not eligible</span>` : '';
+    const fx = m.fails.filter(fixable), canOv = m.fails.length && !m.hard.length && S.ps.mode!=='edit';
+    const items = [];
+    if(fx.length) items.push(`<button role="menuitem" data-act="imp-fix" data-gid="${g.id}" data-keys="${esc(fx.map(f=>f.key).join('|'))}">${ic('plusc')}<span><b>Add missing to profile</b><small>${esc(fx.map(f=>f.status==='Missing'?f.req:f.detail).join(', '))}</small></span></button>`);
+    if(canOv) items.push(`<button role="menuitem" data-act="site-ovr" data-gid="${g.id}">${ic('alert')}<span><b>Override for this post site</b><small>Approve with a reason. AI treats them as eligible here.</small></span></button>`);
+    if(m.exempt.length && S.ps.mode!=='edit') items.push(`<button role="menuitem" data-act="site-ovr-remove" data-gid="${g.id}">${ic('x')}<span><b>Remove override</b><small>They'll need attention again</small></span></button>`);
+    items.push(`<button role="menuitem" data-act="history" data-gid="${g.id}">${ic('team')}<span><b>View profile</b></span></button>`);
+    const open = S.ps.piMenu===g.id, primary = m.fails.length && (fx.length||canOv);
+    return `<div class="pi-row">${avatar(g)}
+      <div class="pi-info"><div class="pi-name"><b>${esc(g.name)}</b>${tag}</div>
+        <small>${g.id} · ${esc(g.dept)} · ${distTo(g,siteId)} mi · $${g.rate}/hr · ${g.years} yr${g.years===1?'':'s'}</small>
+        ${m.fails.length?`<ul class="pi-fails">${m.fails.map(f=>`<li>${ic('xcirc', f.overridable?'wc':'bc')}<span>${esc(f.status==='Missing'?'Missing '+f.req:f.cat+': '+f.detail)}</span>${f.overridable?'':'<em class="ovt no">No override</em>'}</li>`).join('')}</ul>`:''}
+        ${m.exempt.length?`<div class="pi-ex">${ic('check')}<span>Override approved for ${esc(m.exempt.map(f=>f.status==='Missing'?f.req:f.req.replace('Within ','within ').replace('Minimum ','minimum ')).join(', '))} · ${esc(ex.reason)}${ex.note?' (“'+esc(ex.note)+'”)':''} · ${esc(ex.by)}, ${esc(ex.at)}</span></div>`:''}</div>
+      <div class="pi-act"><button class="btn sm ${primary?'outline':'ghost'} pi-btn2" data-act="pi-menu" data-gid="${g.id}" aria-haspopup="menu" aria-expanded="${open}">${primary?'Resolve':'Actions'} ${ic(open?'chevU':'chevD')}</button>
+        ${open?`<div class="pi-pop" role="menu">${items.join('')}</div>`:''}</div></div>`; };
   const list = tab==='pass' ? pass : attn;
   return `<div class="pi-list"><div class="pi-tabs" role="tablist">
       <button role="tab" class="${tab==='pass'?'on':''}" aria-selected="${tab==='pass'}" data-act="imp-tab" data-t="pass">${ic('check')}Passed <span>${pass.length}</span></button>
       <button role="tab" class="${tab==='attn'?'on':''}" aria-selected="${tab==='attn'}" data-act="imp-tab" data-t="attn">${ic('alert')}Needs attention <span>${attn.length}</span></button></div>
-    ${tab==='attn'&&attn.length?`<div class="pi-help">${ic('info')}<span>If a guard holds the missing skill, license or certification but it isn't on file, use <b>Add to profile</b>. If you're happy to use them here anyway, use <b>Override</b>: AI Scheduling will then treat them as eligible for this post site, and the approval is saved with every shift they get here. Guards marked <b>Not eligible</b> fail a requirement that can't be overridden.</span></div>`:''}
+    ${tab==='attn'&&attn.length?`<div class="pi-help">${ic('info')}<span>Use <b>Resolve</b> on a guard to add missing skills, licenses or certifications to their profile, or to approve an override for this post site. Guards marked <b>Not eligible</b> fail a requirement that can't be overridden.</span></div>`:''}
     <div class="pi-rows">${list.length?list.map(row).join(''):`<div class="pi-empty">${tab==='pass'?'No guard meets every requirement yet.':'Every active guard meets these requirements.'}</div>`}</div></div>`;
 }
 function refreshImpact(){ const el=document.getElementById('psr-impact'); if(el && S.ps && S.ps.mode==='edit') el.innerHTML=impactHTML(S.ps.draft, S.ps.siteId); else render(); }
 /* ---------- Post Sites list ---------- */
+const SITE_CONTACT = {
+  ABC:{email:'security@pacificmall.com', phone:'(702) 555-0142'},
+  XYZ:{email:'operations@vegasmall.com', phone:'(702) 555-0187'},
+  RMP:{email:'facilities@riversidehealth.org', phone:'(702) 555-0119'},
+  HLW:{email:'warehouse@harborlogistics.com', phone:'(702) 555-0163'},
+  MCT:{email:'frontdesk@metroholdings.com', phone:'(702) 555-0125'},
+};
+function psListRows(){
+  const q=(S.psq||'').trim().toLowerCase();
+  return Object.values(SITES).filter(site=>!q || [site.name, SITE_CLIENT[site.id], (SITE_CONTACT[site.id]||{}).email, (SITE_CONTACT[site.id]||{}).phone].join(' ').toLowerCase().includes(q));
+}
+function psTbodyHTML(){
+  const rows=psListRows(), sel=S.psSel||(S.psSel=new Set());
+  if(!rows.length) return `<tr><td colspan="7" class="psl-empty">No post sites match “${esc(S.psq)}”.</td></tr>`;
+  return rows.map(site=>{ const c=SITE_CONTACT[site.id]||{}; const open=S.psMenu===site.id;
+    return `<tr class="click" data-act="open-postsite" data-site="${site.id}" tabindex="0">
+      <td class="psl-cb"><input type="checkbox" data-ch="psl-row" data-site="${site.id}" ${sel.has(site.id)?'checked':''} aria-label="Select ${esc(site.name)}"></td>
+      <td>${esc(site.name)}</td><td>${esc(SITE_CLIENT[site.id])}</td><td>${esc(c.email||'')}</td><td>${esc(c.phone||'')}</td>
+      <td><span class="psl-active">Active</span></td>
+      <td class="psl-kebab"><button class="kebab" data-act="psl-menu" data-site="${site.id}" aria-label="Actions for ${esc(site.name)}" aria-expanded="${open}">${ic('kebab')}</button>
+        ${open?`<div class="psl-pop" role="menu"><button role="menuitem" data-act="open-postsite" data-site="${site.id}">${ic('edit')}Edit</button><button role="menuitem" data-act="open-postsite" data-site="${site.id}" data-req="1">${ic('sliders')}Post Site Requirements</button><button role="menuitem" data-act="navtoast" data-name="Deactivate post site">${ic('xcirc')}Deactivate</button></div>`:''}</td></tr>`; }).join('');
+}
 function postSitesHTML(){
-  return `<div class="ps-list-head"><p>Scheduling requirements set here are applied by AI Scheduling when it recommends guards for each post site.</p></div>
-  <div class="tablewrap"><table class="grid ps-table"><thead><tr><th>Post Site</th><th>Client</th><th>Department</th><th>Scheduling Requirements</th><th>Open / Vacant</th><th></th></tr></thead><tbody>
-  ${Object.values(SITES).map(site=>{ const r=siteReq(site.id), open=SHIFTS.filter(x=>x.site===site.id&&isOpen(x)).length;
-    return `<tr class="click" data-act="open-postsite" data-site="${site.id}" tabindex="0"><td><b>${esc(site.name)}</b><div class="muted sm">${SITE_CODE[site.id]} · ${esc(site.addr)}${site.restricted?' · Restricted':''}</div></td>
-      <td>${esc(SITE_CLIENT[site.id])}</td><td>${esc(site.dept)}</td><td><div class="qchips">${reqSummary(r)}</div></td><td class="num">${open}</td>
-      <td><button class="btn sm outline" data-act="open-postsite" data-site="${site.id}" data-req="1">${ic('sliders')} Requirements</button></td></tr>`; }).join('')}
-  </tbody></table></div>`;
+  const rows=psListRows(), all=Object.values(SITES).length, sel=S.psSel||(S.psSel=new Set()), nSel=rows.filter(x=>sel.has(x.id)).length;
+  return `<div class="psl">
+    <div class="psl-bar"><button class="psl-action" data-act="navtoast" data-name="Bulk actions">Action ${ic('chevD')}</button>
+      <div class="psl-right"><label class="psl-search">${ic('search')}<input id="psl-q" data-in="psl-q" placeholder="Search post site" value="${esc(S.psq||'')}" aria-label="Search post site"></label>
+        <button class="psl-filters" data-act="navtoast" data-name="Filters">${ic('filter')} Filters</button>
+        <button class="kebab psl-more" data-act="navtoast" data-name="More options" aria-label="More options">${ic('kebab')}</button></div></div>
+    <div class="psl-table"><table><thead><tr><th class="psl-cb"><input type="checkbox" data-ch="psl-all" ${nSel&&nSel===rows.length?'checked':''} ${nSel&&nSel<rows.length?'data-indet="1"':''} aria-label="Select all post sites"></th>
+      <th>Post Site</th><th>Client</th><th>Email</th><th>Phone Number</th><th>Status</th><th></th></tr></thead>
+      <tbody id="psl-body">${psTbodyHTML()}</tbody></table></div>
+    <div class="psl-foot"><span>Items per page</span><select class="field psl-pp" aria-label="Items per page"><option>25</option><option>50</option><option>100</option></select>
+      <span class="psl-count" id="psl-count">${rows.length?'1 – '+rows.length:'0'} of ${rows.length}</span>
+      <button class="psl-pg" disabled aria-label="Previous page">${ic('chevL')}</button><button class="psl-pg" disabled aria-label="Next page">${ic('chevR')}</button></div>
+  </div>`;
 }
 /* ---------- Post Site detail ---------- */
 function postSiteHTML(){
@@ -3343,14 +3453,17 @@ function saveImpact(siteId, removed){
 }
 Object.assign(A, {
   'noop': () => {},
+  'psl-menu': (t,e) => { if(e) e.stopPropagation(); S.psMenu = S.psMenu===t.dataset.site ? null : t.dataset.site; document.getElementById('psl-body').innerHTML=psTbodyHTML(); },
+  'pi-menu': (t,e) => { if(e) e.stopPropagation(); S.ps.piMenu = S.ps.piMenu===t.dataset.gid ? null : t.dataset.gid; refreshImpact(); },
   'imp-toggle': () => { S.ps.impactOpen=!S.ps.impactOpen; refreshImpact(); },
   'imp-tab': t => { S.ps.impactTab=t.dataset.t; refreshImpact(); },
-  'imp-fix': t => { const g=guardById(t.dataset.gid), m=t.dataset.key.match(/^psr:(skill|license|cert):(.+)$/); if(!g||!m) return;
-    const list = m[1]==='skill'?'skills':m[1]==='license'?'licenses':'certs', name=m[2];
-    if(!g[list].includes(name)) g[list] = g[list].concat(name);
-    S.reqVer++; refreshImpact(); toast(name+' added to '+g.name+'\'s profile.'); },
+  'imp-fix': t => { const g=guardById(t.dataset.gid); if(!g) return; const added=[];
+    t.dataset.keys.split('|').forEach(k=>{ const m=k.match(/^psr:(skill|license|cert):(.+)$/); if(!m) return;
+      const list = m[1]==='skill'?'skills':m[1]==='license'?'licenses':'certs', name=m[2];
+      if(!g[list].includes(name)){ g[list] = g[list].concat(name); added.push(name); } });
+    S.reqVer++; refreshImpact(); toast(joinList(added)+' added to '+g.name+'\'s profile.'); },
   'go-postsites': () => guardLeave(()=>{ S.screen='postsites'; S.ps=null; S.navOpen.clients=true; render(); window.scrollTo({top:0}); }),
-  'open-postsite': (t,e) => { if(e && e.target.closest('button') && e.target.closest('button')!==t) return; openPostSite(t.dataset.site, !!t.dataset.req); },
+  'open-postsite': (t,e) => { if(e && e.target.closest('.psl-cb')) return; if(e && e.target.closest('button') && e.target.closest('button')!==t) return; S.psMenu=null; openPostSite(t.dataset.site, !!t.dataset.req); },
   'ps-from-results': t => { S.returnTo='results'; S.runReqVer = S.reqVer; openPostSite(t.dataset.site, true); },
   'ps-back-results': () => guardLeave(()=>{ S.screen='results'; S.ps=null; S.returnTo=null;
     if(S.reqVer!==S.runReqVer){ recalc('Recommendations recalculated with the updated post site requirements.'); S.pick=new Set(S.run.shiftIds.filter(id=>S.sel[id])); }
@@ -3380,6 +3493,8 @@ Object.assign(A, {
   'leave-go': () => { const go=S.pendingNav; S.modal=null; S.pendingNav=null; if(S.ps){ S.ps.mode='view'; S.ps.draft=null; } renderOverlays(); if(go) go(); },
 });
 Object.assign(CH, {
+  'psl-row': t => { const s=S.psSel; t.checked?s.add(t.dataset.site):s.delete(t.dataset.site); render(); },
+  'psl-all': t => { const rows=psListRows(); if(t.checked) rows.forEach(x=>S.psSel.add(x.id)); else rows.forEach(x=>S.psSel.delete(x.id)); render(); },
   'ps-general': t => { S.ps.general[+t.dataset.i]=t.checked; toast('Setting updated.'); },
   'psr-add': t => { const v=t.value; if(!v) return; const d=S.ps.draft, k=t.dataset.k;
     if(v==='__new'){ S.ps.adding=k; S.ps.newName=''; S.ps.newErr=null; render(); const f=document.getElementById('psr-new-'+k); if(f) f.focus(); return; }
@@ -3388,6 +3503,10 @@ Object.assign(CH, {
   'psr-exp': t => { S.ps.draft.minExp = t.value===''?null:+t.value; render(); },
 });
 document.addEventListener('input', e=>{ const t=e.target; if(t.dataset && t.dataset.in==='psr-new' && S.ps){ S.ps.newName=t.value; return; } });
+document.addEventListener('input', e=>{ const t=e.target; if(!t.dataset || t.dataset.in!=='psl-q') return; S.psq=t.value; S.psMenu=null;
+  document.getElementById('psl-body').innerHTML=psTbodyHTML(); const n=psListRows().length; document.getElementById('psl-count').textContent=(n?'1 – '+n:'0')+' of '+n; });
+document.addEventListener('click', e=>{ if(S.ps && S.ps.piMenu && !e.target.closest('[data-act=pi-menu]')){ const inMenu = e.target.closest('.pi-pop'); S.ps.piMenu=null; if(!inMenu) refreshImpact(); } }, true);
+document.addEventListener('click', e=>{ if(S.psMenu && !e.target.closest('.psl-kebab')){ S.psMenu=null; const b=document.getElementById('psl-body'); if(b) b.innerHTML=psTbodyHTML(); } });
 document.addEventListener('keydown', e=>{ const t=e.target; if(!t.dataset || t.dataset.in!=='psr-new' || !S.ps) return; if(e.key==='Enter'){ e.preventDefault(); addCustomReq(t.dataset.k); } else if(e.key==='Escape'){ e.preventDefault(); e.stopPropagation(); S.ps.adding=null; S.ps.newErr=null; render(); } }, true);
 document.addEventListener('input', e=>{ const t=e.target; if(!t.dataset || t.dataset.in!=='psr-num' || !S.ps || !S.ps.draft) return;
   S.ps.draft[t.dataset.k] = t.value.trim()==='' ? null : parseFloat(t.value);
