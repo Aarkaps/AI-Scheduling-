@@ -2303,7 +2303,6 @@ function menuHTML(){
     const pubItem = s.status==='assigned' ? (s.published ? `<button class="mi" data-act="m-unpublish">${ic('down')}Unpublish</button>` : `<button class="mi" data-act="m-publish">${ic('up')}Publish</button>`) : '';
     return `<div class="menu" style="${pos}" role="menu">
       <button class="mi" data-act="m-edit">${ic('edit')}${s.status==='assigned'?'Edit / Change Guard':'Edit / Assign Guard'}</button>
-      ${isOpen(s)?`<button class="mi" data-act="m-ai">${ic('spark')}Find Guard with AI</button>`:''}
       <button class="mi" data-act="m-delete">${ic('trash')}Delete</button>
       ${s.status==='assigned'?`<button class="mi" data-act="m-unassign">${ic('unassign')}Unassign</button>`:''}
       <button class="mi" data-act="m-multi">${ic('select')}Select Multiple</button>
