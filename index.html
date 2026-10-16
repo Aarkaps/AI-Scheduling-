@@ -1280,8 +1280,8 @@ table.res .score{min-width:140px}
 .qv-hint.ok{color:#15803d;font-weight:500}
 .qv-hint.pend{color:#1d4ed8}
 .qv-f{flex-wrap:wrap;gap:8px;border-top:1px solid var(--qln);padding:10px 14px}
-.qv-id{color:#9ca3af}
-.qv-fr{margin-left:auto;display:flex;gap:8px;align-items:center}
+.qv-id{color:#9ca3af;margin-left:auto}
+.qv-fr{flex-basis:100%;justify-content:flex-end;display:flex;gap:8px;align-items:center}
 .qv-cancel{color:#4b5563;font-size:12.5px;font-weight:500;padding:6px 8px;border-radius:4px}
 .qv-cancel:hover{background:#f3f4f6}
 .qv-savebtn{background:#2563eb;color:#fff;font-size:12.5px;font-weight:600;padding:7px 12px;border-radius:5px}
@@ -1980,7 +1980,7 @@ function cardHTML(s, variant){
   if(s.override && s.status==='assigned') tags.push(`<span class="tag ovr" data-act="ovr-info" data-id="${s.id}" role="button" tabindex="0" title="Requirement override: view details">⚠ Override</span>`);
   const sub = variant==='wide' ? `<span class="sub">${esc(site.name)} · ${esc(s.post)}</span>` : '';
   const right = S.mode ? `<span class="pick"><i></i></span>` : `<button class="kebab" data-act="shiftmenu" data-id="${s.id}" aria-label="Shift actions">${ic('kebab','fill')}</button>`;
-  const title = `${s.id} · ${site.name} · ${s.post} · ${s.status==='assigned'?(s.published?'Published':'Unpublished'):s.status==='open'?'Open':'Vacant'}`;
+  const title = `${site.name} ·${s.post} · ${s.status==='assigned'?(s.published?'Published':'Unpublished'):s.status==='open'?'Open':'Vacant'}`;
   return `<div class="${cls}" data-act="card" data-id="${s.id}" title="${esc(title)}" tabindex="0">${s.status==='assigned'?'<span class="hc">1</span>':''}<div class="body"><span class="lbl"><b>${timeRange(s)}</b> | ${esc(who)}</span>${sub}${tags.length?`<span class="tags">${tags.join('')}</span>`:''}</div>${right}</div>`;
 }
 function dayCards(ds, variant){ return SHIFTS.filter(s=>s.date===ds && visible(s)).sort(byStart).map(s=>cardHTML(s,variant)).join(''); }
@@ -2006,9 +2006,7 @@ function bannerHTML(){
   const n = unpubAI().length;
   let h = '';
   if(n) h += `<div class="banner unpub">${ic('bot')}<div class="msg"><b>AI assignments have been created and are currently unpublished.</b><span>${n} unpublished AI assignment${n>1?'s':''}. Guards are not notified until you publish. Review, change or unassign anything first.</span></div>
-      <button class="btn ghost" data-act="banner-review">Review Schedule</button><button class="btn ghost" data-act="banner-publish">${ic('up')} Publish</button></div>`;
-  else if(S.banner && S.banner.type==='published') h += `<div class="banner pub">${ic('check')}<div class="msg"><b>${S.banner.n} AI assignment${S.banner.n>1?'s':''} published.</b><span>Status changed from Unpublished to Published. Assigned guards have been notified.</span></div><button class="x" data-act="banner-dismiss" aria-label="Dismiss">${ic('x')}</button></div>`;
-  if(S.aiOnly) h += `<div class="chipbar"><span class="chip">${ic('spark')} Showing AI assignments only <button class="x" style="width:22px;height:22px" data-act="aionly-off" aria-label="Show all">${ic('x')}</button></span></div>`;
+      <button class="btn ghost" data-act="banner-review">Review Schedule</button><button class="btn ghost" data-act="banner-publish">${ic('up')} Publish</button></div>`;  if(S.aiOnly) h += `<div class="chipbar"><span class="chip">${ic('spark')} Showing AI assignments only <button class="x" style="width:22px;height:22px" data-act="aionly-off" aria-label="Show all">${ic('x')}</button></span></div>`;
   return h;
 }
 function monthHTML(){
@@ -2447,7 +2445,7 @@ function modalHTML(){
       <div class="note ${selEv.blocking.some(c=>c.psr&&!c.overridable)?'warn':''}">${ic(selEv.blocking.some(c=>c.psr&&!c.overridable)?'alert':'info')}<span>${selEv.blocking.some(c=>c.psr&&!c.overridable)
         ? 'This guard can\'t be assigned: a post site requirement is set to no override.'
         : selEv.blocking.some(c=>c.psr) ? 'Saving asks you to confirm a post site requirement override and give a reason.' : 'You can still save. The assignment will be saved as Unpublished.'}</span></div></div>`; }
-    return wrap(head('Edit Shift', `${s.id} · ${esc(SITES[s.site].name)}`)+`<div class="mbd"><div class="form">
+    return wrap(head('Edit Shift', esc(SITES[s.site].name))+`<div class="mbd"><div class="form">
       <label>Date<span class="ro">${longDay(s.date)}</span></label><label>Site / Post<span class="ro">${esc(SITES[s.site].name)} · ${esc(s.post)}</span></label>
       <label>Start time<input class="field" type="time" id="ed-start" value="${d.start}" data-ch="ed-start"></label>
       <label>End time<input class="field" type="time" id="ed-end" value="${d.end}" data-ch="ed-end"></label>
@@ -2466,7 +2464,7 @@ function modalHTML(){
         <div class="eg-card open-opt ${!d.guardId?'on':''}" data-act="ed-pick" data-gid="" role="radio" aria-checked="${!d.guardId}" tabindex="0"><div class="eg-row"><span class="radio"></span><div class="eg-t"><b>${openLabel}</b><small>Keep the shift without a guard for now</small></div></div></div>
       </div>${elig}
       ${s.ai?`<div class="note">${ic('spark')}<span>Created by AI Scheduling (score ${s.aiScore}%). Status: ${s.published?'Published':'Unpublished'}.</span></div>`:''}</div>
-      <div class="mft"><span class="mft-note left">${d.guardId?`Saving assigns <b>${esc(g.name)}</b> as Unpublished.`:'Saving leaves the shift without a guard.'}</span><button class="btn ghost" data-act="modal-close">Cancel</button><button class="btn primary" data-act="edit-save">Save</button></div>`, 'wide edit');
+      <div class="mft"><span class="mft-note left">${d.guardId?`Approve saves <b>${esc(g.name)}</b> as Unpublished, Publish notifies the guard.`:'Approve leaves the shift without a guard.'}</span><button class="btn outline" data-act="edit-save" data-pub="0">${ic('check')} Approve</button><button class="btn outline" data-act="edit-save" data-pub="1" ${d.guardId?'':'disabled'}>${ic('up')} Publish</button></div>`, 'wide edit');
   }
   return '';
 }
@@ -2503,7 +2501,7 @@ function reviewHTML(){
   const changed = draftReq.join('|')!==sh.req.join('|');
   const site = SITES[sh.site];
   return `<div class="drawer-scrim rv" data-act="review-close"></div><div class="rm-wrap rv"><section class="rmodal review" role="dialog" aria-modal="true" aria-labelledby="rv-title">
-    <div class="dhd"><div><div class="eyebrow">${ic(elig.length?'check':'alert')}${elig.length?'Ready for AI recommendation':'Needs attention'}</div><h3 id="rv-title">Shift Review · ${fmtDay(sh.date)}, ${sh.start}–${sh.end}</h3><p>${esc(site.name)} · ${esc(sh.post)} · ${esc(sh.dept)} · ${sh.status==='open'?'Open':'Vacant'} · ${sh.id}${sh.note?' · '+esc(sh.note):''}</p></div><button class="x" data-act="review-close" aria-label="Close">${ic('x')}</button></div>
+    <div class="dhd"><div><div class="eyebrow">${ic(elig.length?'check':'alert')}${elig.length?'Ready for AI recommendation':'Needs attention'}</div><h3 id="rv-title">Shift Review · ${fmtDay(sh.date)}, ${sh.start}–${sh.end}</h3><p>${esc(site.name)} · ${esc(sh.post)} · ${esc(sh.dept)} · ${sh.status==='open'?'Open':'Vacant'}${sh.note?' · '+esc(sh.note):''}</p></div><button class="x" data-act="review-close" aria-label="Close">${ic('x')}</button></div>
     <div class="dbd">
       <div class="rv-status ${elig.length?'ok':'bad'}">${elig.length?ic('check')+`<b>${elig.length} eligible guard${elig.length===1?'':'s'}</b><span>${elig.length===1?'passes':'pass'} every active hard rule${changed?' with the edited requirements':''}.</span>`:ic('alert')+`<b>No eligible guard</b><span>No guard satisfies all required rules${changed?' even with the edited requirements':''}.</span>`}</div>
       ${!elig.length?`<h5 class="rv-h">Why this shift needs attention</h5><ul class="rv-reasons">${reasons.map(([k,n])=>`<li>${ic('xcirc','bc')}<span>${esc((BLOCK_TEXT[k]||(x=>x+' guard'+(x>1?'s fail':' fails')+' “'+k+'”'))(n,tmp))}</span></li>`).join('')}</ul>`
@@ -2731,7 +2729,7 @@ const A = {
   'shift-review': t => { S.review={sid:t.dataset.id}; renderReview(); },
   'review-close': (t,e) => { if(t.classList.contains('drawer-scrim') && e.target!==t) return; S.review=null; renderReview(); },
   'review-excl': () => { S.review.showExcl=!S.review.showExcl; renderReview(); },
-  'review-savereq': () => { const sh=shiftById(S.review.sid); const before=sh.req.slice(); sh.req=S.review.req.slice(); S.review.req=null; renderReview(); renderOverlays(); toast('Requirements updated: '+(before.filter(q=>!sh.req.includes(q)).join(', ')||'no change')+' no longer required for '+sh.id+'.'); },
+  'review-savereq': () => { const sh=shiftById(S.review.sid); const before=sh.req.slice(); sh.req=S.review.req.slice(); S.review.req=null; renderReview(); renderOverlays(); toast('Requirements updated: '+(before.filter(q=>!sh.req.includes(q)).join(', ')||'no change')+' no longer required for '+fmtShort(sh.date)+' '+sh.start+'.'); },
   'review-rules': () => { S.review=null; renderReview(); A['rules']({dataset:{open:'hard'}}); },
   'review-assign': () => { const id=S.review.sid; S.review=null; renderReview(); S.modal=null; openEdit(id); },
   'review-ai': () => { const id=S.review.sid; S.review=null; renderReview(); S.modal=null; startRun([id]); },
@@ -2756,18 +2754,22 @@ const A = {
   'history': t => { S.drawer={type:'history', gid:t.dataset.gid, sid:t.dataset.sid}; renderOverlays(); },
   'apply-open': t => { S.modal={type:'confirm', publish:t.dataset.pub==='1'}; renderOverlays(); },
   'apply-confirm': () => { const n=resultStats().ready, publish=!!S.modal.publish; S.modal={type:'applying', n, publish}; renderOverlays();
-    setTimeout(()=>{ const c=applyRun(); if(publish) S.lastApplied.forEach(id=>{ shiftById(id).published=true; }); S.doneN=(S.doneN||0)+c; S.donePub=(S.donePub||0)+(publish?c:0); S.modal={type:'applied', n:c, publish, left:S.run.shiftIds.length}; render(); }, reduceMotion?100:1300); },
+    setTimeout(()=>{ const c=applyRun(); if(publish) S.lastApplied.forEach(id=>{ shiftById(id).published=true; }); S.doneN=(S.doneN||0)+c; S.donePub=(S.donePub||0)+(publish?c:0);
+      const left=S.run.shiftIds.length, msg=c+' assignment'+(c===1?'':'s')+(publish?' published. Guards notified.':' saved as Unpublished.');
+      if(!left){ A['applied-done'](); toast(msg); return; }
+      S.modal=null; render(); window.scrollTo({top:0}); toast(msg+' '+left+' shift'+(left===1?' is':'s are')+' still waiting.'); }, reduceMotion?100:1300); },
   'applied-back': () => { S.modal=null; render(); window.scrollTo({top:0}); },
-  'applied-done': () => { const all=(S.applied||[]).filter(shiftById), unpub=all.filter(id=>!shiftById(id).published).length; S.modal=null; S.screen='scheduler'; S.run=null; S.banner= unpub?{type:'unpub'}:{type:'published', n:all.length}; S.view='month';
+  'applied-done': () => { const all=(S.applied||[]).filter(shiftById), unpub=all.filter(id=>!shiftById(id).published).length; S.modal=null; S.screen='scheduler'; S.run=null; S.banner= unpub?{type:'unpub'}:{type:'published', n:all.length}; S.aiOnly=false;
     S.lastApplied = all; S.applied = [];
     const firstDate = S.lastApplied.map(shiftById).sort((a,b)=>range(a)[0]-range(b)[0])[0]; if(firstDate) S.focus=firstDate.date;
     S.flash=new Set(S.lastApplied); render(); window.scrollTo({top:0}); setTimeout(()=>S.flash.clear(),1700); },
   'discard': () => { if(S.screen==='results'){ const n=(S.applied||[]).length; S.screen='scheduler'; S.run=null; S.applied=[]; render(); toast(n?'Remaining recommendations discarded. The '+n+' shift'+(n===1?'':'s')+' you already approved or published are kept.':'AI recommendations discarded. No changes were made.','info'); } },
-  'banner-review': () => { S.aiOnly=true; S.view='list'; render(); toast('Showing AI-created assignments. Use ⋮ on any row to edit, change guard, unassign, delete or publish.','info'); },
+  'banner-review': () => { if(!S.aiOnly) S.prevView=S.view; S.aiOnly=true; S.view='list'; render(); toast('Showing AI-created assignments. Use ⋮ on any row to edit, change guard, unassign, delete or publish.','info'); },
   'banner-publish': () => { S.modal={type:'publish', ids:unpubAI().map(s=>s.id)}; renderOverlays(); },
   'publish-all': () => { S.menu=null; const ids=SHIFTS.filter(s=>s.status==='assigned'&&!s.published).map(s=>s.id); if(!ids.length){ renderOverlays(); toast('Everything is already published.','info'); return; } S.modal={type:'publish', ids}; renderOverlays(); },
   'publish-confirm': () => { const ids=S.modal.ids; let ai=0; ids.forEach(id=>{ const s=shiftById(id); s.published=true; if(s.ai) ai++; });
-    S.modal=null; S.mode=null; S.selected.clear(); if(ai) S.banner={type:'published', n:ai}; S.flash=new Set(ids); render(); setTimeout(()=>S.flash.clear(),1700);
+    S.modal=null; S.mode=null; S.selected.clear(); if(ai) S.banner={type:'published', n:ai};
+    if(S.aiOnly){ S.aiOnly=false; if(S.prevView) S.view=S.prevView; S.prevView=null; } S.flash=new Set(ids); render(); setTimeout(()=>S.flash.clear(),1700);
     toast(ids.length+' assignment'+(ids.length===1?'':'s')+' published. Guards notified.'); },
   'banner-dismiss': () => { S.banner=null; render(); },
   'aionly-off': () => { S.aiOnly=false; render(); },
@@ -2782,7 +2784,7 @@ const A = {
   'trend': t => openMenu('trend', t, {alignRight:true}),
   'more': t => openMenu('more', t, {alignRight:true}),
   'delete-confirm': () => { const ids=S.modal.ids; ids.forEach(id=>{ const i=SHIFTS.findIndex(s=>s.id===id); if(i>=0) SHIFTS.splice(i,1); }); S.modal=null; S.mode=null; S.selected.clear(); render(); toast(ids.length+' shift'+(ids.length===1?'':'s')+' deleted.'); },
-  'edit-save': () => { const s=shiftById(S.modal.id), d=S.modal.draft; const changed = d.guardId!==s.guardId || d.start!==s.start || d.end!==s.end;
+  'edit-save': t => { const s=shiftById(S.modal.id), d=S.modal.draft; if(t && t.dataset && t.dataset.pub) d.pub = t.dataset.pub==='1'; const pub=!!d.pub; const changed = d.guardId!==s.guardId || d.start!==s.start || d.end!==s.end;
     const rk = d.guardId ? editRank(s, d) : null; const pick = rk ? rk.elig.find(e=>e.guard.id===d.guardId) : null;
     if(d.guardId && changed && !pick){ const ev = rk.inel.find(e=>e.guard.id===d.guardId), f = ev ? ev.blocking.filter(b=>b.psr) : [];
       if(f.some(b=>!b.overridable)){ toast(guardById(d.guardId).name+' can\'t be assigned: '+f.filter(b=>!b.overridable).map(b=>b.req).join(', ')+' is required and can\'t be overridden for this post site.','alert'); return; }
@@ -2792,8 +2794,10 @@ const A = {
     s.start=d.start; s.end=d.end;
     if(d.guardId){ if(d.guardId!==s.guardId){ s.guardId=d.guardId; s.status='assigned'; s.published=false; if(pick){ s.ai=true; s.aiScore=pick.score; } else s.ai=false; } else if(changed) s.published=false; }
     else if(s.status==='assigned'){ s.guardId=null; s.status='vacant'; s.ai=false; s.published=true; }
+    const wasPub = s.published; if(pub && s.status==='assigned') s.published=true;
     S.modal=null; S.flash=new Set([s.id]); render(); setTimeout(()=>S.flash.clear(),1700);
-    toast(!changed?'No changes.': s.status==='assigned' ? guardById(s.guardId).name+' assigned to '+fmtShort(s.date)+' '+s.start+' as Unpublished.' : 'Shift saved without a guard.'); },
+    toast(pub && s.status==='assigned' ? (!changed && wasPub ? 'Shift is already published.' : guardById(s.guardId).name+' assigned to '+fmtShort(s.date)+' '+s.start+' and published. Guard notified.')
+      : !changed?'No changes.': s.status==='assigned' ? guardById(s.guardId).name+' assigned to '+fmtShort(s.date)+' '+s.start+' as Unpublished.' : 'Shift saved without a guard.'); },
   'ed-pick': t => { const d=S.modal.draft; d.guardId=t.dataset.gid||null; d.auto=false; renderOverlays(); },
   'ed-why': (t,e) => { e.stopPropagation(); const d=S.modal.draft; d.why = d.why===t.dataset.gid ? null : t.dataset.gid; renderOverlays(); },
   'ed-others': () => { const d=S.modal.draft; d.hideOthers=!d.hideOthers; renderOverlays(); },
@@ -3146,8 +3150,8 @@ function qvHTML(){
       <div class="qv-opt none ${!q.gid?'on':''}" role="option" aria-selected="${!q.gid}" tabindex="0" data-act="qv-none"><span class="qv-on">No Guard (Open)</span><small>${s.guardId?'Unassigns the current guard straight away':'Keep the shift without a guard'}</small></div></div>` : '';
   let hint='';
   if(q.saved && !pending) hint = `<div class="qv-hint ok">${q.saved}</div>`;
-  else if(pending && q.auto && isTopSel && !q.open) hint = `<div class="qv-hint">Pre-selected by AI. Click ✓ or Save Assignment to assign.</div>`;
-  else if(pending) hint = `<div class="qv-hint pend">Not saved yet. Click ✓ or Save Assignment.</div>`;
+  else if(pending && q.auto && isTopSel && !q.open) hint = `<div class="qv-hint">Pre-selected by AI. Click ✓ or Approve to assign.</div>`;
+  else if(pending) hint = `<div class="qv-hint pend">Not saved yet. Click ✓ or Approve.</div>`;
   if(g && !gev) hint += `<div class="qv-hint warn">${esc(g.name)} fails a hard rule for this shift.</div>`;
   return `<div class="qv" role="dialog" aria-label="Shift details" id="qv-box">
     <div class="qv-h"><span class="qv-title">${TYPE_TITLE[type]}</span><span class="qv-hr">${qvHeaderBadge(s, top)}${pubBtn}</span></div>
@@ -3165,8 +3169,8 @@ function qvHTML(){
       ${s.override && s.status==='assigned' && s.guardId===s.override.gid ? `<button class="qv-ovr" data-act="ovr-info" data-id="${s.id}">${ic('alert')}Requirement override · View details</button>` : ''}
       <div class="qv-r"><b>Break :</b> ${brk}</div>
     </div>
-    <div class="qv-f"><button class="qv-link" data-act="qv-full">Full details</button><span class="qv-id">${s.id}</span>
-      <span class="qv-fr"><button class="qv-cancel" data-act="qv-cancel">${pending?'Cancel':'Close'}</button><button class="qv-savebtn" data-act="qv-savefull" ${pending?'':'disabled'}>Save Assignment</button></span></div>
+    <div class="qv-f"><button class="qv-link" data-act="qv-full">Full details</button>
+      <span class="qv-fr"><button class="qv-cancel" data-act="qv-cancel">${pending?'Cancel':'Close'}</button><button class="qv-savebtn" data-act="qv-savefull" ${pending?'':'disabled'}>Approve</button></span></div>
   </div>`;
 }
 function positionQV(){
